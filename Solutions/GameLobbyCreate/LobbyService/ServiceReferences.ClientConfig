@@ -1,0 +1,31 @@
+﻿<configuration>
+    <system.serviceModel>
+        <bindings>
+            <basicHttpBinding>
+                <binding name="BasicHttpBinding_IService1" maxBufferSize="2147483647"
+                    maxReceivedMessageSize="2147483647">
+                    <security mode="None" />
+                </binding>
+                <binding name="BasicHttpBinding_IService2" maxBufferSize="2147483647"
+                    maxReceivedMessageSize="2147483647">
+                    <security mode="None" />
+                </binding>
+                <binding name="BasicHttpBinding_IService3" maxBufferSize="2147483647"
+                    maxReceivedMessageSize="2147483647">
+                    <security mode="None" />
+                </binding>
+            </basicHttpBinding>
+        </bindings>
+        <client>
+            <endpoint address="../Service1.svc" binding="basicHttpBinding"
+                bindingConfiguration="BasicHttpBinding_IService1" contract="ServiceReference1.IService1"
+                name="BasicHttpBinding_IService1" />
+            <endpoint address="../Service2.svc" binding="basicHttpBinding"
+                bindingConfiguration="BasicHttpBinding_IService2" contract="ServiceReference2.IService2"
+                name="BasicHttpBinding_IService2" />
+            <endpoint address="../Service3.svc" binding="basicHttpBinding"
+                bindingConfiguration="BasicHttpBinding_IService3" contract="ServiceReference3.IService3"
+                name="BasicHttpBinding_IService3" />
+        </client>
+    </system.serviceModel>
+</configuration>
