@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="LobbyService.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300" d:DesignWidth="400">
+
+    <Grid x:Name="LayoutRoot" Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="5*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <ListBox x:Name="lstbox" ScrollViewer.VerticalScrollBarVisibility="Visible"></ListBox>
+            <Button x:Name="Add" Click="Add_Click_1" Content="AddPlayer" Height="20" Width="200"></Button>
+            <TextBox x:Name="Name"></TextBox>
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="4*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBox Grid.Row="0" x:Name="Host"></TextBox>
+            <Button Grid.Row="2" x:Name="Create" Click="Create_Click_1" >Create lobby</Button>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <ListBox Grid.Column="0"  x:Name="lstbox2" ItemsSource="{Binding Data}" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionChanged="lstbox2_SelectionChanged_1">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="Black" BorderThickness="2">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding PlayerID}" Margin="10"></TextBlock>
+                                    <TextBlock Text="{Binding PlayerName}" Margin="10"></TextBlock>
+                                    <TextBlock Text="{Binding LobbyID}" Margin="10"></TextBlock>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <ListBox Grid.Column="1" x:Name="LstCreatedLobby"></ListBox>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" x:Name="DeletePlayers" Content="Delete All Players" Click="DeletePlayers_Click_1"></Button>
+            <Button Grid.Column="1" x:Name="DeleteLobbies" Content="Delete All Lobbies" Click="DeleteLobbies_Click_1"></Button>
+        </Grid>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" x:Name="Refresh" Click="Refresh_Click_1">refresh</Button>
+            <ListBox Grid.Column="1" x:Name="lst2"></ListBox>
+        </Grid>
+    </Grid>
+</UserControl>

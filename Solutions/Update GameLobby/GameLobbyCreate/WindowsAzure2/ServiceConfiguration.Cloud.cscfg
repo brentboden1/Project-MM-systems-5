@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="WindowsAzure2" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="3" osVersion="*" schemaVersion="2013-03.2.0">
+  <Role name="LobbyService.Web">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=employeestorage;AccountKey=RTsVmk+dM8FBBusZ3paIEo06mOMYxMllbymVqvvxWnhj5QEs/xovcM9UmV9UU6hxVZ8Y7F6MsZ0eSQZqv3Q2hw==" />
+    </ConfigurationSettings>
+  </Role>
+</ServiceConfiguration>
