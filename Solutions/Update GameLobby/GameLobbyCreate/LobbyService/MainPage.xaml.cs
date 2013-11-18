@@ -172,6 +172,10 @@ namespace LobbyService
                 client1.GetPlayerByNameAsync(MyName);
 
             }
+            catch (WebException ex)
+            {
+                MessageBox.Show("Please turn on the internet" + "\n" + ex.Response.ToString() + "\n" + ex.Message.ToString());
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.InnerException.ToString());
@@ -187,6 +191,10 @@ namespace LobbyService
                 client1.JoinLobbyRoomCompleted += client1_JoinLobbyRoomCompleted;
                 client1.JoinLobbyRoomAsync(me, host);
             }
+            catch (WebException ex)
+            {
+                MessageBox.Show("Please turn on the internet" + "\n" + ex.Response.ToString() + "\n" + ex.Message.ToString());
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + "\n" + ex.Data + "\n" + ex.InnerException);
@@ -199,6 +207,10 @@ namespace LobbyService
             {
                 client1.ShowPlayersInLobbyRoomCompleted += client1_ShowPlayersInLobbyRoomCompleted;
                 client1.ShowPlayersInLobbyRoomAsync(host.PlayerId);
+            }
+            catch (WebException ex)
+            {
+                MessageBox.Show("Please turn on the internet" + "\n" + ex.Response.ToString() + "\n" + ex.Message.ToString());
             }
             catch (Exception ex)
             {
