@@ -35,6 +35,7 @@ namespace PhoneApp1
             // Language display initialization
             InitializeLanguage();
 
+
             // Show graphics profiling information while debugging.
             if (Debugger.IsAttached)
             {
@@ -54,7 +55,6 @@ namespace PhoneApp1
                 // and consume battery power when the user is not using the phone.
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
-
         }
 
         // Code to execute when the application is launching (eg, from Start)

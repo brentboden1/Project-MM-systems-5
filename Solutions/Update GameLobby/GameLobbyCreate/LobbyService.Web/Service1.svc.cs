@@ -469,10 +469,23 @@ namespace LobbyService.Web
 
             var lobby = from d in gamelobbies where d.HostPlayer == Host select d;
 
+            #region Game init()
+
             DTO.PlayerLobby plLobby = ConvertToDTOPlayerLobby(Host, lobby);
             newGame = new DTO.MonopolyEngine.SingleGame(plLobby);
+            newGame.StartGame();
+
+            #endregion
 
             dc.SubmitChanges();
+        }
+
+        #endregion
+
+        #region MonopolyFunctions()
+
+        public void BuyTile()
+        {
         }
 
         #endregion

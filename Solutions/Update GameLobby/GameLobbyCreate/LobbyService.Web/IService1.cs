@@ -64,5 +64,8 @@ namespace LobbyService.Web
 
         [OperationContract]
         void StartGame(DTO.Player Host);
+
+        [OperationContract]
+        void BuyTile();
     }
 }
