@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -10,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace LobbyService
 {
@@ -19,6 +21,7 @@ namespace LobbyService
         DataObjects data;
         ServiceReference1.Player host;
         ServiceReference1.Player me;
+        DispatcherTimer dt;
 
         string MyName;
 
@@ -26,16 +29,45 @@ namespace LobbyService
         // Constructor
         public MainPage()
         {
+
             //  lstbox2.Items.Clear();
             InitializeComponent();
             Data = new ObservableCollection<DataObjects>();
             client1 = new ServiceReference1.Service1Client();
             lstbox2.ItemsSource = Data;
+            dt = new DispatcherTimer();
+            dt.Interval = TimeSpan.FromSeconds(1.0);
+            dt.Tick += dt_Tick;
+            dt.Start();
             // Sample code to localize the ApplicationBar
             //BuildLocalizedApplicationBar();
 
             client1.GatAvailablePlayLobbiesCompleted += client1_GatAvailablePlayLobbiesCompleted;
             client1.GatAvailablePlayLobbiesAsync();
+        }
+
+        void dt_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                if (host != null)
+                {
+                    client1.GetGameUpdateCompleted += client1_GetGameUpdateCompleted;
+                    client1.GetGameUpdateAsync(host);
+                }
+                else
+                {
+                    return;
+                }
+            }
+            catch (NullReferenceException)
+            {
+                return;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void Add_Click_1(object sender, RoutedEventArgs e)
@@ -72,9 +104,16 @@ namespace LobbyService
 
         void client_AddPlayerCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
-            //  client.AddPlayerAsync(p);
-            client1.GetPlayersCompleted += client1_GetPlayersCompleted;
-            client1.GetPlayersAsync();
+            try
+            {
+                //  client.AddPlayerAsync(p);
+                client1.GetPlayersCompleted += client1_GetPlayersCompleted;
+                client1.GetPlayersAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
 
         }
 
@@ -92,36 +131,65 @@ namespace LobbyService
 
         void client1_GetPlayerCompleted(object sender, ServiceReference1.GetPlayerCompletedEventArgs e)
         {
-            client1.CreateLobbyCompleted += client1_CreateLobbyCompleted;
-            me = e.Result;
-            client1.CreateLobbyAsync(me);
+            try
+            {
+                client1.CreateLobbyCompleted += client1_CreateLobbyCompleted;
+                me = e.Result;
+                client1.CreateLobbyAsync(me);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         void client1_CreateLobbyCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
-            LstCreatedLobby.Items.Clear();
-            LstCreatedLobby.Items.Add("Host : " + me.PlayerName.ToString() + " " + me.PlayerId.ToString());
-            client1.GatAvailablePlayLobbiesAsync();
+            try
+            {
+                LstCreatedLobby.Items.Clear();
+                LstCreatedLobby.Items.Add("Host : " + me.PlayerName.ToString() + " " + me.PlayerId.ToString());
+                client1.GatAvailablePlayLobbiesCompleted += client1_GatAvailablePlayLobbiesCompleted;
+                client1.GatAvailablePlayLobbiesAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         void client1_GatAvailablePlayLobbiesCompleted(object sender, ServiceReference1.GatAvailablePlayLobbiesCompletedEventArgs e)
         {
-            Data.Clear();
-            List<ServiceReference1.PlayerLobby> pl = e.Result.ToList();
-            foreach (var item in pl)
+            try
             {
-                Data.Add(new DataObjects() { LobbyID = item.LobbyId.LobbyId, PlayerID = item.HostPlayer.PlayerId, PlayerName = item.HostPlayer.PlayerName });
+                Data.Clear();
+                //List<ServiceReference1.PlayerLobby> pl = e.Result.ToList();               
+                foreach (var item in e.Result)
+                {
+                    Data.Add(new DataObjects() { LobbyID = item.LobbyId.LobbyId, PlayerID = item.HostPlayer.PlayerId, PlayerName = item.HostPlayer.PlayerName });
+                }
+                /*foreach (var item in e.Result)
+                {
+                    lstbox2.Items.Add(item);
+                }*/
             }
-            /*foreach (var item in e.Result)
+            catch (Exception ex)
             {
-                lstbox2.Items.Add(item);
-            }*/
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         private void DeletePlayers_Click_1(object sender, RoutedEventArgs e)
         {
-            client1.DeleteAllPlayersCompleted += client1_DeleteAllPlayersCompleted;
-            client1.DeleteAllPlayersAsync();
+            try
+            {
+                client1.DeleteAllPlayersCompleted += client1_DeleteAllPlayersCompleted;
+                client1.DeleteAllPlayersAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         void client1_DeleteAllPlayersCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
@@ -142,8 +210,15 @@ namespace LobbyService
 
         private void DeleteLobbies_Click_1(object sender, RoutedEventArgs e)
         {
-            client1.DeleteAllLobbiesCompleted += client1_DeleteAllLobbiesCompleted;
-            client1.DeleteAllLobbiesAsync();
+            try
+            {
+                client1.DeleteAllLobbiesCompleted += client1_DeleteAllLobbiesCompleted;
+                client1.DeleteAllLobbiesAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         void client1_DeleteAllLobbiesCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
@@ -195,6 +270,10 @@ namespace LobbyService
             {
                 MessageBox.Show("Please turn on the internet" + "\n" + ex.Response.ToString() + "\n" + ex.Message.ToString());
             }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("please be sure you entered an Nickname");
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + "\n" + ex.Data + "\n" + ex.InnerException);
@@ -223,11 +302,15 @@ namespace LobbyService
             try
             {
                 lst2.Items.Clear();
-                lst2.Items.Add(e.Result.Last().ToString());
+                lst2.ItemsSource = e.Result.ToList();
+            }
+                catch(TargetInvocationException)
+            {
+                return;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.InnerException.ToString());
+                MessageBox.Show(ex.Message.ToString());
             }
         }
 
@@ -259,6 +342,10 @@ namespace LobbyService
                     client1.StartGameCompleted += client1_StartGameCompleted;
                     client1.StartGameAsync(host);
                 }
+                else
+                {
+                    return;
+                }
             }
             catch (Exception ex)
             {
@@ -271,7 +358,11 @@ namespace LobbyService
             try
             {
                 client1.GetGameUpdateCompleted += client1_GetGameUpdateCompleted;
-                client1.GetGameUpdateAsync();
+                client1.GetGameUpdateAsync(host);
+            }
+            catch (NullReferenceException)
+            {
+
             }
             catch (Exception ex)
             {

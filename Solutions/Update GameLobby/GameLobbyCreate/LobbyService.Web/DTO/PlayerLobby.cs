@@ -9,9 +9,7 @@ namespace LobbyService.Web.DTO
     [DataContract]
     public class PlayerLobby
     {
-        public PlayerLobby()
-        { 
-        }
+        public PlayerLobby() { }
 
         public PlayerLobby(DTO.Player host)
         {

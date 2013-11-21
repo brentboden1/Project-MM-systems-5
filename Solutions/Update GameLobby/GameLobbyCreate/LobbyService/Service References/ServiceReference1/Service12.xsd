@@ -189,13 +189,15 @@
   </xs:element>
   <xs:element name="GetGameUpdate">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO" minOccurs="0" name="host" nillable="true" type="q13:Player" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetGameUpdateResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q13="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetGameUpdateResult" nillable="true" type="q13:ArrayOfint" />
+        <xs:element xmlns:q14="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetGameUpdateResult" nillable="true" type="q14:ArrayOfint" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -216,11 +218,21 @@
   <xs:element name="StartGame">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO" minOccurs="0" name="Host" nillable="true" type="q14:Player" />
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO" minOccurs="0" name="Host" nillable="true" type="q15:Player" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="StartGameResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BuyTile">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BuyTileResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>

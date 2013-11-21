@@ -290,7 +290,7 @@ namespace LobbyService.ServiceReference1 {
         System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.Player> EndShowPlayersInLobbyRoom(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/GetGameUpdate", ReplyAction="http://tempuri.org/IService1/GetGameUpdateResponse")]
-        System.IAsyncResult BeginGetGameUpdate(System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginGetGameUpdate(LobbyService.ServiceReference1.Player host, System.AsyncCallback callback, object asyncState);
         
         System.Collections.ObjectModel.ObservableCollection<int> EndGetGameUpdate(System.IAsyncResult result);
         
@@ -303,6 +303,11 @@ namespace LobbyService.ServiceReference1 {
         System.IAsyncResult BeginStartGame(LobbyService.ServiceReference1.Player Host, System.AsyncCallback callback, object asyncState);
         
         void EndStartGame(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/BuyTile", ReplyAction="http://tempuri.org/IService1/BuyTileResponse")]
+        System.IAsyncResult BeginBuyTile(System.AsyncCallback callback, object asyncState);
+        
+        void EndBuyTile(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -592,6 +597,12 @@ namespace LobbyService.ServiceReference1 {
         
         private System.Threading.SendOrPostCallback onStartGameCompletedDelegate;
         
+        private BeginOperationDelegate onBeginBuyTileDelegate;
+        
+        private EndOperationDelegate onEndBuyTileDelegate;
+        
+        private System.Threading.SendOrPostCallback onBuyTileCompletedDelegate;
+        
         private BeginOperationDelegate onBeginOpenDelegate;
         
         private EndOperationDelegate onEndOpenDelegate;
@@ -680,6 +691,8 @@ namespace LobbyService.ServiceReference1 {
         public event System.EventHandler<CheckPlayerCountCompletedEventArgs> CheckPlayerCountCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> StartGameCompleted;
+        
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> BuyTileCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> OpenCompleted;
         
@@ -1360,8 +1373,8 @@ namespace LobbyService.ServiceReference1 {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult LobbyService.ServiceReference1.IService1.BeginGetGameUpdate(System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginGetGameUpdate(callback, asyncState);
+        System.IAsyncResult LobbyService.ServiceReference1.IService1.BeginGetGameUpdate(LobbyService.ServiceReference1.Player host, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetGameUpdate(host, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -1370,7 +1383,8 @@ namespace LobbyService.ServiceReference1 {
         }
         
         private System.IAsyncResult OnBeginGetGameUpdate(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            return ((LobbyService.ServiceReference1.IService1)(this)).BeginGetGameUpdate(callback, asyncState);
+            LobbyService.ServiceReference1.Player host = ((LobbyService.ServiceReference1.Player)(inValues[0]));
+            return ((LobbyService.ServiceReference1.IService1)(this)).BeginGetGameUpdate(host, callback, asyncState);
         }
         
         private object[] OnEndGetGameUpdate(System.IAsyncResult result) {
@@ -1386,11 +1400,11 @@ namespace LobbyService.ServiceReference1 {
             }
         }
         
-        public void GetGameUpdateAsync() {
-            this.GetGameUpdateAsync(null);
+        public void GetGameUpdateAsync(LobbyService.ServiceReference1.Player host) {
+            this.GetGameUpdateAsync(host, null);
         }
         
-        public void GetGameUpdateAsync(object userState) {
+        public void GetGameUpdateAsync(LobbyService.ServiceReference1.Player host, object userState) {
             if ((this.onBeginGetGameUpdateDelegate == null)) {
                 this.onBeginGetGameUpdateDelegate = new BeginOperationDelegate(this.OnBeginGetGameUpdate);
             }
@@ -1400,7 +1414,8 @@ namespace LobbyService.ServiceReference1 {
             if ((this.onGetGameUpdateCompletedDelegate == null)) {
                 this.onGetGameUpdateCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetGameUpdateCompleted);
             }
-            base.InvokeAsync(this.onBeginGetGameUpdateDelegate, null, this.onEndGetGameUpdateDelegate, this.onGetGameUpdateCompletedDelegate, userState);
+            base.InvokeAsync(this.onBeginGetGameUpdateDelegate, new object[] {
+                        host}, this.onEndGetGameUpdateDelegate, this.onGetGameUpdateCompletedDelegate, userState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -1492,6 +1507,49 @@ namespace LobbyService.ServiceReference1 {
             }
             base.InvokeAsync(this.onBeginStartGameDelegate, new object[] {
                         Host}, this.onEndStartGameDelegate, this.onStartGameCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult LobbyService.ServiceReference1.IService1.BeginBuyTile(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginBuyTile(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        void LobbyService.ServiceReference1.IService1.EndBuyTile(System.IAsyncResult result) {
+            base.Channel.EndBuyTile(result);
+        }
+        
+        private System.IAsyncResult OnBeginBuyTile(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return ((LobbyService.ServiceReference1.IService1)(this)).BeginBuyTile(callback, asyncState);
+        }
+        
+        private object[] OnEndBuyTile(System.IAsyncResult result) {
+            ((LobbyService.ServiceReference1.IService1)(this)).EndBuyTile(result);
+            return null;
+        }
+        
+        private void OnBuyTileCompleted(object state) {
+            if ((this.BuyTileCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.BuyTileCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void BuyTileAsync() {
+            this.BuyTileAsync(null);
+        }
+        
+        public void BuyTileAsync(object userState) {
+            if ((this.onBeginBuyTileDelegate == null)) {
+                this.onBeginBuyTileDelegate = new BeginOperationDelegate(this.OnBeginBuyTile);
+            }
+            if ((this.onEndBuyTileDelegate == null)) {
+                this.onEndBuyTileDelegate = new EndOperationDelegate(this.OnEndBuyTile);
+            }
+            if ((this.onBuyTileCompletedDelegate == null)) {
+                this.onBuyTileCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnBuyTileCompleted);
+            }
+            base.InvokeAsync(this.onBeginBuyTileDelegate, null, this.onEndBuyTileDelegate, this.onBuyTileCompletedDelegate, userState);
         }
         
         private System.IAsyncResult OnBeginOpen(object[] inValues, System.AsyncCallback callback, object asyncState) {
@@ -1753,8 +1811,9 @@ namespace LobbyService.ServiceReference1 {
                 return _result;
             }
             
-            public System.IAsyncResult BeginGetGameUpdate(System.AsyncCallback callback, object asyncState) {
-                object[] _args = new object[0];
+            public System.IAsyncResult BeginGetGameUpdate(LobbyService.ServiceReference1.Player host, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[1];
+                _args[0] = host;
                 System.IAsyncResult _result = base.BeginInvoke("GetGameUpdate", _args, callback, asyncState);
                 return _result;
             }
@@ -1788,6 +1847,17 @@ namespace LobbyService.ServiceReference1 {
             public void EndStartGame(System.IAsyncResult result) {
                 object[] _args = new object[0];
                 base.EndInvoke("StartGame", _args, result);
+            }
+            
+            public System.IAsyncResult BeginBuyTile(System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[0];
+                System.IAsyncResult _result = base.BeginInvoke("BuyTile", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public void EndBuyTile(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                base.EndInvoke("BuyTile", _args, result);
             }
         }
     }

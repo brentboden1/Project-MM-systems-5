@@ -57,7 +57,7 @@ namespace LobbyService.Web
         List<DTO.Player> ShowPlayersInLobbyRoom(int host);
 
         [OperationContract]
-        List<int> GetGameUpdate();
+        List<int> GetGameUpdate(DTO.Player host);
 
         [OperationContract]
         int CheckPlayerCount(string lobby);
