@@ -21,15 +21,17 @@ namespace LobbyService
         DataObjects data;
         ServiceReference1.Player host;
         ServiceReference1.Player me;
+        ServiceReference1.Player staticHost;
+        bool runTimer;
         DispatcherTimer dt;
-
+        bool start = false;
         string MyName;
 
         public ObservableCollection<DataObjects> Data { get; set; }
         // Constructor
         public MainPage()
         {
-
+            runTimer = false;
             //  lstbox2.Items.Clear();
             InitializeComponent();
             Data = new ObservableCollection<DataObjects>();
@@ -42,23 +44,52 @@ namespace LobbyService
             // Sample code to localize the ApplicationBar
             //BuildLocalizedApplicationBar();
 
-            client1.GatAvailablePlayLobbiesCompleted += client1_GatAvailablePlayLobbiesCompleted;
-            client1.GatAvailablePlayLobbiesAsync();
+            /*client1.GatAvailablePlayLobbiesCompleted += client1_GatAvailablePlayLobbiesCompleted;
+            client1.GatAvailablePlayLobbiesAsync();*/
+        }
+
+        void client1_GetPlayerByIdCompleted(object sender, ServiceReference1.GetPlayerByIdCompletedEventArgs e)
+        {
+            try
+            {
+                if (e.Result != null)
+                {
+                    staticHost = e.Result;
+
+                    client1.StartGameCompleted += client1_StartGameCompleted;
+                    client1.StartGameAsync(staticHost);
+
+                }
+                else
+                {
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+               // MessageBox.Show(ex.InnerException + "\n\n" + ex.StackTrace);
+                MessageBox.Show(ex.Message);
+            }
         }
 
         void dt_Tick(object sender, EventArgs e)
         {
             try
             {
-                if (host != null)
-                {
-                    client1.GetGameUpdateCompleted += client1_GetGameUpdateCompleted;
-                    client1.GetGameUpdateAsync(host);
-                }
-                else
-                {
-                    return;
-                }
+              if (runTimer)
+              {
+                    if (staticHost != null)
+                    {
+                     //  client1.GetGameUpdateCompleted += client1_GetGameUpdateCompleted;
+                    //   client1.GetGameUpdateAsync(staticHost);
+                       client1.GetUpdateCompleted += client1_GetUpdateCompleted;
+                       client1.GetUpdateAsync(staticHost);
+                    }
+                    else
+                    {
+                        return;
+                    }
+              }
             }
             catch (NullReferenceException)
             {
@@ -68,6 +99,11 @@ namespace LobbyService
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        void client1_GetUpdateCompleted(object sender, ServiceReference1.GetUpdateCompletedEventArgs e)
+        {
+            lst2.Items.Add(e.Result.ToString());
         }
 
         private void Add_Click_1(object sender, RoutedEventArgs e)
@@ -302,11 +338,13 @@ namespace LobbyService
             try
             {
                 lst2.Items.Clear();
-                lst2.ItemsSource = e.Result.ToList();
+                foreach (var item in e.Result)
+                {
+                    lst2.Items.Add(item.ToString());
+                }
             }
                 catch(TargetInvocationException)
             {
-                return;
             }
             catch (Exception ex)
             {
@@ -325,7 +363,7 @@ namespace LobbyService
                     LstCreatedLobby.Items.Add(item.PlayerId + " " + item.PlayerName);
                 }
                 client1.CheckPlayerCountCompleted += client1_CheckPlayerCountCompleted;
-                client1.CheckPlayerCountAsync(host.PlayerName);
+                client1.CheckPlayerCountAsync(staticHost.PlayerName);
             }
             catch (Exception ex)
             {
@@ -339,8 +377,9 @@ namespace LobbyService
             {
                 if (e.Result == 4)
                 {
+                    runTimer = true;
                     client1.StartGameCompleted += client1_StartGameCompleted;
-                    client1.StartGameAsync(host);
+                    client1.StartGameAsync(staticHost);
                 }
                 else
                 {
@@ -357,8 +396,9 @@ namespace LobbyService
         {
             try
             {
+                runTimer = true;
                 client1.GetGameUpdateCompleted += client1_GetGameUpdateCompleted;
-                client1.GetGameUpdateAsync(host);
+                client1.GetGameUpdateAsync(staticHost);
             }
             catch (NullReferenceException)
             {
@@ -374,12 +414,19 @@ namespace LobbyService
         {
             try
             {
-                client1.GatAvailablePlayLobbiesAsync();
+               client1.StartGameCompleted+=client1_StartGameCompleted;
+               client1.StartGameAsync(staticHost);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.InnerException.ToString());
             }
+        }
+
+        private void UserControl_Loaded_1(object sender, RoutedEventArgs e)
+        {
+            client1.GetPlayerByIdCompleted += client1_GetPlayerByIdCompleted;
+            client1.GetPlayerByIdAsync(0);
         }
     }
 }

@@ -67,5 +67,8 @@ namespace LobbyService.Web
 
         [OperationContract]
         void BuyTile();
+
+        [OperationContract]
+        int GetUpdate(DTO.Player host);
     }
 }

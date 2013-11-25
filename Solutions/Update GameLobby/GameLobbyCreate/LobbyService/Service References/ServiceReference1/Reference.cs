@@ -308,6 +308,11 @@ namespace LobbyService.ServiceReference1 {
         System.IAsyncResult BeginBuyTile(System.AsyncCallback callback, object asyncState);
         
         void EndBuyTile(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/GetUpdate", ReplyAction="http://tempuri.org/IService1/GetUpdateResponse")]
+        System.IAsyncResult BeginGetUpdate(LobbyService.ServiceReference1.Player host, System.AsyncCallback callback, object asyncState);
+        
+        int EndGetUpdate(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -487,6 +492,25 @@ namespace LobbyService.ServiceReference1 {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetUpdateCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetUpdateCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public int Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class Service1Client : System.ServiceModel.ClientBase<LobbyService.ServiceReference1.IService1>, LobbyService.ServiceReference1.IService1 {
         
         private BeginOperationDelegate onBeginDoWorkDelegate;
@@ -603,6 +627,12 @@ namespace LobbyService.ServiceReference1 {
         
         private System.Threading.SendOrPostCallback onBuyTileCompletedDelegate;
         
+        private BeginOperationDelegate onBeginGetUpdateDelegate;
+        
+        private EndOperationDelegate onEndGetUpdateDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetUpdateCompletedDelegate;
+        
         private BeginOperationDelegate onBeginOpenDelegate;
         
         private EndOperationDelegate onEndOpenDelegate;
@@ -693,6 +723,8 @@ namespace LobbyService.ServiceReference1 {
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> StartGameCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> BuyTileCompleted;
+        
+        public event System.EventHandler<GetUpdateCompletedEventArgs> GetUpdateCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> OpenCompleted;
         
@@ -1552,6 +1584,52 @@ namespace LobbyService.ServiceReference1 {
             base.InvokeAsync(this.onBeginBuyTileDelegate, null, this.onEndBuyTileDelegate, this.onBuyTileCompletedDelegate, userState);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult LobbyService.ServiceReference1.IService1.BeginGetUpdate(LobbyService.ServiceReference1.Player host, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetUpdate(host, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        int LobbyService.ServiceReference1.IService1.EndGetUpdate(System.IAsyncResult result) {
+            return base.Channel.EndGetUpdate(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetUpdate(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            LobbyService.ServiceReference1.Player host = ((LobbyService.ServiceReference1.Player)(inValues[0]));
+            return ((LobbyService.ServiceReference1.IService1)(this)).BeginGetUpdate(host, callback, asyncState);
+        }
+        
+        private object[] OnEndGetUpdate(System.IAsyncResult result) {
+            int retVal = ((LobbyService.ServiceReference1.IService1)(this)).EndGetUpdate(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetUpdateCompleted(object state) {
+            if ((this.GetUpdateCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetUpdateCompleted(this, new GetUpdateCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetUpdateAsync(LobbyService.ServiceReference1.Player host) {
+            this.GetUpdateAsync(host, null);
+        }
+        
+        public void GetUpdateAsync(LobbyService.ServiceReference1.Player host, object userState) {
+            if ((this.onBeginGetUpdateDelegate == null)) {
+                this.onBeginGetUpdateDelegate = new BeginOperationDelegate(this.OnBeginGetUpdate);
+            }
+            if ((this.onEndGetUpdateDelegate == null)) {
+                this.onEndGetUpdateDelegate = new EndOperationDelegate(this.OnEndGetUpdate);
+            }
+            if ((this.onGetUpdateCompletedDelegate == null)) {
+                this.onGetUpdateCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetUpdateCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetUpdateDelegate, new object[] {
+                        host}, this.onEndGetUpdateDelegate, this.onGetUpdateCompletedDelegate, userState);
+        }
+        
         private System.IAsyncResult OnBeginOpen(object[] inValues, System.AsyncCallback callback, object asyncState) {
             return ((System.ServiceModel.ICommunicationObject)(this)).BeginOpen(callback, asyncState);
         }
@@ -1858,6 +1936,19 @@ namespace LobbyService.ServiceReference1 {
             public void EndBuyTile(System.IAsyncResult result) {
                 object[] _args = new object[0];
                 base.EndInvoke("BuyTile", _args, result);
+            }
+            
+            public System.IAsyncResult BeginGetUpdate(LobbyService.ServiceReference1.Player host, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[1];
+                _args[0] = host;
+                System.IAsyncResult _result = base.BeginInvoke("GetUpdate", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public int EndGetUpdate(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                int _result = ((int)(base.EndInvoke("GetUpdate", _args, result)));
+                return _result;
             }
         }
     }

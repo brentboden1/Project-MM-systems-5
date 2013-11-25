@@ -431,11 +431,11 @@ namespace LobbyService.Web
 
         public List<int> GetGameUpdate(DTO.Player host)
         {
-            var lst = (from l in gamelobbies where l.HostPlayer == host select l).First();
+            var lst = (from l in gamelobbies where l.HostPlayer.PlayerId == host.PlayerId select l).First();
 
             List<int> Dice = new List<int>();
 
-            if (lst.StartGame && newGame != null)
+            if (lst.StartGame)
             {
                 var dice = from p in newGame.publicState.lastDieRoll select p;
                 foreach (var item in dice)
@@ -474,18 +474,40 @@ namespace LobbyService.Web
 
         public void StartGame(DTO.Player Host)
         {
-            var lst = from l in gamelobbies where l.HostPlayer == Host select new { l.LobbyId.LobbyId };
+            
+            int lst = (from l in dc.PlayerLobbies where l.HostPlayer == Host.PlayerId select l.LobbyId).First();
+     //       var play = from p in gamelobbies where p.LobbyId.LobbyId == lst select p;
+            var lobName = from p in dc.Lobbies where p.LobbyId == lst select p;
 
-            var update = (from l in dc.PlayerLobbies where l.LobbyId == lst.Single().LobbyId select l);
+            var update = (from l in dc.PlayerLobbies where l.LobbyId == lst select l);
+
+            //static
+            DTO.PlayerLobby pl = new DTO.PlayerLobby(Host) { LobbyId = new DTO.Lobby() { LobbyId = lst, LobbyName = lobName.ToString() }, IsAwaitingForPlayers = true, StartGame = false };
 
             foreach (var item in update)
             {
-                item.IsWaitingForPlayers = false;
 
+                item.IsWaitingForPlayers = false;
+                
                 item.StartGame = true;
+                //static
+                if (pl.Player.Count != 4)
+                {
+                    AddPlayer("hello");
+                    pl.Player.Add(new DTO.Player() { PlayerName = "Hello" + pl.Player.Count, AlreadExist = false, PlayerId = GenerateID() });
+                }
             }
 
-            var lobby = from d in gamelobbies where d.HostPlayer == Host select d;
+            //static
+            gamelobbies.Add(pl);
+
+            var lobby = from d in gamelobbies where d.LobbyId.LobbyId == lst select d;
+
+            foreach (var item in lobby)
+            {
+                item.IsAwaitingForPlayers = false;
+                item.StartGame = true;
+            }
 
             #region Game init()
 
@@ -509,5 +531,13 @@ namespace LobbyService.Web
         #endregion
 
         #endregion
+
+
+        public int GetUpdate(DTO.Player host)
+        {
+            var lst = (from p in gamelobbies where p.HostPlayer.PlayerId == host.PlayerId select p).Single();
+
+            return newGame.publicState.RevisionNumber;
+        }
     }
 }
