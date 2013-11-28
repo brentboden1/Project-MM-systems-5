@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="DataClasses1">
+  <DataContextMoniker Name="/DataClasses1DataContext" />
+  <nestedChildShapes>
+    <classShape Id="ad79a2d6-1758-4097-ba33-c7a48f8c0f6c" absoluteBounds="0.5, 0.5, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/DataClasses1DataContext/EventCardData" />
+      <nestedChildShapes>
+        <elementListCompartment Id="515f96ec-496d-4a4e-bb8c-749a6815bc52" absoluteBounds="0.515, 0.96, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="f44653a1-8bcf-4ff8-a371-6add3d001e42" absoluteBounds="2.625, 0.5, 2, 3.3093082682291666">
+      <DataClassMoniker Name="/DataClasses1DataContext/HouseCardData" />
+      <nestedChildShapes>
+        <elementListCompartment Id="abf3a059-707c-4231-b44b-9255e4bd936e" absoluteBounds="2.64, 0.96, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="ef530691-2726-4ce0-a73d-2aa1cfbec7e3" absoluteBounds="0.5, 3.375, 2, 1.1939925130208333">
+      <DataClassMoniker Name="/DataClasses1DataContext/Lobby" />
+      <nestedChildShapes>
+        <elementListCompartment Id="58d1af39-aa17-4e46-8e29-4c7ac62a43de" absoluteBounds="0.515, 3.835, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="51c9fc7d-5560-4e5c-9f1f-a7f058560287" absoluteBounds="2.625, 3.875, 2, 1.3862939453125">
+      <DataClassMoniker Name="/DataClasses1DataContext/Player" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6cc20405-9202-4945-84a4-147ddbd6bed5" absoluteBounds="2.64, 4.335, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="86b80d3b-3ec5-4104-8ed2-14e3e3db8dd7" absoluteBounds="0.5, 4.625, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/DataClasses1DataContext/PlayerLobby" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0eb8420e-1b73-46bc-a909-99d678202674" absoluteBounds="0.51500000000000012, 5.085, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
