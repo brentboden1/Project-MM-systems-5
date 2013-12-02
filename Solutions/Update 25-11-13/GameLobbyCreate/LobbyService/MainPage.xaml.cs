@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.ServiceModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -30,7 +31,7 @@ namespace LobbyService
         public ObservableCollection<DataObjects> Data { get; set; }
         // Constructor
         public MainPage()
-        {
+        {   
             runTimer = false;
             //  lstbox2.Items.Clear();
             InitializeComponent();
@@ -80,10 +81,10 @@ namespace LobbyService
               {
                     if (staticHost != null)
                     {
-                     //  client1.GetGameUpdateCompleted += client1_GetGameUpdateCompleted;
-                    //   client1.GetGameUpdateAsync(staticHost);
-                       client1.GetUpdateCompleted += client1_GetUpdateCompleted;
-                       client1.GetUpdateAsync(staticHost);
+                     // client1.GetGameUpdateCompleted += client1_GetGameUpdateCompleted;
+                      client1.GetGameUpdateAsync(staticHost);
+                     // client1.GetUpdateCompleted += client1_GetUpdateCompleted;
+                     // client1.GetUpdateAsync(staticHost);
                     }
                     else
                     {
@@ -101,9 +102,33 @@ namespace LobbyService
             }
         }
 
+       /* void client1_GetPlayerLocationCompleted(object sender, ServiceReference1.GetPlayerLocationCompletedEventArgs e)
+        {
+            try
+            {
+                lst2.Items.Add("Location = " + e.Result.ToString());
+            }
+            catch (TargetInvocationException ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.InnerException.ToString());
+            }
+        }*/
+
         void client1_GetUpdateCompleted(object sender, ServiceReference1.GetUpdateCompletedEventArgs e)
         {
-            lst2.Items.Add(e.Result.ToString());
+            try
+            {
+              //  MessageBox.Show(e.Result.ToString());
+                lst2.Items.Add(e.Result.ToString());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void Add_Click_1(object sender, RoutedEventArgs e)
@@ -340,8 +365,10 @@ namespace LobbyService
                 lst2.Items.Clear();
                 foreach (var item in e.Result)
                 {
-                    lst2.Items.Add(item.ToString());
+                    lst2.Items.Add("Dice = " + item.ToString());
                 }
+                client1.GetPlayerLocationCompleted+=client1_GetPlayerLocationCompleted;
+                client1.GetPlayerLocationAsync(staticHost, staticHost);
             }
                 catch(TargetInvocationException)
             {
@@ -349,6 +376,22 @@ namespace LobbyService
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
+        void client1_GetPlayerLocationCompleted(object sender, ServiceReference1.GetPlayerLocationCompletedEventArgs e)
+        {
+
+            try
+            {
+                lst2.Items.Add(e.Result.ToString());
+            }
+            catch (TargetException)
+            {
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show(Ex.Message.ToString());
             }
         }
 
@@ -398,7 +441,9 @@ namespace LobbyService
             {
                 runTimer = true;
                 client1.GetGameUpdateCompleted += client1_GetGameUpdateCompleted;
-                client1.GetGameUpdateAsync(staticHost);
+               client1.GetGameUpdateAsync(staticHost);
+               //client1.GetPlayerLocationCompleted += client1_GetPlayerLocationCompleted;
+              // client1.GetPlayerLocationAsync(staticHost, staticHost);
             }
             catch (NullReferenceException)
             {
@@ -414,7 +459,7 @@ namespace LobbyService
         {
             try
             {
-               client1.StartGameCompleted+=client1_StartGameCompleted;
+            //   client1.StartGameCompleted+=client1_StartGameCompleted;
                client1.StartGameAsync(staticHost);
             }
             catch (Exception ex)

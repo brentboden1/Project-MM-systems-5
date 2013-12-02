@@ -26,10 +26,10 @@
         <elementListCompartment Id="c64da03d-0a00-4def-910f-f3071fde7927" absoluteBounds="4.765, 0.96, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="2ad4a43c-2359-4a5f-9612-b5b14c2821fe" absoluteBounds="0.5, 1.875, 2, 1.7708968098958331">
+    <classShape Id="9791977d-f1e5-4bd8-bfe9-cd9208f80816" absoluteBounds="0.5, 1.875, 2, 1.7708968098958331">
       <DataClassMoniker Name="/DataClasses1DataContext/PlayerLobby" />
       <nestedChildShapes>
-        <elementListCompartment Id="dbdffd15-7ba9-48e8-ba9b-3e6d8c9407ca" absoluteBounds="0.51500000000000012, 2.335, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="c4ac353e-4185-4524-bc71-b853658d9f76" absoluteBounds="0.51500000000000012, 2.335, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

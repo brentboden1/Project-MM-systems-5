@@ -95,7 +95,14 @@ namespace LobbyService.Web.DTO.MonopolyEngine
             }
             return outputplayer;
         }
-
+        public void GiveRandomLocationTest()
+        {
+            Random r = new Random();
+            for (int i = 0; i < PlayerList.Count; i++)
+            {
+                PlayerList[i].Location = (byte)r.Next(1,39);
+            }
+        }
         public void NewCommunal(GamePlayer gplayer)
         {
 

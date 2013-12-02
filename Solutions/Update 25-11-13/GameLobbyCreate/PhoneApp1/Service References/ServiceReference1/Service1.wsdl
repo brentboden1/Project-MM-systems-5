@@ -5,6 +5,7 @@
       <xsd:import schemaLocation="http://monopolygame.cloudapp.net/Service1.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://monopolygame.cloudapp.net/Service1.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://monopolygame.cloudapp.net/Service1.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO" />
+      <xsd:import schemaLocation="http://monopolygame.cloudapp.net/Service1.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IService1_DoWork_InputMessage">
@@ -97,11 +98,41 @@
   <wsdl:message name="IService1_ShowPlayersInLobbyRoom_OutputMessage">
     <wsdl:part name="parameters" element="tns:ShowPlayersInLobbyRoomResponse" />
   </wsdl:message>
+  <wsdl:message name="IService1_GetGameUpdate_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetGameUpdate" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetGameUpdate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetGameUpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CheckPlayerCount_InputMessage">
+    <wsdl:part name="parameters" element="tns:CheckPlayerCount" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CheckPlayerCount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckPlayerCountResponse" />
+  </wsdl:message>
   <wsdl:message name="IService1_StartGame_InputMessage">
     <wsdl:part name="parameters" element="tns:StartGame" />
   </wsdl:message>
   <wsdl:message name="IService1_StartGame_OutputMessage">
     <wsdl:part name="parameters" element="tns:StartGameResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_BuyTile_InputMessage">
+    <wsdl:part name="parameters" element="tns:BuyTile" />
+  </wsdl:message>
+  <wsdl:message name="IService1_BuyTile_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BuyTileResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetUpdate_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUpdate" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetUpdate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetPlayerLocation_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlayerLocation" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetPlayerLocation_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlayerLocationResponse" />
   </wsdl:message>
   <wsdl:portType name="IService1">
     <wsdl:operation name="DoWork">
@@ -164,9 +195,29 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/ShowPlayersInLobbyRoom" message="tns:IService1_ShowPlayersInLobbyRoom_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/ShowPlayersInLobbyRoomResponse" message="tns:IService1_ShowPlayersInLobbyRoom_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetGameUpdate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetGameUpdate" message="tns:IService1_GetGameUpdate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetGameUpdateResponse" message="tns:IService1_GetGameUpdate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckPlayerCount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/CheckPlayerCount" message="tns:IService1_CheckPlayerCount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/CheckPlayerCountResponse" message="tns:IService1_CheckPlayerCount_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="StartGame">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/StartGame" message="tns:IService1_StartGame_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/StartGameResponse" message="tns:IService1_StartGame_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BuyTile">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/BuyTile" message="tns:IService1_BuyTile_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/BuyTileResponse" message="tns:IService1_BuyTile_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUpdate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetUpdate" message="tns:IService1_GetUpdate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetUpdateResponse" message="tns:IService1_GetUpdate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerLocation">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetPlayerLocation" message="tns:IService1_GetPlayerLocation_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetPlayerLocationResponse" message="tns:IService1_GetPlayerLocation_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
@@ -306,8 +357,53 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetGameUpdate">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetGameUpdate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckPlayerCount">
+      <soap:operation soapAction="http://tempuri.org/IService1/CheckPlayerCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="StartGame">
       <soap:operation soapAction="http://tempuri.org/IService1/StartGame" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuyTile">
+      <soap:operation soapAction="http://tempuri.org/IService1/BuyTile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUpdate">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetUpdate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerLocation">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetPlayerLocation" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -20,7 +20,7 @@ namespace LobbyService.Web.DTO.MonopolyEngine
                 return _privateState;
             }
         }
-
+        
         public SingleGame(DTO.PlayerLobby activeLobby)
         {
             MyPlayers = new List<Player>();
@@ -35,7 +35,10 @@ namespace LobbyService.Web.DTO.MonopolyEngine
         {
             GameFunctions.castPlayerDie(publicState.ReturnPlayerByOrder(publicState.ActiveGamePlayer), this);
         }
-
+        public void LocationTest()
+        {
+            publicState.GiveRandomLocationTest();
+        }
 
     }
 }

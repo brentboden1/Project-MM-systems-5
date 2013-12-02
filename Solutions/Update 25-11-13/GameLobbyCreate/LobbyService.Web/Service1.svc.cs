@@ -15,9 +15,11 @@ namespace LobbyService.Web
 
         private int lobbyvalue;
         private int playervalue;
+        private Nullable<int> location = null;
+
         private bool gameStart;
         private static List<DTO.PlayerLobby> gamelobbies = new List<DTO.PlayerLobby>();
-        private static DTO.MonopolyEngine.SingleGame newGame;
+        private static DTO.MonopolyEngine.SingleGame NewGame;
         private DataClasses1DataContext dc;
         public Service1()
         {
@@ -250,11 +252,14 @@ namespace LobbyService.Web
 
         public List<DTO.PlayerLobby> GatAvailablePlayLobbies()
         {
-            var rooms = from r in dc.Players
+           /* var rooms = from r in dc.Players
                         join pl in dc.PlayerLobbies
                         on r.PlayerId equals pl.HostPlayer
                         where pl.IsWaitingForPlayers == true
-                        select new { pl.LobbyId, pl.HostPlayer};
+                        select new { pl.LobbyId, pl.HostPlayer};*/
+            var rooms = from p in dc.PlayerLobbies
+                        where p.PlayerId == p.HostPlayer
+                        select new { p.LobbyId, p.HostPlayer };
             /*var rooms = from r in dc.PlayerLobbies
                           where r.IsWaitingForPlayers == true
                           select r;*/
@@ -358,6 +363,8 @@ namespace LobbyService.Web
             dc.SubmitChanges();
         }
 
+
+
         #endregion
 
         #region Join()
@@ -366,9 +373,6 @@ namespace LobbyService.Web
         {
             // var plName = (from p in dc.Players where p.PlayerId == hostID select p.PlayerName).FirstOrDefault();
             int lobbyId = (from l in dc.Lobbies where l.LobbyName == Host.PlayerName select l.LobbyId).Single();
-
-            try
-            {
                 CheckIfMaxPlayerExceeded(Host);
 
                 PlayerLobby plobby = new PlayerLobby();
@@ -382,11 +386,7 @@ namespace LobbyService.Web
 
                 dc.PlayerLobbies.InsertOnSubmit(plobby);
                 dc.SubmitChanges();
-            }
-            catch (Exception ex)
-            {
-
-            }
+            
         }
 
         public List<DTO.Player> ShowPlayersInLobbyRoom(int host)
@@ -429,25 +429,6 @@ namespace LobbyService.Web
 
         #region Update()
 
-        public List<int> GetGameUpdate(DTO.Player host)
-        {
-            var lst = (from l in gamelobbies where l.HostPlayer.PlayerId == host.PlayerId select l).First();
-
-            List<int> Dice = new List<int>();
-
-            if (lst.StartGame)
-            {
-                var dice = from p in newGame.publicState.lastDieRoll select p;
-                foreach (var item in dice)
-                {
-                    Dice.Add(Convert.ToInt32(item));
-
-                }
-            }
-
-            return Dice;
-        }
-
         public int CheckPlayerCount(string lobby)
         {
 
@@ -468,6 +449,46 @@ namespace LobbyService.Web
             }
         }
 
+        public List<int> GetGameUpdate(DTO.Player host)
+        {
+
+               // var lst = (from l in gamelobbies where l.HostPlayer.PlayerId == host.PlayerId select l).First();
+
+                List<int> Dice = new List<int>();
+
+                NewGame.Dice();
+                var dice = from p in NewGame.publicState.lastDieRoll select p;
+                foreach (var item in dice)
+                {
+                    Dice.Add(Convert.ToInt32(item));
+
+                }
+
+
+                return Dice;
+            
+        }
+
+        public int GetPlayerLocation(DTO.Player Host, DTO.Player Player)
+        {
+           // var lst = (from p in gamelobbies where p.HostPlayer.PlayerId == Host.PlayerId select p).First();
+
+            foreach (var item in NewGame.publicState.PlayerList)
+            {
+
+                if (NewGame.publicState.ActivePlayer.PlayerId == Player.PlayerId)
+                {
+                    if (item.Location != 0)
+                    {
+                        location = item.Location;
+                    }
+                }
+                
+            }
+            return location.Value;
+        }
+        
+
         #endregion
 
         #region GameStart()
@@ -477,24 +498,23 @@ namespace LobbyService.Web
             
             int lst = (from l in dc.PlayerLobbies where l.HostPlayer == Host.PlayerId select l.LobbyId).First();
      //       var play = from p in gamelobbies where p.LobbyId.LobbyId == lst select p;
-            var lobName = from p in dc.Lobbies where p.LobbyId == lst select p;
+            var lobName = (from p in dc.Lobbies where p.LobbyId == lst select p.LobbyName).First();
 
-            var update = (from l in dc.PlayerLobbies where l.LobbyId == lst select l);
+            var update = (from l in dc.PlayerLobbies where l.HostPlayer == Host.PlayerId select l).ToList();
 
             //static
             DTO.PlayerLobby pl = new DTO.PlayerLobby(Host) { LobbyId = new DTO.Lobby() { LobbyId = lst, LobbyName = lobName.ToString() }, IsAwaitingForPlayers = true, StartGame = false };
 
             foreach (var item in update)
             {
-
                 item.IsWaitingForPlayers = false;
-                
+
                 item.StartGame = true;
                 //static
                 if (pl.Player.Count != 4)
                 {
                     AddPlayer("hello");
-                    pl.Player.Add(new DTO.Player() { PlayerName = "Hello" + pl.Player.Count, AlreadExist = false, PlayerId = GenerateID() });
+                    pl.Player.Add(new DTO.Player() { PlayerName = "Hello", AlreadExist = false, PlayerId = GenerateID() });
                 }
             }
 
@@ -511,9 +531,11 @@ namespace LobbyService.Web
 
             #region Game init()
 
+            var gamelob = (from p in gamelobbies where p.HostPlayer.PlayerId == Host.PlayerId select p).Single();
+
             DTO.PlayerLobby plLobby = ConvertToDTOPlayerLobby(Host, lobby);
-            newGame = new DTO.MonopolyEngine.SingleGame(plLobby);
-            newGame.StartGame();
+            NewGame = new DTO.MonopolyEngine.SingleGame(plLobby);
+            NewGame.StartGame();
 
             #endregion
 
@@ -532,12 +554,11 @@ namespace LobbyService.Web
 
         #endregion
 
-
         public int GetUpdate(DTO.Player host)
         {
-            var lst = (from p in gamelobbies where p.HostPlayer.PlayerId == host.PlayerId select p).Single();
+            var lst = (from p in gamelobbies where p.HostPlayer.PlayerId == host.PlayerId select p).First();
 
-            return newGame.publicState.RevisionNumber;
+            return NewGame.publicState.ActivePlayer.PlayerId;
         }
     }
 }

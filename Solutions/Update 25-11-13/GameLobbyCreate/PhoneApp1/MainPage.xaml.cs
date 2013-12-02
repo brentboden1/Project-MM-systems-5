@@ -13,20 +13,17 @@ namespace PhoneApp1
 {
     public partial class MainPage : PhoneApplicationPage
     {
-        private ServiceReference1.Service1Client client;
-
         public MainPage()
         {
             InitializeComponent();
-            client = new ServiceReference1.Service1Client();
         }
 
         private void Login_Click_1(object sender, RoutedEventArgs e)
         {
             try
             {
-                client.AddPlayerCompleted += client_AddPlayerCompleted;
-                client.AddPlayerAsync(TxbPlName.ToString());
+               App.client.AddPlayerCompleted += client_AddPlayerCompleted;
+               App.client.AddPlayerAsync(TxbPlName.Text.ToString());
 
             }
             catch (Exception ex)
@@ -37,8 +34,28 @@ namespace PhoneApp1
 
         void client_AddPlayerCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
-            //  client.AddPlayerAsync(p);
-            NavigationService.Navigate(new Uri("/Lobby.xaml", UriKind.Relative));
+            try
+            {
+                App.client.GetPlayerByNameCompleted += client_GetPlayerByNameCompleted;
+                App.client.GetPlayerByNameAsync(TxbPlName.Text.ToString());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
+        void client_GetPlayerByNameCompleted(object sender, ServiceReference1.GetPlayerByNameCompletedEventArgs e)
+        {
+            try
+            {
+                App.Me = e.Result;
+                NavigationService.Navigate(new Uri("/Lobby.xaml", UriKind.Relative));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
         }
     }
 }

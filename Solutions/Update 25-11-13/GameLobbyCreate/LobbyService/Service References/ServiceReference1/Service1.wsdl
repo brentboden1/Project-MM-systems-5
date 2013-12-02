@@ -8,12 +8,6 @@
       <xsd:import schemaLocation="http://localhost:63494/Service1.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IService1_DoWork_InputMessage">
-    <wsdl:part name="parameters" element="tns:DoWork" />
-  </wsdl:message>
-  <wsdl:message name="IService1_DoWork_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DoWorkResponse" />
-  </wsdl:message>
   <wsdl:message name="IService1_AddPlayer_InputMessage">
     <wsdl:part name="parameters" element="tns:AddPlayer" />
   </wsdl:message>
@@ -37,18 +31,6 @@
   </wsdl:message>
   <wsdl:message name="IService1_GetPlayerByName_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPlayerByNameResponse" />
-  </wsdl:message>
-  <wsdl:message name="IService1_CreateLobby_InputMessage">
-    <wsdl:part name="parameters" element="tns:CreateLobby" />
-  </wsdl:message>
-  <wsdl:message name="IService1_CreateLobby_OutputMessage">
-    <wsdl:part name="parameters" element="tns:CreateLobbyResponse" />
-  </wsdl:message>
-  <wsdl:message name="IService1_GatAvailablePlayLobbies_InputMessage">
-    <wsdl:part name="parameters" element="tns:GatAvailablePlayLobbies" />
-  </wsdl:message>
-  <wsdl:message name="IService1_GatAvailablePlayLobbies_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GatAvailablePlayLobbiesResponse" />
   </wsdl:message>
   <wsdl:message name="IService1_GetPlayer_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPlayer" />
@@ -86,17 +68,17 @@
   <wsdl:message name="IService1_DeletePlayerLobby_OutputMessage">
     <wsdl:part name="parameters" element="tns:DeletePlayerLobbyResponse" />
   </wsdl:message>
-  <wsdl:message name="IService1_JoinLobbyRoom_InputMessage">
-    <wsdl:part name="parameters" element="tns:JoinLobbyRoom" />
+  <wsdl:message name="IService1_CreateLobby_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateLobby" />
   </wsdl:message>
-  <wsdl:message name="IService1_JoinLobbyRoom_OutputMessage">
-    <wsdl:part name="parameters" element="tns:JoinLobbyRoomResponse" />
+  <wsdl:message name="IService1_CreateLobby_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateLobbyResponse" />
   </wsdl:message>
-  <wsdl:message name="IService1_ShowPlayersInLobbyRoom_InputMessage">
-    <wsdl:part name="parameters" element="tns:ShowPlayersInLobbyRoom" />
+  <wsdl:message name="IService1_GatAvailablePlayLobbies_InputMessage">
+    <wsdl:part name="parameters" element="tns:GatAvailablePlayLobbies" />
   </wsdl:message>
-  <wsdl:message name="IService1_ShowPlayersInLobbyRoom_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ShowPlayersInLobbyRoomResponse" />
+  <wsdl:message name="IService1_GatAvailablePlayLobbies_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GatAvailablePlayLobbiesResponse" />
   </wsdl:message>
   <wsdl:message name="IService1_GetGameUpdate_InputMessage">
     <wsdl:part name="parameters" element="tns:GetGameUpdate" />
@@ -110,6 +92,30 @@
   <wsdl:message name="IService1_CheckPlayerCount_OutputMessage">
     <wsdl:part name="parameters" element="tns:CheckPlayerCountResponse" />
   </wsdl:message>
+  <wsdl:message name="IService1_GetUpdate_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUpdate" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetUpdate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetPlayerLocation_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlayerLocation" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetPlayerLocation_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlayerLocationResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_JoinLobbyRoom_InputMessage">
+    <wsdl:part name="parameters" element="tns:JoinLobbyRoom" />
+  </wsdl:message>
+  <wsdl:message name="IService1_JoinLobbyRoom_OutputMessage">
+    <wsdl:part name="parameters" element="tns:JoinLobbyRoomResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_ShowPlayersInLobbyRoom_InputMessage">
+    <wsdl:part name="parameters" element="tns:ShowPlayersInLobbyRoom" />
+  </wsdl:message>
+  <wsdl:message name="IService1_ShowPlayersInLobbyRoom_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ShowPlayersInLobbyRoomResponse" />
+  </wsdl:message>
   <wsdl:message name="IService1_StartGame_InputMessage">
     <wsdl:part name="parameters" element="tns:StartGame" />
   </wsdl:message>
@@ -122,17 +128,13 @@
   <wsdl:message name="IService1_BuyTile_OutputMessage">
     <wsdl:part name="parameters" element="tns:BuyTileResponse" />
   </wsdl:message>
-  <wsdl:message name="IService1_GetUpdate_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetUpdate" />
+  <wsdl:message name="IService1_DoWork_InputMessage">
+    <wsdl:part name="parameters" element="tns:DoWork" />
   </wsdl:message>
-  <wsdl:message name="IService1_GetUpdate_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetUpdateResponse" />
+  <wsdl:message name="IService1_DoWork_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DoWorkResponse" />
   </wsdl:message>
   <wsdl:portType name="IService1">
-    <wsdl:operation name="DoWork">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService1/DoWork" message="tns:IService1_DoWork_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService1/DoWorkResponse" message="tns:IService1_DoWork_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="AddPlayer">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/AddPlayer" message="tns:IService1_AddPlayer_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/AddPlayerResponse" message="tns:IService1_AddPlayer_OutputMessage" />
@@ -148,14 +150,6 @@
     <wsdl:operation name="GetPlayerByName">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetPlayerByName" message="tns:IService1_GetPlayerByName_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetPlayerByNameResponse" message="tns:IService1_GetPlayerByName_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="CreateLobby">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService1/CreateLobby" message="tns:IService1_CreateLobby_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService1/CreateLobbyResponse" message="tns:IService1_CreateLobby_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GatAvailablePlayLobbies">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GatAvailablePlayLobbies" message="tns:IService1_GatAvailablePlayLobbies_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GatAvailablePlayLobbiesResponse" message="tns:IService1_GatAvailablePlayLobbies_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetPlayer">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetPlayer" message="tns:IService1_GetPlayer_InputMessage" />
@@ -181,13 +175,13 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/DeletePlayerLobby" message="tns:IService1_DeletePlayerLobby_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/DeletePlayerLobbyResponse" message="tns:IService1_DeletePlayerLobby_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="JoinLobbyRoom">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService1/JoinLobbyRoom" message="tns:IService1_JoinLobbyRoom_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService1/JoinLobbyRoomResponse" message="tns:IService1_JoinLobbyRoom_OutputMessage" />
+    <wsdl:operation name="CreateLobby">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/CreateLobby" message="tns:IService1_CreateLobby_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/CreateLobbyResponse" message="tns:IService1_CreateLobby_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ShowPlayersInLobbyRoom">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService1/ShowPlayersInLobbyRoom" message="tns:IService1_ShowPlayersInLobbyRoom_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService1/ShowPlayersInLobbyRoomResponse" message="tns:IService1_ShowPlayersInLobbyRoom_OutputMessage" />
+    <wsdl:operation name="GatAvailablePlayLobbies">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GatAvailablePlayLobbies" message="tns:IService1_GatAvailablePlayLobbies_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GatAvailablePlayLobbiesResponse" message="tns:IService1_GatAvailablePlayLobbies_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetGameUpdate">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetGameUpdate" message="tns:IService1_GetGameUpdate_InputMessage" />
@@ -197,6 +191,22 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/CheckPlayerCount" message="tns:IService1_CheckPlayerCount_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/CheckPlayerCountResponse" message="tns:IService1_CheckPlayerCount_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetUpdate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetUpdate" message="tns:IService1_GetUpdate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetUpdateResponse" message="tns:IService1_GetUpdate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerLocation">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetPlayerLocation" message="tns:IService1_GetPlayerLocation_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetPlayerLocationResponse" message="tns:IService1_GetPlayerLocation_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="JoinLobbyRoom">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/JoinLobbyRoom" message="tns:IService1_JoinLobbyRoom_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/JoinLobbyRoomResponse" message="tns:IService1_JoinLobbyRoom_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ShowPlayersInLobbyRoom">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/ShowPlayersInLobbyRoom" message="tns:IService1_ShowPlayersInLobbyRoom_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/ShowPlayersInLobbyRoomResponse" message="tns:IService1_ShowPlayersInLobbyRoom_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="StartGame">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/StartGame" message="tns:IService1_StartGame_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/StartGameResponse" message="tns:IService1_StartGame_OutputMessage" />
@@ -205,22 +215,13 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/BuyTile" message="tns:IService1_BuyTile_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/BuyTileResponse" message="tns:IService1_BuyTile_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetUpdate">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetUpdate" message="tns:IService1_GetUpdate_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetUpdateResponse" message="tns:IService1_GetUpdate_OutputMessage" />
+    <wsdl:operation name="DoWork">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/DoWork" message="tns:IService1_DoWork_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/DoWorkResponse" message="tns:IService1_DoWork_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="DoWork">
-      <soap:operation soapAction="http://tempuri.org/IService1/DoWork" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="AddPlayer">
       <soap:operation soapAction="http://tempuri.org/IService1/AddPlayer" style="document" />
       <wsdl:input>
@@ -250,24 +251,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetPlayerByName">
       <soap:operation soapAction="http://tempuri.org/IService1/GetPlayerByName" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="CreateLobby">
-      <soap:operation soapAction="http://tempuri.org/IService1/CreateLobby" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GatAvailablePlayLobbies">
-      <soap:operation soapAction="http://tempuri.org/IService1/GatAvailablePlayLobbies" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -329,8 +312,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="JoinLobbyRoom">
-      <soap:operation soapAction="http://tempuri.org/IService1/JoinLobbyRoom" style="document" />
+    <wsdl:operation name="CreateLobby">
+      <soap:operation soapAction="http://tempuri.org/IService1/CreateLobby" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -338,8 +321,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ShowPlayersInLobbyRoom">
-      <soap:operation soapAction="http://tempuri.org/IService1/ShowPlayersInLobbyRoom" style="document" />
+    <wsdl:operation name="GatAvailablePlayLobbies">
+      <soap:operation soapAction="http://tempuri.org/IService1/GatAvailablePlayLobbies" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -365,6 +348,42 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetUpdate">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetUpdate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerLocation">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetPlayerLocation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="JoinLobbyRoom">
+      <soap:operation soapAction="http://tempuri.org/IService1/JoinLobbyRoom" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ShowPlayersInLobbyRoom">
+      <soap:operation soapAction="http://tempuri.org/IService1/ShowPlayersInLobbyRoom" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="StartGame">
       <soap:operation soapAction="http://tempuri.org/IService1/StartGame" style="document" />
       <wsdl:input>
@@ -383,8 +402,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetUpdate">
-      <soap:operation soapAction="http://tempuri.org/IService1/GetUpdate" style="document" />
+    <wsdl:operation name="DoWork">
+      <soap:operation soapAction="http://tempuri.org/IService1/DoWork" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

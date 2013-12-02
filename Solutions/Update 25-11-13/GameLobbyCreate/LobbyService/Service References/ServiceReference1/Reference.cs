@@ -214,11 +214,6 @@ namespace LobbyService.ServiceReference1 {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IService1")]
     public interface IService1 {
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/DoWork", ReplyAction="http://tempuri.org/IService1/DoWorkResponse")]
-        System.IAsyncResult BeginDoWork(System.AsyncCallback callback, object asyncState);
-        
-        void EndDoWork(System.IAsyncResult result);
-        
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/AddPlayer", ReplyAction="http://tempuri.org/IService1/AddPlayerResponse")]
         System.IAsyncResult BeginAddPlayer(string playerName, System.AsyncCallback callback, object asyncState);
         
@@ -238,16 +233,6 @@ namespace LobbyService.ServiceReference1 {
         System.IAsyncResult BeginGetPlayerByName(string name, System.AsyncCallback callback, object asyncState);
         
         LobbyService.ServiceReference1.Player EndGetPlayerByName(System.IAsyncResult result);
-        
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/CreateLobby", ReplyAction="http://tempuri.org/IService1/CreateLobbyResponse")]
-        System.IAsyncResult BeginCreateLobby(LobbyService.ServiceReference1.Player host, System.AsyncCallback callback, object asyncState);
-        
-        void EndCreateLobby(System.IAsyncResult result);
-        
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/GatAvailablePlayLobbies", ReplyAction="http://tempuri.org/IService1/GatAvailablePlayLobbiesResponse")]
-        System.IAsyncResult BeginGatAvailablePlayLobbies(System.AsyncCallback callback, object asyncState);
-        
-        System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.PlayerLobby> EndGatAvailablePlayLobbies(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/GetPlayer", ReplyAction="http://tempuri.org/IService1/GetPlayerResponse")]
         System.IAsyncResult BeginGetPlayer(string Name, System.AsyncCallback callback, object asyncState);
@@ -279,15 +264,15 @@ namespace LobbyService.ServiceReference1 {
         
         void EndDeletePlayerLobby(System.IAsyncResult result);
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/JoinLobbyRoom", ReplyAction="http://tempuri.org/IService1/JoinLobbyRoomResponse")]
-        System.IAsyncResult BeginJoinLobbyRoom(LobbyService.ServiceReference1.Player pl, LobbyService.ServiceReference1.Player Host, System.AsyncCallback callback, object asyncState);
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/CreateLobby", ReplyAction="http://tempuri.org/IService1/CreateLobbyResponse")]
+        System.IAsyncResult BeginCreateLobby(LobbyService.ServiceReference1.Player host, System.AsyncCallback callback, object asyncState);
         
-        void EndJoinLobbyRoom(System.IAsyncResult result);
+        void EndCreateLobby(System.IAsyncResult result);
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/ShowPlayersInLobbyRoom", ReplyAction="http://tempuri.org/IService1/ShowPlayersInLobbyRoomResponse")]
-        System.IAsyncResult BeginShowPlayersInLobbyRoom(int host, System.AsyncCallback callback, object asyncState);
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/GatAvailablePlayLobbies", ReplyAction="http://tempuri.org/IService1/GatAvailablePlayLobbiesResponse")]
+        System.IAsyncResult BeginGatAvailablePlayLobbies(System.AsyncCallback callback, object asyncState);
         
-        System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.Player> EndShowPlayersInLobbyRoom(System.IAsyncResult result);
+        System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.PlayerLobby> EndGatAvailablePlayLobbies(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/GetGameUpdate", ReplyAction="http://tempuri.org/IService1/GetGameUpdateResponse")]
         System.IAsyncResult BeginGetGameUpdate(LobbyService.ServiceReference1.Player host, System.AsyncCallback callback, object asyncState);
@@ -299,6 +284,26 @@ namespace LobbyService.ServiceReference1 {
         
         int EndCheckPlayerCount(System.IAsyncResult result);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/GetUpdate", ReplyAction="http://tempuri.org/IService1/GetUpdateResponse")]
+        System.IAsyncResult BeginGetUpdate(LobbyService.ServiceReference1.Player host, System.AsyncCallback callback, object asyncState);
+        
+        int EndGetUpdate(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/GetPlayerLocation", ReplyAction="http://tempuri.org/IService1/GetPlayerLocationResponse")]
+        System.IAsyncResult BeginGetPlayerLocation(LobbyService.ServiceReference1.Player Host, LobbyService.ServiceReference1.Player Player, System.AsyncCallback callback, object asyncState);
+        
+        int EndGetPlayerLocation(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/JoinLobbyRoom", ReplyAction="http://tempuri.org/IService1/JoinLobbyRoomResponse")]
+        System.IAsyncResult BeginJoinLobbyRoom(LobbyService.ServiceReference1.Player pl, LobbyService.ServiceReference1.Player Host, System.AsyncCallback callback, object asyncState);
+        
+        void EndJoinLobbyRoom(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/ShowPlayersInLobbyRoom", ReplyAction="http://tempuri.org/IService1/ShowPlayersInLobbyRoomResponse")]
+        System.IAsyncResult BeginShowPlayersInLobbyRoom(int host, System.AsyncCallback callback, object asyncState);
+        
+        System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.Player> EndShowPlayersInLobbyRoom(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/StartGame", ReplyAction="http://tempuri.org/IService1/StartGameResponse")]
         System.IAsyncResult BeginStartGame(LobbyService.ServiceReference1.Player Host, System.AsyncCallback callback, object asyncState);
         
@@ -309,10 +314,10 @@ namespace LobbyService.ServiceReference1 {
         
         void EndBuyTile(System.IAsyncResult result);
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/GetUpdate", ReplyAction="http://tempuri.org/IService1/GetUpdateResponse")]
-        System.IAsyncResult BeginGetUpdate(LobbyService.ServiceReference1.Player host, System.AsyncCallback callback, object asyncState);
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/DoWork", ReplyAction="http://tempuri.org/IService1/DoWorkResponse")]
+        System.IAsyncResult BeginDoWork(System.AsyncCallback callback, object asyncState);
         
-        int EndGetUpdate(System.IAsyncResult result);
+        void EndDoWork(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -378,25 +383,6 @@ namespace LobbyService.ServiceReference1 {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class GatAvailablePlayLobbiesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        public GatAvailablePlayLobbiesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        public System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.PlayerLobby> Result {
-            get {
-                base.RaiseExceptionIfNecessary();
-                return ((System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.PlayerLobby>)(this.results[0]));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class GetPlayerCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
@@ -435,19 +421,19 @@ namespace LobbyService.ServiceReference1 {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class ShowPlayersInLobbyRoomCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class GatAvailablePlayLobbiesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        public ShowPlayersInLobbyRoomCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        public GatAvailablePlayLobbiesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
         
-        public System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.Player> Result {
+        public System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.PlayerLobby> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.Player>)(this.results[0]));
+                return ((System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.PlayerLobby>)(this.results[0]));
             }
         }
     }
@@ -511,13 +497,45 @@ namespace LobbyService.ServiceReference1 {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetPlayerLocationCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetPlayerLocationCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public int Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class ShowPlayersInLobbyRoomCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public ShowPlayersInLobbyRoomCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.Player> Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.Player>)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class Service1Client : System.ServiceModel.ClientBase<LobbyService.ServiceReference1.IService1>, LobbyService.ServiceReference1.IService1 {
-        
-        private BeginOperationDelegate onBeginDoWorkDelegate;
-        
-        private EndOperationDelegate onEndDoWorkDelegate;
-        
-        private System.Threading.SendOrPostCallback onDoWorkCompletedDelegate;
         
         private BeginOperationDelegate onBeginAddPlayerDelegate;
         
@@ -542,18 +560,6 @@ namespace LobbyService.ServiceReference1 {
         private EndOperationDelegate onEndGetPlayerByNameDelegate;
         
         private System.Threading.SendOrPostCallback onGetPlayerByNameCompletedDelegate;
-        
-        private BeginOperationDelegate onBeginCreateLobbyDelegate;
-        
-        private EndOperationDelegate onEndCreateLobbyDelegate;
-        
-        private System.Threading.SendOrPostCallback onCreateLobbyCompletedDelegate;
-        
-        private BeginOperationDelegate onBeginGatAvailablePlayLobbiesDelegate;
-        
-        private EndOperationDelegate onEndGatAvailablePlayLobbiesDelegate;
-        
-        private System.Threading.SendOrPostCallback onGatAvailablePlayLobbiesCompletedDelegate;
         
         private BeginOperationDelegate onBeginGetPlayerDelegate;
         
@@ -591,17 +597,17 @@ namespace LobbyService.ServiceReference1 {
         
         private System.Threading.SendOrPostCallback onDeletePlayerLobbyCompletedDelegate;
         
-        private BeginOperationDelegate onBeginJoinLobbyRoomDelegate;
+        private BeginOperationDelegate onBeginCreateLobbyDelegate;
         
-        private EndOperationDelegate onEndJoinLobbyRoomDelegate;
+        private EndOperationDelegate onEndCreateLobbyDelegate;
         
-        private System.Threading.SendOrPostCallback onJoinLobbyRoomCompletedDelegate;
+        private System.Threading.SendOrPostCallback onCreateLobbyCompletedDelegate;
         
-        private BeginOperationDelegate onBeginShowPlayersInLobbyRoomDelegate;
+        private BeginOperationDelegate onBeginGatAvailablePlayLobbiesDelegate;
         
-        private EndOperationDelegate onEndShowPlayersInLobbyRoomDelegate;
+        private EndOperationDelegate onEndGatAvailablePlayLobbiesDelegate;
         
-        private System.Threading.SendOrPostCallback onShowPlayersInLobbyRoomCompletedDelegate;
+        private System.Threading.SendOrPostCallback onGatAvailablePlayLobbiesCompletedDelegate;
         
         private BeginOperationDelegate onBeginGetGameUpdateDelegate;
         
@@ -615,6 +621,30 @@ namespace LobbyService.ServiceReference1 {
         
         private System.Threading.SendOrPostCallback onCheckPlayerCountCompletedDelegate;
         
+        private BeginOperationDelegate onBeginGetUpdateDelegate;
+        
+        private EndOperationDelegate onEndGetUpdateDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetUpdateCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetPlayerLocationDelegate;
+        
+        private EndOperationDelegate onEndGetPlayerLocationDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetPlayerLocationCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginJoinLobbyRoomDelegate;
+        
+        private EndOperationDelegate onEndJoinLobbyRoomDelegate;
+        
+        private System.Threading.SendOrPostCallback onJoinLobbyRoomCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginShowPlayersInLobbyRoomDelegate;
+        
+        private EndOperationDelegate onEndShowPlayersInLobbyRoomDelegate;
+        
+        private System.Threading.SendOrPostCallback onShowPlayersInLobbyRoomCompletedDelegate;
+        
         private BeginOperationDelegate onBeginStartGameDelegate;
         
         private EndOperationDelegate onEndStartGameDelegate;
@@ -627,11 +657,11 @@ namespace LobbyService.ServiceReference1 {
         
         private System.Threading.SendOrPostCallback onBuyTileCompletedDelegate;
         
-        private BeginOperationDelegate onBeginGetUpdateDelegate;
+        private BeginOperationDelegate onBeginDoWorkDelegate;
         
-        private EndOperationDelegate onEndGetUpdateDelegate;
+        private EndOperationDelegate onEndDoWorkDelegate;
         
-        private System.Threading.SendOrPostCallback onGetUpdateCompletedDelegate;
+        private System.Threading.SendOrPostCallback onDoWorkCompletedDelegate;
         
         private BeginOperationDelegate onBeginOpenDelegate;
         
@@ -686,8 +716,6 @@ namespace LobbyService.ServiceReference1 {
             }
         }
         
-        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> DoWorkCompleted;
-        
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> AddPlayerCompleted;
         
         public event System.EventHandler<GetPlayersCompletedEventArgs> GetPlayersCompleted;
@@ -695,10 +723,6 @@ namespace LobbyService.ServiceReference1 {
         public event System.EventHandler<GetPlayerByIdCompletedEventArgs> GetPlayerByIdCompleted;
         
         public event System.EventHandler<GetPlayerByNameCompletedEventArgs> GetPlayerByNameCompleted;
-        
-        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> CreateLobbyCompleted;
-        
-        public event System.EventHandler<GatAvailablePlayLobbiesCompletedEventArgs> GatAvailablePlayLobbiesCompleted;
         
         public event System.EventHandler<GetPlayerCompletedEventArgs> GetPlayerCompleted;
         
@@ -712,66 +736,31 @@ namespace LobbyService.ServiceReference1 {
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> DeletePlayerLobbyCompleted;
         
-        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> JoinLobbyRoomCompleted;
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> CreateLobbyCompleted;
         
-        public event System.EventHandler<ShowPlayersInLobbyRoomCompletedEventArgs> ShowPlayersInLobbyRoomCompleted;
+        public event System.EventHandler<GatAvailablePlayLobbiesCompletedEventArgs> GatAvailablePlayLobbiesCompleted;
         
         public event System.EventHandler<GetGameUpdateCompletedEventArgs> GetGameUpdateCompleted;
         
         public event System.EventHandler<CheckPlayerCountCompletedEventArgs> CheckPlayerCountCompleted;
         
+        public event System.EventHandler<GetUpdateCompletedEventArgs> GetUpdateCompleted;
+        
+        public event System.EventHandler<GetPlayerLocationCompletedEventArgs> GetPlayerLocationCompleted;
+        
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> JoinLobbyRoomCompleted;
+        
+        public event System.EventHandler<ShowPlayersInLobbyRoomCompletedEventArgs> ShowPlayersInLobbyRoomCompleted;
+        
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> StartGameCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> BuyTileCompleted;
         
-        public event System.EventHandler<GetUpdateCompletedEventArgs> GetUpdateCompleted;
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> DoWorkCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> OpenCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> CloseCompleted;
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult LobbyService.ServiceReference1.IService1.BeginDoWork(System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginDoWork(callback, asyncState);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        void LobbyService.ServiceReference1.IService1.EndDoWork(System.IAsyncResult result) {
-            base.Channel.EndDoWork(result);
-        }
-        
-        private System.IAsyncResult OnBeginDoWork(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            return ((LobbyService.ServiceReference1.IService1)(this)).BeginDoWork(callback, asyncState);
-        }
-        
-        private object[] OnEndDoWork(System.IAsyncResult result) {
-            ((LobbyService.ServiceReference1.IService1)(this)).EndDoWork(result);
-            return null;
-        }
-        
-        private void OnDoWorkCompleted(object state) {
-            if ((this.DoWorkCompleted != null)) {
-                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.DoWorkCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
-            }
-        }
-        
-        public void DoWorkAsync() {
-            this.DoWorkAsync(null);
-        }
-        
-        public void DoWorkAsync(object userState) {
-            if ((this.onBeginDoWorkDelegate == null)) {
-                this.onBeginDoWorkDelegate = new BeginOperationDelegate(this.OnBeginDoWork);
-            }
-            if ((this.onEndDoWorkDelegate == null)) {
-                this.onEndDoWorkDelegate = new EndOperationDelegate(this.OnEndDoWork);
-            }
-            if ((this.onDoWorkCompletedDelegate == null)) {
-                this.onDoWorkCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnDoWorkCompleted);
-            }
-            base.InvokeAsync(this.onBeginDoWorkDelegate, null, this.onEndDoWorkDelegate, this.onDoWorkCompletedDelegate, userState);
-        }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.IAsyncResult LobbyService.ServiceReference1.IService1.BeginAddPlayer(string playerName, System.AsyncCallback callback, object asyncState) {
@@ -952,95 +941,6 @@ namespace LobbyService.ServiceReference1 {
             }
             base.InvokeAsync(this.onBeginGetPlayerByNameDelegate, new object[] {
                         name}, this.onEndGetPlayerByNameDelegate, this.onGetPlayerByNameCompletedDelegate, userState);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult LobbyService.ServiceReference1.IService1.BeginCreateLobby(LobbyService.ServiceReference1.Player host, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginCreateLobby(host, callback, asyncState);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        void LobbyService.ServiceReference1.IService1.EndCreateLobby(System.IAsyncResult result) {
-            base.Channel.EndCreateLobby(result);
-        }
-        
-        private System.IAsyncResult OnBeginCreateLobby(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            LobbyService.ServiceReference1.Player host = ((LobbyService.ServiceReference1.Player)(inValues[0]));
-            return ((LobbyService.ServiceReference1.IService1)(this)).BeginCreateLobby(host, callback, asyncState);
-        }
-        
-        private object[] OnEndCreateLobby(System.IAsyncResult result) {
-            ((LobbyService.ServiceReference1.IService1)(this)).EndCreateLobby(result);
-            return null;
-        }
-        
-        private void OnCreateLobbyCompleted(object state) {
-            if ((this.CreateLobbyCompleted != null)) {
-                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.CreateLobbyCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
-            }
-        }
-        
-        public void CreateLobbyAsync(LobbyService.ServiceReference1.Player host) {
-            this.CreateLobbyAsync(host, null);
-        }
-        
-        public void CreateLobbyAsync(LobbyService.ServiceReference1.Player host, object userState) {
-            if ((this.onBeginCreateLobbyDelegate == null)) {
-                this.onBeginCreateLobbyDelegate = new BeginOperationDelegate(this.OnBeginCreateLobby);
-            }
-            if ((this.onEndCreateLobbyDelegate == null)) {
-                this.onEndCreateLobbyDelegate = new EndOperationDelegate(this.OnEndCreateLobby);
-            }
-            if ((this.onCreateLobbyCompletedDelegate == null)) {
-                this.onCreateLobbyCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnCreateLobbyCompleted);
-            }
-            base.InvokeAsync(this.onBeginCreateLobbyDelegate, new object[] {
-                        host}, this.onEndCreateLobbyDelegate, this.onCreateLobbyCompletedDelegate, userState);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult LobbyService.ServiceReference1.IService1.BeginGatAvailablePlayLobbies(System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginGatAvailablePlayLobbies(callback, asyncState);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.PlayerLobby> LobbyService.ServiceReference1.IService1.EndGatAvailablePlayLobbies(System.IAsyncResult result) {
-            return base.Channel.EndGatAvailablePlayLobbies(result);
-        }
-        
-        private System.IAsyncResult OnBeginGatAvailablePlayLobbies(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            return ((LobbyService.ServiceReference1.IService1)(this)).BeginGatAvailablePlayLobbies(callback, asyncState);
-        }
-        
-        private object[] OnEndGatAvailablePlayLobbies(System.IAsyncResult result) {
-            System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.PlayerLobby> retVal = ((LobbyService.ServiceReference1.IService1)(this)).EndGatAvailablePlayLobbies(result);
-            return new object[] {
-                    retVal};
-        }
-        
-        private void OnGatAvailablePlayLobbiesCompleted(object state) {
-            if ((this.GatAvailablePlayLobbiesCompleted != null)) {
-                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.GatAvailablePlayLobbiesCompleted(this, new GatAvailablePlayLobbiesCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
-            }
-        }
-        
-        public void GatAvailablePlayLobbiesAsync() {
-            this.GatAvailablePlayLobbiesAsync(null);
-        }
-        
-        public void GatAvailablePlayLobbiesAsync(object userState) {
-            if ((this.onBeginGatAvailablePlayLobbiesDelegate == null)) {
-                this.onBeginGatAvailablePlayLobbiesDelegate = new BeginOperationDelegate(this.OnBeginGatAvailablePlayLobbies);
-            }
-            if ((this.onEndGatAvailablePlayLobbiesDelegate == null)) {
-                this.onEndGatAvailablePlayLobbiesDelegate = new EndOperationDelegate(this.OnEndGatAvailablePlayLobbies);
-            }
-            if ((this.onGatAvailablePlayLobbiesCompletedDelegate == null)) {
-                this.onGatAvailablePlayLobbiesCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGatAvailablePlayLobbiesCompleted);
-            }
-            base.InvokeAsync(this.onBeginGatAvailablePlayLobbiesDelegate, null, this.onEndGatAvailablePlayLobbiesDelegate, this.onGatAvailablePlayLobbiesCompletedDelegate, userState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -1312,96 +1212,92 @@ namespace LobbyService.ServiceReference1 {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult LobbyService.ServiceReference1.IService1.BeginJoinLobbyRoom(LobbyService.ServiceReference1.Player pl, LobbyService.ServiceReference1.Player Host, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginJoinLobbyRoom(pl, Host, callback, asyncState);
+        System.IAsyncResult LobbyService.ServiceReference1.IService1.BeginCreateLobby(LobbyService.ServiceReference1.Player host, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginCreateLobby(host, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        void LobbyService.ServiceReference1.IService1.EndJoinLobbyRoom(System.IAsyncResult result) {
-            base.Channel.EndJoinLobbyRoom(result);
+        void LobbyService.ServiceReference1.IService1.EndCreateLobby(System.IAsyncResult result) {
+            base.Channel.EndCreateLobby(result);
         }
         
-        private System.IAsyncResult OnBeginJoinLobbyRoom(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            LobbyService.ServiceReference1.Player pl = ((LobbyService.ServiceReference1.Player)(inValues[0]));
-            LobbyService.ServiceReference1.Player Host = ((LobbyService.ServiceReference1.Player)(inValues[1]));
-            return ((LobbyService.ServiceReference1.IService1)(this)).BeginJoinLobbyRoom(pl, Host, callback, asyncState);
+        private System.IAsyncResult OnBeginCreateLobby(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            LobbyService.ServiceReference1.Player host = ((LobbyService.ServiceReference1.Player)(inValues[0]));
+            return ((LobbyService.ServiceReference1.IService1)(this)).BeginCreateLobby(host, callback, asyncState);
         }
         
-        private object[] OnEndJoinLobbyRoom(System.IAsyncResult result) {
-            ((LobbyService.ServiceReference1.IService1)(this)).EndJoinLobbyRoom(result);
+        private object[] OnEndCreateLobby(System.IAsyncResult result) {
+            ((LobbyService.ServiceReference1.IService1)(this)).EndCreateLobby(result);
             return null;
         }
         
-        private void OnJoinLobbyRoomCompleted(object state) {
-            if ((this.JoinLobbyRoomCompleted != null)) {
+        private void OnCreateLobbyCompleted(object state) {
+            if ((this.CreateLobbyCompleted != null)) {
                 InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.JoinLobbyRoomCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+                this.CreateLobbyCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
             }
         }
         
-        public void JoinLobbyRoomAsync(LobbyService.ServiceReference1.Player pl, LobbyService.ServiceReference1.Player Host) {
-            this.JoinLobbyRoomAsync(pl, Host, null);
+        public void CreateLobbyAsync(LobbyService.ServiceReference1.Player host) {
+            this.CreateLobbyAsync(host, null);
         }
         
-        public void JoinLobbyRoomAsync(LobbyService.ServiceReference1.Player pl, LobbyService.ServiceReference1.Player Host, object userState) {
-            if ((this.onBeginJoinLobbyRoomDelegate == null)) {
-                this.onBeginJoinLobbyRoomDelegate = new BeginOperationDelegate(this.OnBeginJoinLobbyRoom);
+        public void CreateLobbyAsync(LobbyService.ServiceReference1.Player host, object userState) {
+            if ((this.onBeginCreateLobbyDelegate == null)) {
+                this.onBeginCreateLobbyDelegate = new BeginOperationDelegate(this.OnBeginCreateLobby);
             }
-            if ((this.onEndJoinLobbyRoomDelegate == null)) {
-                this.onEndJoinLobbyRoomDelegate = new EndOperationDelegate(this.OnEndJoinLobbyRoom);
+            if ((this.onEndCreateLobbyDelegate == null)) {
+                this.onEndCreateLobbyDelegate = new EndOperationDelegate(this.OnEndCreateLobby);
             }
-            if ((this.onJoinLobbyRoomCompletedDelegate == null)) {
-                this.onJoinLobbyRoomCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnJoinLobbyRoomCompleted);
+            if ((this.onCreateLobbyCompletedDelegate == null)) {
+                this.onCreateLobbyCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnCreateLobbyCompleted);
             }
-            base.InvokeAsync(this.onBeginJoinLobbyRoomDelegate, new object[] {
-                        pl,
-                        Host}, this.onEndJoinLobbyRoomDelegate, this.onJoinLobbyRoomCompletedDelegate, userState);
+            base.InvokeAsync(this.onBeginCreateLobbyDelegate, new object[] {
+                        host}, this.onEndCreateLobbyDelegate, this.onCreateLobbyCompletedDelegate, userState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult LobbyService.ServiceReference1.IService1.BeginShowPlayersInLobbyRoom(int host, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginShowPlayersInLobbyRoom(host, callback, asyncState);
+        System.IAsyncResult LobbyService.ServiceReference1.IService1.BeginGatAvailablePlayLobbies(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGatAvailablePlayLobbies(callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.Player> LobbyService.ServiceReference1.IService1.EndShowPlayersInLobbyRoom(System.IAsyncResult result) {
-            return base.Channel.EndShowPlayersInLobbyRoom(result);
+        System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.PlayerLobby> LobbyService.ServiceReference1.IService1.EndGatAvailablePlayLobbies(System.IAsyncResult result) {
+            return base.Channel.EndGatAvailablePlayLobbies(result);
         }
         
-        private System.IAsyncResult OnBeginShowPlayersInLobbyRoom(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            int host = ((int)(inValues[0]));
-            return ((LobbyService.ServiceReference1.IService1)(this)).BeginShowPlayersInLobbyRoom(host, callback, asyncState);
+        private System.IAsyncResult OnBeginGatAvailablePlayLobbies(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return ((LobbyService.ServiceReference1.IService1)(this)).BeginGatAvailablePlayLobbies(callback, asyncState);
         }
         
-        private object[] OnEndShowPlayersInLobbyRoom(System.IAsyncResult result) {
-            System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.Player> retVal = ((LobbyService.ServiceReference1.IService1)(this)).EndShowPlayersInLobbyRoom(result);
+        private object[] OnEndGatAvailablePlayLobbies(System.IAsyncResult result) {
+            System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.PlayerLobby> retVal = ((LobbyService.ServiceReference1.IService1)(this)).EndGatAvailablePlayLobbies(result);
             return new object[] {
                     retVal};
         }
         
-        private void OnShowPlayersInLobbyRoomCompleted(object state) {
-            if ((this.ShowPlayersInLobbyRoomCompleted != null)) {
+        private void OnGatAvailablePlayLobbiesCompleted(object state) {
+            if ((this.GatAvailablePlayLobbiesCompleted != null)) {
                 InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.ShowPlayersInLobbyRoomCompleted(this, new ShowPlayersInLobbyRoomCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+                this.GatAvailablePlayLobbiesCompleted(this, new GatAvailablePlayLobbiesCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
             }
         }
         
-        public void ShowPlayersInLobbyRoomAsync(int host) {
-            this.ShowPlayersInLobbyRoomAsync(host, null);
+        public void GatAvailablePlayLobbiesAsync() {
+            this.GatAvailablePlayLobbiesAsync(null);
         }
         
-        public void ShowPlayersInLobbyRoomAsync(int host, object userState) {
-            if ((this.onBeginShowPlayersInLobbyRoomDelegate == null)) {
-                this.onBeginShowPlayersInLobbyRoomDelegate = new BeginOperationDelegate(this.OnBeginShowPlayersInLobbyRoom);
+        public void GatAvailablePlayLobbiesAsync(object userState) {
+            if ((this.onBeginGatAvailablePlayLobbiesDelegate == null)) {
+                this.onBeginGatAvailablePlayLobbiesDelegate = new BeginOperationDelegate(this.OnBeginGatAvailablePlayLobbies);
             }
-            if ((this.onEndShowPlayersInLobbyRoomDelegate == null)) {
-                this.onEndShowPlayersInLobbyRoomDelegate = new EndOperationDelegate(this.OnEndShowPlayersInLobbyRoom);
+            if ((this.onEndGatAvailablePlayLobbiesDelegate == null)) {
+                this.onEndGatAvailablePlayLobbiesDelegate = new EndOperationDelegate(this.OnEndGatAvailablePlayLobbies);
             }
-            if ((this.onShowPlayersInLobbyRoomCompletedDelegate == null)) {
-                this.onShowPlayersInLobbyRoomCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnShowPlayersInLobbyRoomCompleted);
+            if ((this.onGatAvailablePlayLobbiesCompletedDelegate == null)) {
+                this.onGatAvailablePlayLobbiesCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGatAvailablePlayLobbiesCompleted);
             }
-            base.InvokeAsync(this.onBeginShowPlayersInLobbyRoomDelegate, new object[] {
-                        host}, this.onEndShowPlayersInLobbyRoomDelegate, this.onShowPlayersInLobbyRoomCompletedDelegate, userState);
+            base.InvokeAsync(this.onBeginGatAvailablePlayLobbiesDelegate, null, this.onEndGatAvailablePlayLobbiesDelegate, this.onGatAvailablePlayLobbiesCompletedDelegate, userState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -1497,6 +1393,193 @@ namespace LobbyService.ServiceReference1 {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult LobbyService.ServiceReference1.IService1.BeginGetUpdate(LobbyService.ServiceReference1.Player host, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetUpdate(host, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        int LobbyService.ServiceReference1.IService1.EndGetUpdate(System.IAsyncResult result) {
+            return base.Channel.EndGetUpdate(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetUpdate(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            LobbyService.ServiceReference1.Player host = ((LobbyService.ServiceReference1.Player)(inValues[0]));
+            return ((LobbyService.ServiceReference1.IService1)(this)).BeginGetUpdate(host, callback, asyncState);
+        }
+        
+        private object[] OnEndGetUpdate(System.IAsyncResult result) {
+            int retVal = ((LobbyService.ServiceReference1.IService1)(this)).EndGetUpdate(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetUpdateCompleted(object state) {
+            if ((this.GetUpdateCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetUpdateCompleted(this, new GetUpdateCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetUpdateAsync(LobbyService.ServiceReference1.Player host) {
+            this.GetUpdateAsync(host, null);
+        }
+        
+        public void GetUpdateAsync(LobbyService.ServiceReference1.Player host, object userState) {
+            if ((this.onBeginGetUpdateDelegate == null)) {
+                this.onBeginGetUpdateDelegate = new BeginOperationDelegate(this.OnBeginGetUpdate);
+            }
+            if ((this.onEndGetUpdateDelegate == null)) {
+                this.onEndGetUpdateDelegate = new EndOperationDelegate(this.OnEndGetUpdate);
+            }
+            if ((this.onGetUpdateCompletedDelegate == null)) {
+                this.onGetUpdateCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetUpdateCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetUpdateDelegate, new object[] {
+                        host}, this.onEndGetUpdateDelegate, this.onGetUpdateCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult LobbyService.ServiceReference1.IService1.BeginGetPlayerLocation(LobbyService.ServiceReference1.Player Host, LobbyService.ServiceReference1.Player Player, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetPlayerLocation(Host, Player, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        int LobbyService.ServiceReference1.IService1.EndGetPlayerLocation(System.IAsyncResult result) {
+            return base.Channel.EndGetPlayerLocation(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetPlayerLocation(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            LobbyService.ServiceReference1.Player Host = ((LobbyService.ServiceReference1.Player)(inValues[0]));
+            LobbyService.ServiceReference1.Player Player = ((LobbyService.ServiceReference1.Player)(inValues[1]));
+            return ((LobbyService.ServiceReference1.IService1)(this)).BeginGetPlayerLocation(Host, Player, callback, asyncState);
+        }
+        
+        private object[] OnEndGetPlayerLocation(System.IAsyncResult result) {
+            int retVal = ((LobbyService.ServiceReference1.IService1)(this)).EndGetPlayerLocation(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetPlayerLocationCompleted(object state) {
+            if ((this.GetPlayerLocationCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetPlayerLocationCompleted(this, new GetPlayerLocationCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetPlayerLocationAsync(LobbyService.ServiceReference1.Player Host, LobbyService.ServiceReference1.Player Player) {
+            this.GetPlayerLocationAsync(Host, Player, null);
+        }
+        
+        public void GetPlayerLocationAsync(LobbyService.ServiceReference1.Player Host, LobbyService.ServiceReference1.Player Player, object userState) {
+            if ((this.onBeginGetPlayerLocationDelegate == null)) {
+                this.onBeginGetPlayerLocationDelegate = new BeginOperationDelegate(this.OnBeginGetPlayerLocation);
+            }
+            if ((this.onEndGetPlayerLocationDelegate == null)) {
+                this.onEndGetPlayerLocationDelegate = new EndOperationDelegate(this.OnEndGetPlayerLocation);
+            }
+            if ((this.onGetPlayerLocationCompletedDelegate == null)) {
+                this.onGetPlayerLocationCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetPlayerLocationCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetPlayerLocationDelegate, new object[] {
+                        Host,
+                        Player}, this.onEndGetPlayerLocationDelegate, this.onGetPlayerLocationCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult LobbyService.ServiceReference1.IService1.BeginJoinLobbyRoom(LobbyService.ServiceReference1.Player pl, LobbyService.ServiceReference1.Player Host, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginJoinLobbyRoom(pl, Host, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        void LobbyService.ServiceReference1.IService1.EndJoinLobbyRoom(System.IAsyncResult result) {
+            base.Channel.EndJoinLobbyRoom(result);
+        }
+        
+        private System.IAsyncResult OnBeginJoinLobbyRoom(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            LobbyService.ServiceReference1.Player pl = ((LobbyService.ServiceReference1.Player)(inValues[0]));
+            LobbyService.ServiceReference1.Player Host = ((LobbyService.ServiceReference1.Player)(inValues[1]));
+            return ((LobbyService.ServiceReference1.IService1)(this)).BeginJoinLobbyRoom(pl, Host, callback, asyncState);
+        }
+        
+        private object[] OnEndJoinLobbyRoom(System.IAsyncResult result) {
+            ((LobbyService.ServiceReference1.IService1)(this)).EndJoinLobbyRoom(result);
+            return null;
+        }
+        
+        private void OnJoinLobbyRoomCompleted(object state) {
+            if ((this.JoinLobbyRoomCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.JoinLobbyRoomCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void JoinLobbyRoomAsync(LobbyService.ServiceReference1.Player pl, LobbyService.ServiceReference1.Player Host) {
+            this.JoinLobbyRoomAsync(pl, Host, null);
+        }
+        
+        public void JoinLobbyRoomAsync(LobbyService.ServiceReference1.Player pl, LobbyService.ServiceReference1.Player Host, object userState) {
+            if ((this.onBeginJoinLobbyRoomDelegate == null)) {
+                this.onBeginJoinLobbyRoomDelegate = new BeginOperationDelegate(this.OnBeginJoinLobbyRoom);
+            }
+            if ((this.onEndJoinLobbyRoomDelegate == null)) {
+                this.onEndJoinLobbyRoomDelegate = new EndOperationDelegate(this.OnEndJoinLobbyRoom);
+            }
+            if ((this.onJoinLobbyRoomCompletedDelegate == null)) {
+                this.onJoinLobbyRoomCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnJoinLobbyRoomCompleted);
+            }
+            base.InvokeAsync(this.onBeginJoinLobbyRoomDelegate, new object[] {
+                        pl,
+                        Host}, this.onEndJoinLobbyRoomDelegate, this.onJoinLobbyRoomCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult LobbyService.ServiceReference1.IService1.BeginShowPlayersInLobbyRoom(int host, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginShowPlayersInLobbyRoom(host, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.Player> LobbyService.ServiceReference1.IService1.EndShowPlayersInLobbyRoom(System.IAsyncResult result) {
+            return base.Channel.EndShowPlayersInLobbyRoom(result);
+        }
+        
+        private System.IAsyncResult OnBeginShowPlayersInLobbyRoom(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int host = ((int)(inValues[0]));
+            return ((LobbyService.ServiceReference1.IService1)(this)).BeginShowPlayersInLobbyRoom(host, callback, asyncState);
+        }
+        
+        private object[] OnEndShowPlayersInLobbyRoom(System.IAsyncResult result) {
+            System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.Player> retVal = ((LobbyService.ServiceReference1.IService1)(this)).EndShowPlayersInLobbyRoom(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnShowPlayersInLobbyRoomCompleted(object state) {
+            if ((this.ShowPlayersInLobbyRoomCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.ShowPlayersInLobbyRoomCompleted(this, new ShowPlayersInLobbyRoomCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void ShowPlayersInLobbyRoomAsync(int host) {
+            this.ShowPlayersInLobbyRoomAsync(host, null);
+        }
+        
+        public void ShowPlayersInLobbyRoomAsync(int host, object userState) {
+            if ((this.onBeginShowPlayersInLobbyRoomDelegate == null)) {
+                this.onBeginShowPlayersInLobbyRoomDelegate = new BeginOperationDelegate(this.OnBeginShowPlayersInLobbyRoom);
+            }
+            if ((this.onEndShowPlayersInLobbyRoomDelegate == null)) {
+                this.onEndShowPlayersInLobbyRoomDelegate = new EndOperationDelegate(this.OnEndShowPlayersInLobbyRoom);
+            }
+            if ((this.onShowPlayersInLobbyRoomCompletedDelegate == null)) {
+                this.onShowPlayersInLobbyRoomCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnShowPlayersInLobbyRoomCompleted);
+            }
+            base.InvokeAsync(this.onBeginShowPlayersInLobbyRoomDelegate, new object[] {
+                        host}, this.onEndShowPlayersInLobbyRoomDelegate, this.onShowPlayersInLobbyRoomCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.IAsyncResult LobbyService.ServiceReference1.IService1.BeginStartGame(LobbyService.ServiceReference1.Player Host, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginStartGame(Host, callback, asyncState);
         }
@@ -1585,49 +1668,46 @@ namespace LobbyService.ServiceReference1 {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult LobbyService.ServiceReference1.IService1.BeginGetUpdate(LobbyService.ServiceReference1.Player host, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginGetUpdate(host, callback, asyncState);
+        System.IAsyncResult LobbyService.ServiceReference1.IService1.BeginDoWork(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginDoWork(callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        int LobbyService.ServiceReference1.IService1.EndGetUpdate(System.IAsyncResult result) {
-            return base.Channel.EndGetUpdate(result);
+        void LobbyService.ServiceReference1.IService1.EndDoWork(System.IAsyncResult result) {
+            base.Channel.EndDoWork(result);
         }
         
-        private System.IAsyncResult OnBeginGetUpdate(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            LobbyService.ServiceReference1.Player host = ((LobbyService.ServiceReference1.Player)(inValues[0]));
-            return ((LobbyService.ServiceReference1.IService1)(this)).BeginGetUpdate(host, callback, asyncState);
+        private System.IAsyncResult OnBeginDoWork(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return ((LobbyService.ServiceReference1.IService1)(this)).BeginDoWork(callback, asyncState);
         }
         
-        private object[] OnEndGetUpdate(System.IAsyncResult result) {
-            int retVal = ((LobbyService.ServiceReference1.IService1)(this)).EndGetUpdate(result);
-            return new object[] {
-                    retVal};
+        private object[] OnEndDoWork(System.IAsyncResult result) {
+            ((LobbyService.ServiceReference1.IService1)(this)).EndDoWork(result);
+            return null;
         }
         
-        private void OnGetUpdateCompleted(object state) {
-            if ((this.GetUpdateCompleted != null)) {
+        private void OnDoWorkCompleted(object state) {
+            if ((this.DoWorkCompleted != null)) {
                 InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.GetUpdateCompleted(this, new GetUpdateCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+                this.DoWorkCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
             }
         }
         
-        public void GetUpdateAsync(LobbyService.ServiceReference1.Player host) {
-            this.GetUpdateAsync(host, null);
+        public void DoWorkAsync() {
+            this.DoWorkAsync(null);
         }
         
-        public void GetUpdateAsync(LobbyService.ServiceReference1.Player host, object userState) {
-            if ((this.onBeginGetUpdateDelegate == null)) {
-                this.onBeginGetUpdateDelegate = new BeginOperationDelegate(this.OnBeginGetUpdate);
+        public void DoWorkAsync(object userState) {
+            if ((this.onBeginDoWorkDelegate == null)) {
+                this.onBeginDoWorkDelegate = new BeginOperationDelegate(this.OnBeginDoWork);
             }
-            if ((this.onEndGetUpdateDelegate == null)) {
-                this.onEndGetUpdateDelegate = new EndOperationDelegate(this.OnEndGetUpdate);
+            if ((this.onEndDoWorkDelegate == null)) {
+                this.onEndDoWorkDelegate = new EndOperationDelegate(this.OnEndDoWork);
             }
-            if ((this.onGetUpdateCompletedDelegate == null)) {
-                this.onGetUpdateCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetUpdateCompleted);
+            if ((this.onDoWorkCompletedDelegate == null)) {
+                this.onDoWorkCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnDoWorkCompleted);
             }
-            base.InvokeAsync(this.onBeginGetUpdateDelegate, new object[] {
-                        host}, this.onEndGetUpdateDelegate, this.onGetUpdateCompletedDelegate, userState);
+            base.InvokeAsync(this.onBeginDoWorkDelegate, null, this.onEndDoWorkDelegate, this.onDoWorkCompletedDelegate, userState);
         }
         
         private System.IAsyncResult OnBeginOpen(object[] inValues, System.AsyncCallback callback, object asyncState) {
@@ -1706,17 +1786,6 @@ namespace LobbyService.ServiceReference1 {
                     base(client) {
             }
             
-            public System.IAsyncResult BeginDoWork(System.AsyncCallback callback, object asyncState) {
-                object[] _args = new object[0];
-                System.IAsyncResult _result = base.BeginInvoke("DoWork", _args, callback, asyncState);
-                return _result;
-            }
-            
-            public void EndDoWork(System.IAsyncResult result) {
-                object[] _args = new object[0];
-                base.EndInvoke("DoWork", _args, result);
-            }
-            
             public System.IAsyncResult BeginAddPlayer(string playerName, System.AsyncCallback callback, object asyncState) {
                 object[] _args = new object[1];
                 _args[0] = playerName;
@@ -1764,30 +1833,6 @@ namespace LobbyService.ServiceReference1 {
             public LobbyService.ServiceReference1.Player EndGetPlayerByName(System.IAsyncResult result) {
                 object[] _args = new object[0];
                 LobbyService.ServiceReference1.Player _result = ((LobbyService.ServiceReference1.Player)(base.EndInvoke("GetPlayerByName", _args, result)));
-                return _result;
-            }
-            
-            public System.IAsyncResult BeginCreateLobby(LobbyService.ServiceReference1.Player host, System.AsyncCallback callback, object asyncState) {
-                object[] _args = new object[1];
-                _args[0] = host;
-                System.IAsyncResult _result = base.BeginInvoke("CreateLobby", _args, callback, asyncState);
-                return _result;
-            }
-            
-            public void EndCreateLobby(System.IAsyncResult result) {
-                object[] _args = new object[0];
-                base.EndInvoke("CreateLobby", _args, result);
-            }
-            
-            public System.IAsyncResult BeginGatAvailablePlayLobbies(System.AsyncCallback callback, object asyncState) {
-                object[] _args = new object[0];
-                System.IAsyncResult _result = base.BeginInvoke("GatAvailablePlayLobbies", _args, callback, asyncState);
-                return _result;
-            }
-            
-            public System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.PlayerLobby> EndGatAvailablePlayLobbies(System.IAsyncResult result) {
-                object[] _args = new object[0];
-                System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.PlayerLobby> _result = ((System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.PlayerLobby>)(base.EndInvoke("GatAvailablePlayLobbies", _args, result)));
                 return _result;
             }
             
@@ -1863,29 +1908,27 @@ namespace LobbyService.ServiceReference1 {
                 base.EndInvoke("DeletePlayerLobby", _args, result);
             }
             
-            public System.IAsyncResult BeginJoinLobbyRoom(LobbyService.ServiceReference1.Player pl, LobbyService.ServiceReference1.Player Host, System.AsyncCallback callback, object asyncState) {
-                object[] _args = new object[2];
-                _args[0] = pl;
-                _args[1] = Host;
-                System.IAsyncResult _result = base.BeginInvoke("JoinLobbyRoom", _args, callback, asyncState);
-                return _result;
-            }
-            
-            public void EndJoinLobbyRoom(System.IAsyncResult result) {
-                object[] _args = new object[0];
-                base.EndInvoke("JoinLobbyRoom", _args, result);
-            }
-            
-            public System.IAsyncResult BeginShowPlayersInLobbyRoom(int host, System.AsyncCallback callback, object asyncState) {
+            public System.IAsyncResult BeginCreateLobby(LobbyService.ServiceReference1.Player host, System.AsyncCallback callback, object asyncState) {
                 object[] _args = new object[1];
                 _args[0] = host;
-                System.IAsyncResult _result = base.BeginInvoke("ShowPlayersInLobbyRoom", _args, callback, asyncState);
+                System.IAsyncResult _result = base.BeginInvoke("CreateLobby", _args, callback, asyncState);
                 return _result;
             }
             
-            public System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.Player> EndShowPlayersInLobbyRoom(System.IAsyncResult result) {
+            public void EndCreateLobby(System.IAsyncResult result) {
                 object[] _args = new object[0];
-                System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.Player> _result = ((System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.Player>)(base.EndInvoke("ShowPlayersInLobbyRoom", _args, result)));
+                base.EndInvoke("CreateLobby", _args, result);
+            }
+            
+            public System.IAsyncResult BeginGatAvailablePlayLobbies(System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[0];
+                System.IAsyncResult _result = base.BeginInvoke("GatAvailablePlayLobbies", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.PlayerLobby> EndGatAvailablePlayLobbies(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.PlayerLobby> _result = ((System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.PlayerLobby>)(base.EndInvoke("GatAvailablePlayLobbies", _args, result)));
                 return _result;
             }
             
@@ -1915,6 +1958,59 @@ namespace LobbyService.ServiceReference1 {
                 return _result;
             }
             
+            public System.IAsyncResult BeginGetUpdate(LobbyService.ServiceReference1.Player host, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[1];
+                _args[0] = host;
+                System.IAsyncResult _result = base.BeginInvoke("GetUpdate", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public int EndGetUpdate(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                int _result = ((int)(base.EndInvoke("GetUpdate", _args, result)));
+                return _result;
+            }
+            
+            public System.IAsyncResult BeginGetPlayerLocation(LobbyService.ServiceReference1.Player Host, LobbyService.ServiceReference1.Player Player, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[2];
+                _args[0] = Host;
+                _args[1] = Player;
+                System.IAsyncResult _result = base.BeginInvoke("GetPlayerLocation", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public int EndGetPlayerLocation(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                int _result = ((int)(base.EndInvoke("GetPlayerLocation", _args, result)));
+                return _result;
+            }
+            
+            public System.IAsyncResult BeginJoinLobbyRoom(LobbyService.ServiceReference1.Player pl, LobbyService.ServiceReference1.Player Host, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[2];
+                _args[0] = pl;
+                _args[1] = Host;
+                System.IAsyncResult _result = base.BeginInvoke("JoinLobbyRoom", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public void EndJoinLobbyRoom(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                base.EndInvoke("JoinLobbyRoom", _args, result);
+            }
+            
+            public System.IAsyncResult BeginShowPlayersInLobbyRoom(int host, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[1];
+                _args[0] = host;
+                System.IAsyncResult _result = base.BeginInvoke("ShowPlayersInLobbyRoom", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.Player> EndShowPlayersInLobbyRoom(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.Player> _result = ((System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.Player>)(base.EndInvoke("ShowPlayersInLobbyRoom", _args, result)));
+                return _result;
+            }
+            
             public System.IAsyncResult BeginStartGame(LobbyService.ServiceReference1.Player Host, System.AsyncCallback callback, object asyncState) {
                 object[] _args = new object[1];
                 _args[0] = Host;
@@ -1938,17 +2034,15 @@ namespace LobbyService.ServiceReference1 {
                 base.EndInvoke("BuyTile", _args, result);
             }
             
-            public System.IAsyncResult BeginGetUpdate(LobbyService.ServiceReference1.Player host, System.AsyncCallback callback, object asyncState) {
-                object[] _args = new object[1];
-                _args[0] = host;
-                System.IAsyncResult _result = base.BeginInvoke("GetUpdate", _args, callback, asyncState);
+            public System.IAsyncResult BeginDoWork(System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[0];
+                System.IAsyncResult _result = base.BeginInvoke("DoWork", _args, callback, asyncState);
                 return _result;
             }
             
-            public int EndGetUpdate(System.IAsyncResult result) {
+            public void EndDoWork(System.IAsyncResult result) {
                 object[] _args = new object[0];
-                int _result = ((int)(base.EndInvoke("GetUpdate", _args, result)));
-                return _result;
+                base.EndInvoke("DoWork", _args, result);
             }
         }
     }

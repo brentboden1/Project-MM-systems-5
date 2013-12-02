@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://monopolygame.cloudapp.net/Service1.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO" />
+  <xs:import schemaLocation="http://monopolygame.cloudapp.net/Service1.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:element name="DoWork">
     <xs:complexType>
       <xs:sequence />
@@ -186,17 +187,82 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetGameUpdate">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO" minOccurs="0" name="host" nillable="true" type="q13:Player" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetGameUpdateResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetGameUpdateResult" nillable="true" type="q14:ArrayOfint" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CheckPlayerCount">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="lobby" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CheckPlayerCountResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CheckPlayerCountResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="StartGame">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO" minOccurs="0" name="Host" nillable="true" type="q13:Player" />
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO" minOccurs="0" name="Host" nillable="true" type="q15:Player" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="StartGameResponse">
     <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BuyTile">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BuyTileResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUpdate">
+    <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="StartGameResult" type="xs:boolean" />
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO" minOccurs="0" name="host" nillable="true" type="q16:Player" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUpdateResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetUpdateResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPlayerLocation">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO" minOccurs="0" name="Host" nillable="true" type="q17:Player" />
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO" minOccurs="0" name="Player" nillable="true" type="q18:Player" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPlayerLocationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetPlayerLocationResult" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

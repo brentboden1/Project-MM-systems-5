@@ -23,11 +23,12 @@
     <MetadataSource Address="http://monopolygame.cloudapp.net/Service1.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Service1.xsd" MetadataType="Schema" ID="a46a91ef-7e5b-4bad-9b9f-6b80904be96a" SourceId="1" SourceUrl="http://monopolygame.cloudapp.net/Service1.svc?xsd=xsd0" />
     <MetadataFile FileName="Service11.xsd" MetadataType="Schema" ID="4a35b07f-f9d9-49cc-ad9b-3798aa79c235" SourceId="1" SourceUrl="http://monopolygame.cloudapp.net/Service1.svc?xsd=xsd1" />
-    <MetadataFile FileName="Service12.xsd" MetadataType="Schema" ID="183e30ed-853a-4fcb-8d80-d1e0eb3f3e80" SourceId="1" SourceUrl="http://monopolygame.cloudapp.net/Service1.svc?xsd=xsd2" />
-    <MetadataFile FileName="Service1.wsdl" MetadataType="Wsdl" ID="19587264-dbd4-43fc-a7d7-088e38c34e0d" SourceId="1" SourceUrl="http://monopolygame.cloudapp.net/Service1.svc?wsdl" />
     <MetadataFile FileName="Service1.disco" MetadataType="Disco" ID="3e8cb608-aaf4-4e93-9ff9-51d6f283768b" SourceId="1" SourceUrl="http://monopolygame.cloudapp.net/Service1.svc?disco" />
+    <MetadataFile FileName="Service1.wsdl" MetadataType="Wsdl" ID="19587264-dbd4-43fc-a7d7-088e38c34e0d" SourceId="1" SourceUrl="http://monopolygame.cloudapp.net/Service1.svc?wsdl" />
+    <MetadataFile FileName="Service1.xsd" MetadataType="Schema" ID="a46a91ef-7e5b-4bad-9b9f-6b80904be96a" SourceId="1" SourceUrl="http://monopolygame.cloudapp.net/Service1.svc?xsd=xsd0" />
+    <MetadataFile FileName="Service13.xsd" MetadataType="Schema" ID="b10ef498-326f-4ae1-b696-cc1e43d1b1df" SourceId="1" SourceUrl="http://monopolygame.cloudapp.net/Service1.svc?xsd=xsd3" />
+    <MetadataFile FileName="Service12.xsd" MetadataType="Schema" ID="183e30ed-853a-4fcb-8d80-d1e0eb3f3e80" SourceId="1" SourceUrl="http://monopolygame.cloudapp.net/Service1.svc?xsd=xsd2" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

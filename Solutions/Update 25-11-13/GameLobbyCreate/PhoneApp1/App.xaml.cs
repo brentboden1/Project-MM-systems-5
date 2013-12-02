@@ -7,6 +7,7 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using PhoneApp1.Resources;
+using System.Collections.ObjectModel;
 
 namespace PhoneApp1
 {
@@ -18,11 +19,17 @@ namespace PhoneApp1
         /// <returns>The root frame of the Phone Application.</returns>
         public static PhoneApplicationFrame RootFrame { get; private set; }
 
+        public static ServiceReference1.Player Me;
+        public static ServiceReference1.Service1Client client;
+        public static ServiceReference1.Player Host;
+
         /// <summary>
         /// Constructor for the Application object.
         /// </summary>
         public App()
         {
+            client = new ServiceReference1.Service1Client();
+           // Me = new ServiceReference1.Player();
             // Global handler for uncaught exceptions.
             UnhandledException += Application_UnhandledException;
 

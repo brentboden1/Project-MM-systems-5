@@ -11,8 +11,7 @@ namespace LobbyService.Web
     [ServiceContract]
     public interface IService1
     {
-        [OperationContract]
-        void DoWork();
+        #region Player()
 
         [OperationContract]
         void AddPlayer(string playerName);
@@ -27,16 +26,14 @@ namespace LobbyService.Web
         DTO.Player GetPlayerByName(string name);
 
         [OperationContract]
-        void CreateLobby(DTO.Player host);
-
-        [OperationContract]
-        List<DTO.PlayerLobby> GatAvailablePlayLobbies();
-
-        [OperationContract]
         DTO.Player GetPlayer(String Name);
 
         [OperationContract]
         DTO.Player GetPlayerId(int id);
+
+        #endregion
+
+        #region Delete()
 
         [OperationContract]
         void DeleteAllPlayers();
@@ -50,11 +47,19 @@ namespace LobbyService.Web
         [OperationContract]
         void DeletePlayerLobby(DTO.PlayerLobby pl);
 
-        [OperationContract]
-        void JoinLobbyRoom(DTO.Player pl, DTO.Player Host);
+        #endregion
+
+        #region Lobby()
 
         [OperationContract]
-        List<DTO.Player> ShowPlayersInLobbyRoom(int host);
+        void CreateLobby(DTO.Player host);
+
+        [OperationContract]
+        List<DTO.PlayerLobby> GatAvailablePlayLobbies();
+
+        #endregion
+
+        #region Update()
 
         [OperationContract]
         List<int> GetGameUpdate(DTO.Player host);
@@ -63,12 +68,38 @@ namespace LobbyService.Web
         int CheckPlayerCount(string lobby);
 
         [OperationContract]
+        int GetUpdate(DTO.Player host);
+
+        [OperationContract]
+        int GetPlayerLocation(DTO.Player Host, DTO.Player Player);
+
+        #endregion
+
+        #region Join()
+
+        [OperationContract]
+        void JoinLobbyRoom(DTO.Player pl, DTO.Player Host);
+
+        [OperationContract]
+        List<DTO.Player> ShowPlayersInLobbyRoom(int host);
+
+        #endregion
+
+        #region Gamestart()
+
+        [OperationContract]
         void StartGame(DTO.Player Host);
+
+        #endregion
+
+        #region GameFunction()
 
         [OperationContract]
         void BuyTile();
 
+        #endregion
+
         [OperationContract]
-        int GetUpdate(DTO.Player host);
+        void DoWork();
     }
 }

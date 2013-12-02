@@ -14,12 +14,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Player" nillable="true" type="tns:Player" />
-  <xs:complexType name="ArrayOfPlayerLobby">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="PlayerLobby" nillable="true" type="tns:PlayerLobby" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfPlayerLobby" nillable="true" type="tns:ArrayOfPlayerLobby" />
   <xs:complexType name="PlayerLobby">
     <xs:sequence>
       <xs:element minOccurs="0" name="HostPlayer" nillable="true" type="tns:Player" />
@@ -37,4 +31,10 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Lobby" nillable="true" type="tns:Lobby" />
+  <xs:complexType name="ArrayOfPlayerLobby">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PlayerLobby" nillable="true" type="tns:PlayerLobby" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPlayerLobby" nillable="true" type="tns:ArrayOfPlayerLobby" />
 </xs:schema>

@@ -289,10 +289,35 @@ namespace PhoneApp1.ServiceReference1 {
         
         System.Collections.ObjectModel.ObservableCollection<PhoneApp1.ServiceReference1.Player> EndShowPlayersInLobbyRoom(System.IAsyncResult result);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/GetGameUpdate", ReplyAction="http://tempuri.org/IService1/GetGameUpdateResponse")]
+        System.IAsyncResult BeginGetGameUpdate(PhoneApp1.ServiceReference1.Player host, System.AsyncCallback callback, object asyncState);
+        
+        System.Collections.ObjectModel.ObservableCollection<int> EndGetGameUpdate(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/CheckPlayerCount", ReplyAction="http://tempuri.org/IService1/CheckPlayerCountResponse")]
+        System.IAsyncResult BeginCheckPlayerCount(string lobby, System.AsyncCallback callback, object asyncState);
+        
+        int EndCheckPlayerCount(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/StartGame", ReplyAction="http://tempuri.org/IService1/StartGameResponse")]
         System.IAsyncResult BeginStartGame(PhoneApp1.ServiceReference1.Player Host, System.AsyncCallback callback, object asyncState);
         
-        bool EndStartGame(System.IAsyncResult result);
+        void EndStartGame(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/BuyTile", ReplyAction="http://tempuri.org/IService1/BuyTileResponse")]
+        System.IAsyncResult BeginBuyTile(System.AsyncCallback callback, object asyncState);
+        
+        void EndBuyTile(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/GetUpdate", ReplyAction="http://tempuri.org/IService1/GetUpdateResponse")]
+        System.IAsyncResult BeginGetUpdate(PhoneApp1.ServiceReference1.Player host, System.AsyncCallback callback, object asyncState);
+        
+        int EndGetUpdate(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/GetPlayerLocation", ReplyAction="http://tempuri.org/IService1/GetPlayerLocationResponse")]
+        System.IAsyncResult BeginGetPlayerLocation(PhoneApp1.ServiceReference1.Player Host, PhoneApp1.ServiceReference1.Player Player, System.AsyncCallback callback, object asyncState);
+        
+        int EndGetPlayerLocation(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -434,19 +459,76 @@ namespace PhoneApp1.ServiceReference1 {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class StartGameCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class GetGameUpdateCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        public StartGameCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        public GetGameUpdateCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
         
-        public bool Result {
+        public System.Collections.ObjectModel.ObservableCollection<int> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((bool)(this.results[0]));
+                return ((System.Collections.ObjectModel.ObservableCollection<int>)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class CheckPlayerCountCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public CheckPlayerCountCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public int Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetUpdateCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetUpdateCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public int Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetPlayerLocationCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetPlayerLocationCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public int Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
             }
         }
     }
@@ -545,11 +627,41 @@ namespace PhoneApp1.ServiceReference1 {
         
         private System.Threading.SendOrPostCallback onShowPlayersInLobbyRoomCompletedDelegate;
         
+        private BeginOperationDelegate onBeginGetGameUpdateDelegate;
+        
+        private EndOperationDelegate onEndGetGameUpdateDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetGameUpdateCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginCheckPlayerCountDelegate;
+        
+        private EndOperationDelegate onEndCheckPlayerCountDelegate;
+        
+        private System.Threading.SendOrPostCallback onCheckPlayerCountCompletedDelegate;
+        
         private BeginOperationDelegate onBeginStartGameDelegate;
         
         private EndOperationDelegate onEndStartGameDelegate;
         
         private System.Threading.SendOrPostCallback onStartGameCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginBuyTileDelegate;
+        
+        private EndOperationDelegate onEndBuyTileDelegate;
+        
+        private System.Threading.SendOrPostCallback onBuyTileCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetUpdateDelegate;
+        
+        private EndOperationDelegate onEndGetUpdateDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetUpdateCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetPlayerLocationDelegate;
+        
+        private EndOperationDelegate onEndGetPlayerLocationDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetPlayerLocationCompletedDelegate;
         
         private BeginOperationDelegate onBeginOpenDelegate;
         
@@ -634,7 +746,17 @@ namespace PhoneApp1.ServiceReference1 {
         
         public event System.EventHandler<ShowPlayersInLobbyRoomCompletedEventArgs> ShowPlayersInLobbyRoomCompleted;
         
-        public event System.EventHandler<StartGameCompletedEventArgs> StartGameCompleted;
+        public event System.EventHandler<GetGameUpdateCompletedEventArgs> GetGameUpdateCompleted;
+        
+        public event System.EventHandler<CheckPlayerCountCompletedEventArgs> CheckPlayerCountCompleted;
+        
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> StartGameCompleted;
+        
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> BuyTileCompleted;
+        
+        public event System.EventHandler<GetUpdateCompletedEventArgs> GetUpdateCompleted;
+        
+        public event System.EventHandler<GetPlayerLocationCompletedEventArgs> GetPlayerLocationCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> OpenCompleted;
         
@@ -1315,13 +1437,105 @@ namespace PhoneApp1.ServiceReference1 {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult PhoneApp1.ServiceReference1.IService1.BeginGetGameUpdate(PhoneApp1.ServiceReference1.Player host, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetGameUpdate(host, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Collections.ObjectModel.ObservableCollection<int> PhoneApp1.ServiceReference1.IService1.EndGetGameUpdate(System.IAsyncResult result) {
+            return base.Channel.EndGetGameUpdate(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetGameUpdate(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            PhoneApp1.ServiceReference1.Player host = ((PhoneApp1.ServiceReference1.Player)(inValues[0]));
+            return ((PhoneApp1.ServiceReference1.IService1)(this)).BeginGetGameUpdate(host, callback, asyncState);
+        }
+        
+        private object[] OnEndGetGameUpdate(System.IAsyncResult result) {
+            System.Collections.ObjectModel.ObservableCollection<int> retVal = ((PhoneApp1.ServiceReference1.IService1)(this)).EndGetGameUpdate(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetGameUpdateCompleted(object state) {
+            if ((this.GetGameUpdateCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetGameUpdateCompleted(this, new GetGameUpdateCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetGameUpdateAsync(PhoneApp1.ServiceReference1.Player host) {
+            this.GetGameUpdateAsync(host, null);
+        }
+        
+        public void GetGameUpdateAsync(PhoneApp1.ServiceReference1.Player host, object userState) {
+            if ((this.onBeginGetGameUpdateDelegate == null)) {
+                this.onBeginGetGameUpdateDelegate = new BeginOperationDelegate(this.OnBeginGetGameUpdate);
+            }
+            if ((this.onEndGetGameUpdateDelegate == null)) {
+                this.onEndGetGameUpdateDelegate = new EndOperationDelegate(this.OnEndGetGameUpdate);
+            }
+            if ((this.onGetGameUpdateCompletedDelegate == null)) {
+                this.onGetGameUpdateCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetGameUpdateCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetGameUpdateDelegate, new object[] {
+                        host}, this.onEndGetGameUpdateDelegate, this.onGetGameUpdateCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult PhoneApp1.ServiceReference1.IService1.BeginCheckPlayerCount(string lobby, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginCheckPlayerCount(lobby, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        int PhoneApp1.ServiceReference1.IService1.EndCheckPlayerCount(System.IAsyncResult result) {
+            return base.Channel.EndCheckPlayerCount(result);
+        }
+        
+        private System.IAsyncResult OnBeginCheckPlayerCount(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string lobby = ((string)(inValues[0]));
+            return ((PhoneApp1.ServiceReference1.IService1)(this)).BeginCheckPlayerCount(lobby, callback, asyncState);
+        }
+        
+        private object[] OnEndCheckPlayerCount(System.IAsyncResult result) {
+            int retVal = ((PhoneApp1.ServiceReference1.IService1)(this)).EndCheckPlayerCount(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnCheckPlayerCountCompleted(object state) {
+            if ((this.CheckPlayerCountCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.CheckPlayerCountCompleted(this, new CheckPlayerCountCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void CheckPlayerCountAsync(string lobby) {
+            this.CheckPlayerCountAsync(lobby, null);
+        }
+        
+        public void CheckPlayerCountAsync(string lobby, object userState) {
+            if ((this.onBeginCheckPlayerCountDelegate == null)) {
+                this.onBeginCheckPlayerCountDelegate = new BeginOperationDelegate(this.OnBeginCheckPlayerCount);
+            }
+            if ((this.onEndCheckPlayerCountDelegate == null)) {
+                this.onEndCheckPlayerCountDelegate = new EndOperationDelegate(this.OnEndCheckPlayerCount);
+            }
+            if ((this.onCheckPlayerCountCompletedDelegate == null)) {
+                this.onCheckPlayerCountCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnCheckPlayerCountCompleted);
+            }
+            base.InvokeAsync(this.onBeginCheckPlayerCountDelegate, new object[] {
+                        lobby}, this.onEndCheckPlayerCountDelegate, this.onCheckPlayerCountCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.IAsyncResult PhoneApp1.ServiceReference1.IService1.BeginStartGame(PhoneApp1.ServiceReference1.Player Host, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginStartGame(Host, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        bool PhoneApp1.ServiceReference1.IService1.EndStartGame(System.IAsyncResult result) {
-            return base.Channel.EndStartGame(result);
+        void PhoneApp1.ServiceReference1.IService1.EndStartGame(System.IAsyncResult result) {
+            base.Channel.EndStartGame(result);
         }
         
         private System.IAsyncResult OnBeginStartGame(object[] inValues, System.AsyncCallback callback, object asyncState) {
@@ -1330,15 +1544,14 @@ namespace PhoneApp1.ServiceReference1 {
         }
         
         private object[] OnEndStartGame(System.IAsyncResult result) {
-            bool retVal = ((PhoneApp1.ServiceReference1.IService1)(this)).EndStartGame(result);
-            return new object[] {
-                    retVal};
+            ((PhoneApp1.ServiceReference1.IService1)(this)).EndStartGame(result);
+            return null;
         }
         
         private void OnStartGameCompleted(object state) {
             if ((this.StartGameCompleted != null)) {
                 InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.StartGameCompleted(this, new StartGameCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+                this.StartGameCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
             }
         }
         
@@ -1358,6 +1571,143 @@ namespace PhoneApp1.ServiceReference1 {
             }
             base.InvokeAsync(this.onBeginStartGameDelegate, new object[] {
                         Host}, this.onEndStartGameDelegate, this.onStartGameCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult PhoneApp1.ServiceReference1.IService1.BeginBuyTile(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginBuyTile(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        void PhoneApp1.ServiceReference1.IService1.EndBuyTile(System.IAsyncResult result) {
+            base.Channel.EndBuyTile(result);
+        }
+        
+        private System.IAsyncResult OnBeginBuyTile(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return ((PhoneApp1.ServiceReference1.IService1)(this)).BeginBuyTile(callback, asyncState);
+        }
+        
+        private object[] OnEndBuyTile(System.IAsyncResult result) {
+            ((PhoneApp1.ServiceReference1.IService1)(this)).EndBuyTile(result);
+            return null;
+        }
+        
+        private void OnBuyTileCompleted(object state) {
+            if ((this.BuyTileCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.BuyTileCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void BuyTileAsync() {
+            this.BuyTileAsync(null);
+        }
+        
+        public void BuyTileAsync(object userState) {
+            if ((this.onBeginBuyTileDelegate == null)) {
+                this.onBeginBuyTileDelegate = new BeginOperationDelegate(this.OnBeginBuyTile);
+            }
+            if ((this.onEndBuyTileDelegate == null)) {
+                this.onEndBuyTileDelegate = new EndOperationDelegate(this.OnEndBuyTile);
+            }
+            if ((this.onBuyTileCompletedDelegate == null)) {
+                this.onBuyTileCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnBuyTileCompleted);
+            }
+            base.InvokeAsync(this.onBeginBuyTileDelegate, null, this.onEndBuyTileDelegate, this.onBuyTileCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult PhoneApp1.ServiceReference1.IService1.BeginGetUpdate(PhoneApp1.ServiceReference1.Player host, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetUpdate(host, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        int PhoneApp1.ServiceReference1.IService1.EndGetUpdate(System.IAsyncResult result) {
+            return base.Channel.EndGetUpdate(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetUpdate(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            PhoneApp1.ServiceReference1.Player host = ((PhoneApp1.ServiceReference1.Player)(inValues[0]));
+            return ((PhoneApp1.ServiceReference1.IService1)(this)).BeginGetUpdate(host, callback, asyncState);
+        }
+        
+        private object[] OnEndGetUpdate(System.IAsyncResult result) {
+            int retVal = ((PhoneApp1.ServiceReference1.IService1)(this)).EndGetUpdate(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetUpdateCompleted(object state) {
+            if ((this.GetUpdateCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetUpdateCompleted(this, new GetUpdateCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetUpdateAsync(PhoneApp1.ServiceReference1.Player host) {
+            this.GetUpdateAsync(host, null);
+        }
+        
+        public void GetUpdateAsync(PhoneApp1.ServiceReference1.Player host, object userState) {
+            if ((this.onBeginGetUpdateDelegate == null)) {
+                this.onBeginGetUpdateDelegate = new BeginOperationDelegate(this.OnBeginGetUpdate);
+            }
+            if ((this.onEndGetUpdateDelegate == null)) {
+                this.onEndGetUpdateDelegate = new EndOperationDelegate(this.OnEndGetUpdate);
+            }
+            if ((this.onGetUpdateCompletedDelegate == null)) {
+                this.onGetUpdateCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetUpdateCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetUpdateDelegate, new object[] {
+                        host}, this.onEndGetUpdateDelegate, this.onGetUpdateCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult PhoneApp1.ServiceReference1.IService1.BeginGetPlayerLocation(PhoneApp1.ServiceReference1.Player Host, PhoneApp1.ServiceReference1.Player Player, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetPlayerLocation(Host, Player, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        int PhoneApp1.ServiceReference1.IService1.EndGetPlayerLocation(System.IAsyncResult result) {
+            return base.Channel.EndGetPlayerLocation(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetPlayerLocation(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            PhoneApp1.ServiceReference1.Player Host = ((PhoneApp1.ServiceReference1.Player)(inValues[0]));
+            PhoneApp1.ServiceReference1.Player Player = ((PhoneApp1.ServiceReference1.Player)(inValues[1]));
+            return ((PhoneApp1.ServiceReference1.IService1)(this)).BeginGetPlayerLocation(Host, Player, callback, asyncState);
+        }
+        
+        private object[] OnEndGetPlayerLocation(System.IAsyncResult result) {
+            int retVal = ((PhoneApp1.ServiceReference1.IService1)(this)).EndGetPlayerLocation(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetPlayerLocationCompleted(object state) {
+            if ((this.GetPlayerLocationCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetPlayerLocationCompleted(this, new GetPlayerLocationCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetPlayerLocationAsync(PhoneApp1.ServiceReference1.Player Host, PhoneApp1.ServiceReference1.Player Player) {
+            this.GetPlayerLocationAsync(Host, Player, null);
+        }
+        
+        public void GetPlayerLocationAsync(PhoneApp1.ServiceReference1.Player Host, PhoneApp1.ServiceReference1.Player Player, object userState) {
+            if ((this.onBeginGetPlayerLocationDelegate == null)) {
+                this.onBeginGetPlayerLocationDelegate = new BeginOperationDelegate(this.OnBeginGetPlayerLocation);
+            }
+            if ((this.onEndGetPlayerLocationDelegate == null)) {
+                this.onEndGetPlayerLocationDelegate = new EndOperationDelegate(this.OnEndGetPlayerLocation);
+            }
+            if ((this.onGetPlayerLocationCompletedDelegate == null)) {
+                this.onGetPlayerLocationCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetPlayerLocationCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetPlayerLocationDelegate, new object[] {
+                        Host,
+                        Player}, this.onEndGetPlayerLocationDelegate, this.onGetPlayerLocationCompletedDelegate, userState);
         }
         
         private System.IAsyncResult OnBeginOpen(object[] inValues, System.AsyncCallback callback, object asyncState) {
@@ -1619,6 +1969,32 @@ namespace PhoneApp1.ServiceReference1 {
                 return _result;
             }
             
+            public System.IAsyncResult BeginGetGameUpdate(PhoneApp1.ServiceReference1.Player host, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[1];
+                _args[0] = host;
+                System.IAsyncResult _result = base.BeginInvoke("GetGameUpdate", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public System.Collections.ObjectModel.ObservableCollection<int> EndGetGameUpdate(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                System.Collections.ObjectModel.ObservableCollection<int> _result = ((System.Collections.ObjectModel.ObservableCollection<int>)(base.EndInvoke("GetGameUpdate", _args, result)));
+                return _result;
+            }
+            
+            public System.IAsyncResult BeginCheckPlayerCount(string lobby, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[1];
+                _args[0] = lobby;
+                System.IAsyncResult _result = base.BeginInvoke("CheckPlayerCount", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public int EndCheckPlayerCount(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                int _result = ((int)(base.EndInvoke("CheckPlayerCount", _args, result)));
+                return _result;
+            }
+            
             public System.IAsyncResult BeginStartGame(PhoneApp1.ServiceReference1.Player Host, System.AsyncCallback callback, object asyncState) {
                 object[] _args = new object[1];
                 _args[0] = Host;
@@ -1626,9 +2002,46 @@ namespace PhoneApp1.ServiceReference1 {
                 return _result;
             }
             
-            public bool EndStartGame(System.IAsyncResult result) {
+            public void EndStartGame(System.IAsyncResult result) {
                 object[] _args = new object[0];
-                bool _result = ((bool)(base.EndInvoke("StartGame", _args, result)));
+                base.EndInvoke("StartGame", _args, result);
+            }
+            
+            public System.IAsyncResult BeginBuyTile(System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[0];
+                System.IAsyncResult _result = base.BeginInvoke("BuyTile", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public void EndBuyTile(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                base.EndInvoke("BuyTile", _args, result);
+            }
+            
+            public System.IAsyncResult BeginGetUpdate(PhoneApp1.ServiceReference1.Player host, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[1];
+                _args[0] = host;
+                System.IAsyncResult _result = base.BeginInvoke("GetUpdate", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public int EndGetUpdate(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                int _result = ((int)(base.EndInvoke("GetUpdate", _args, result)));
+                return _result;
+            }
+            
+            public System.IAsyncResult BeginGetPlayerLocation(PhoneApp1.ServiceReference1.Player Host, PhoneApp1.ServiceReference1.Player Player, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[2];
+                _args[0] = Host;
+                _args[1] = Player;
+                System.IAsyncResult _result = base.BeginInvoke("GetPlayerLocation", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public int EndGetPlayerLocation(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                int _result = ((int)(base.EndInvoke("GetPlayerLocation", _args, result)));
                 return _result;
             }
         }
