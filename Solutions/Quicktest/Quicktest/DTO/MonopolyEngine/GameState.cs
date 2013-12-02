@@ -24,6 +24,8 @@ namespace Quicktest.DTO.MonopolyEngine
         public int RevisionNumber { get { return _revisionnumber; } }
         public int TurnNumber { get; set; }
         public byte ActiveGamePlayer { get; set; }
+        public byte PropertyTradeRequested { get; set; }
+        public GameFunctions.Direction PropertyTradeDirection { get; set; }
         #endregion
         #region Lists
         public bool[] IsBought;
@@ -39,6 +41,8 @@ namespace Quicktest.DTO.MonopolyEngine
         public GameFunctions.TurnState CurrentPhase { get; set; }
         public Player ActivePlayer { get; set; }
         public string ActiveTileName { get; set; }
+        public Player PlayerTradeRequested { get; set; }
+
         #endregion
         #endregion
         #region functions
@@ -77,6 +81,9 @@ namespace Quicktest.DTO.MonopolyEngine
             ActivePlayer = ReturnPlayerByOrder(0).MyPlayer;
             ActiveGamePlayer = 0;
             GameFunctions.randomStarterDie(this);
+            PropertyTradeRequested = 0;
+            PlayerTradeRequested = null;
+            PropertyTradeDirection = GameFunctions.Direction.nulled;
             _setupComplete = true;
         }
         private void fillLocalDB()

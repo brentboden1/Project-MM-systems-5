@@ -21,33 +21,87 @@ namespace Quicktest
             TestLobby.Player.Add(TestPlayer3);
             DTO.MonopolyEngine.SingleGame TestGame = new DTO.MonopolyEngine.SingleGame(TestLobby);
             TestGame.StartGame();
-            //TestGame.Dice();
+            Console.WriteLine(TestGame.publicState.ActivePlayer.PlayerName);
+            TestGame.Dice();
             foreach (var item in TestGame.publicState.lastDieRoll)
             {
                 Console.WriteLine(item.ToString());	
             }
-            Console.WriteLine(TestGame.publicState.ActiveGamePlayer.ToString());
+            Console.WriteLine(TestGame.publicState.ReturnPlayerByOrder(TestGame.publicState.ActiveGamePlayer).Location.ToString());
+            Console.WriteLine(TestGame.publicState.ActiveTileName);
+            Console.WriteLine(TestGame.publicState.EnableBuy.ToString());
+            if (TestGame.publicState.EnableBuy)
+            {
+                TestGame.BuyActiveTile();
+            }
+            Console.WriteLine(TestGame.publicState.ReturnPlayerByOrder(TestGame.publicState.ActiveGamePlayer).Cash.ToString());
+            foreach (var item in TestGame.publicState.ReturnPlayerByOrder(TestGame.publicState.ActiveGamePlayer).PlayerProperty)
+            {
+                Console.WriteLine(item.ID);
+                Console.WriteLine(TestGame.publicState.LocalCardData[item.ID].Name);
+                //Console.WriteLine(item.Morguage.ToString());
+                //TestGame.MorguageToggle(TestGame.publicState.ActivePlayer, item.ID);
+                //Console.WriteLine(item.Morguage.ToString());
+            }
+            Console.WriteLine(TestGame.publicState.ReturnPlayerByOrder(TestGame.publicState.ActiveGamePlayer).Cash.ToString());
+            
+
+            TestGame.Turnchange();
+            StandardTurn(TestGame);
+            TestGame.Turnchange();
+            StandardTurn(TestGame);
+            TestGame.Turnchange();
+            StandardTurn(TestGame);
+            TestGame.Turnchange();
+            StandardTurn(TestGame);
+            for (int i = 0; i < TestGame.publicState.IsBought.Length; i++)
+            {
+                Console.Write("{0} ::  ",i);
+                Console.WriteLine(TestGame.publicState.IsBought[i].ToString());
+            }
+            //Console.WriteLine(TestGame.publicState.ActivePlayer.PlayerName);
+
+            Console.ReadLine();
+            
+        }
+        public static void showDB(DTO.MonopolyEngine.SingleGame TestGame)
+        {
+            
+            foreach (var item in TestGame.publicState.LocalCardData)
+            {
+                Console.Write(item.BuyCost.ToString());
+                Console.Write("  :  ");
+                Console.Write(item.ID.ToString());
+                Console.Write("  :  ");
+                Console.WriteLine(item.Name);
+            }
+        }
+        public static void StandardTurn(DTO.MonopolyEngine.SingleGame TestGame)
+        {
             Console.WriteLine(TestGame.publicState.ActivePlayer.PlayerName);
-            Console.WriteLine(TestGame.publicState.PlayerList[0].Location.ToString());
-            if (TestGame.ActiveTest(TestHost))
-            {
-                Console.WriteLine("TEST 1 TRUE");
-            }
-            if (!TestGame.ActiveTest(TestPlayer1))
-            {
-                Console.WriteLine("TEST 2 TRUE");
-            }
-            Console.WriteLine(TestGame.publicState.PlayerList[0].Cash.ToString());
-            TestGame.Dice();
             TestGame.Dice();
             foreach (var item in TestGame.publicState.lastDieRoll)
             {
                 Console.WriteLine(item.ToString());
             }
-            Console.WriteLine(TestGame.publicState.PlayerList[0].Location.ToString());
-                
-            Console.ReadLine();   
-            
+            Console.WriteLine(TestGame.publicState.ReturnPlayerByOrder(TestGame.publicState.ActiveGamePlayer).Location.ToString());
+            Console.WriteLine(TestGame.publicState.ActiveTileName);
+            Console.WriteLine(TestGame.publicState.EnableBuy.ToString());
+            if (TestGame.publicState.EnableBuy)
+            {
+                TestGame.BuyActiveTile();
+            }
+            Console.WriteLine(TestGame.publicState.ReturnPlayerByOrder(TestGame.publicState.ActiveGamePlayer).Cash.ToString());
+            foreach (var item in TestGame.publicState.ReturnPlayerByOrder(TestGame.publicState.ActiveGamePlayer).PlayerProperty)
+            {
+                Console.WriteLine(item.ID);
+                Console.WriteLine(TestGame.publicState.LocalCardData[item.ID].Name);
+                //Console.WriteLine(item.Morguage.ToString());
+                //TestGame.MorguageToggle(TestGame.publicState.ActivePlayer, item.ID);
+                //Console.WriteLine(item.Morguage.ToString());
+            }
+            Console.WriteLine(TestGame.publicState.ReturnPlayerByOrder(TestGame.publicState.ActiveGamePlayer).Cash.ToString());
         }
+        
     }
 }

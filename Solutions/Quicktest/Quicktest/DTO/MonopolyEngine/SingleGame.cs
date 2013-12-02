@@ -22,6 +22,7 @@ namespace Quicktest.DTO.MonopolyEngine
             MyPlayers = new List<Player>();
             MyPlayers = activeLobby.Player;
         }
+        //quick function to allow players to join after object creation
         public void UpdatePlayers(PlayerLobby activeLobby)
         {
             if (!Started)
@@ -30,30 +31,57 @@ namespace Quicktest.DTO.MonopolyEngine
             }
 
         }
+        //Needs to be called for proper initialisation of engine, hardlocks players
         public void StartGame()
         {
             _privateState = new GameState(MyPlayers);
             _started = true;
         }
-
+        //Call handles dice throw and immediate unavoidable effects (paying rent, taking cards, jail) Manual Purchase required
         public void Dice()
         {
             GameFunctions.castPlayerDie(publicState.ReturnPlayerByOrder(publicState.ActiveGamePlayer), this);
         }
-
+        //Small check to test if the calling player is active
         public bool ActiveTest(Player testPlayer)
         {
             return GameFunctions.IsActivePlayer(testPlayer, this.publicState);
         }
-
+        //Attempts to buy the tile the active player is occupying, call results in no action if State.Enablebuy == false
         public void BuyActiveTile()
         {
             GameFunctions.BuyPropertyFromBank(this.publicState);
         }
-
+        //1st call enables morguage, second call pays it back bind to same button or different
         public void MorguageToggle(Player P, int ID)
         {
             GameFunctions.ToggleMorguage(P, this.publicState, ID);
+        }
+        //to be called when player ends turn
+        public void Turnchange()
+        {
+            GameFunctions.ChangeActivePlayer(this.publicState);
+        }
+        //Tradepartner = other player :: PropertyId is 0 - 27 byte value in housecarddatabase :: Dir = direction of trade True= In False=Out
+        public void RequestTrade(Player TradePartner, byte PropertyID, bool Dir)
+        {
+            GameFunctions.TradeRequested(this.publicState, TradePartner, PropertyID, Dir);
+        }
+        //Requested Player Accepts Trade (needs clientside check for Publicstate.PlayerTradeRequested)
+        public void AcceptTrade()
+        {
+            GameFunctions.TradeAccepted(this.publicState);
+        }
+        //Requested Player Rejects trade (opposite of AcceptTrade())
+        public void RejectTrade()
+        {
+            GameFunctions.TradeRejected(this.publicState);
+        }
+        //need ID of the property the player wants to build a house on, call results in no action if property is morguage, player doesn't have a full set or house level is already at 5
+        public void BuyHouse(Player P, byte PropertyID)        
+        {
+            GamePlayer gplayer = publicState.ReturnPlayerByBasePlayer(P);
+            GameFunctions.BuyHouse(gplayer, PropertyID);
         }
     }
 }
