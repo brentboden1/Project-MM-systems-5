@@ -8,6 +8,7 @@ namespace LobbyService.Web.DTO.MonopolyEngine
     public class GameFunctions
     {
 
+        #region Enums
         public enum TurnState
         {
             BeginPhase,
@@ -16,7 +17,13 @@ namespace LobbyService.Web.DTO.MonopolyEngine
             WaitPhase,
             EndPhase
         }
-
+        public enum Direction
+        {
+            nulled,
+            indir,
+            outdir
+        }
+        #endregion
         public static void BoardEffect(GamePlayer gplayer, GameState State)
         {
             switch (gplayer.Location)
@@ -24,52 +31,48 @@ namespace LobbyService.Web.DTO.MonopolyEngine
                 case 0:
                     StandardCash(gplayer);
                     State.ActiveTileName = "Start";
+                    State.CurrentPhase = TurnState.WaitPhase;
                     break;
                 case 2:
-                    State.NewCommunal(gplayer);
-                    State.ActiveTileName = "Algemeen Fonds";
-                    break;
                 case 17:
-                    State.NewCommunal(gplayer);
-                    State.ActiveTileName = "Algemeen Fonds";
-                    break;
                 case 33:
                     State.NewCommunal(gplayer);
                     State.ActiveTileName = "Algemeen Fonds";
+                    State.CurrentPhase = TurnState.WaitPhase;
                     break;
                 case 7:
-                    State.NewChance(gplayer);
-                    State.ActiveTileName = "Kans";
-                    break;
                 case 22:
-                    State.NewChance(gplayer);
-                    State.ActiveTileName = "Kans";
-                    break;
                 case 36:
                     State.NewChance(gplayer);
                     State.ActiveTileName = "Kans";
+                    State.CurrentPhase = TurnState.WaitPhase;
                     break;
                 case 10:
                     State.ActiveTileName = "Op Bezoek";
+                    State.CurrentPhase = TurnState.WaitPhase;
                     break;
                 case 20:
                     State.ActiveTileName = "Gratis Parkeren";
+                    State.CurrentPhase = TurnState.WaitPhase;
                     break;
                 case 30:
                     State.ActiveTileName = "Naar Gevangenis";
                     toJail(gplayer);
+                    State.CurrentPhase = TurnState.WaitPhase;
                     break;
                 case 4:
                     State.ActiveTileName = "Inkomsten Belasting";
                     gplayer.Cash -= 4000;
+                    State.CurrentPhase = TurnState.WaitPhase;
                     break;
                 case 38:
                     State.ActiveTileName = "Extra Belastingen";
                     gplayer.Cash -= 2000;
+                    State.CurrentPhase = TurnState.WaitPhase;
                     break;
                 default:
                     int temp = gplayer.Location;
-                    var house = (from h in State.publicDC.HouseCardDatas
+                    var house = (from h in State.LocalCardData
                                  where h.Position == temp
                                  select h).FirstOrDefault();
                     State.ActiveTileName = house.Name;
@@ -80,24 +83,180 @@ namespace LobbyService.Web.DTO.MonopolyEngine
         #region PropertyEffects
         public static void CardEffect(int localID, GameState State, GamePlayer gPlayer)
         {
-            var house = (from h in State.publicDC.HouseCardDatas
+            var house = (from h in State.LocalCardData
                          where h.ID == localID
                          select h).FirstOrDefault();
             if (State.IsBought[localID] == false)
             {
-
+                State.EnableBuy = true;
+                State.CurrentPhase = TurnState.BuyPhase;
             }
             else
             {
-                //payrent
-
+                GamePlayer owner = State.ReturnPlayerByOrder((byte)State.Ownership[localID]);
+                if (owner != gPlayer)
+                {
+                    PayRent(house, gPlayer, owner);
+                }
+                State.CurrentPhase = TurnState.WaitPhase;
             }
         }
-
-        public static void OnPotentialBankruptcy(GamePlayer gPlayer)
+        private static void PayRent(HouseCardData house, GamePlayer payingPlayer, GamePlayer landLord)
         {
+            int cashToPay = 0;
+            int diceout = 0;
+            foreach (var item in payingPlayer.MyState.lastDieRoll)
+            {
+                diceout += item;
+            }
+            OwnedProperty prop = (from h in landLord.PlayerProperty
+                                  where h.ID == house.ID
+                                  select h).FirstOrDefault();
+            if (!prop.Morguage)
+            {
+                switch (house.Type)
+                {
+                    case "Standard":
+                        switch (prop.HouseLevel)
+                        {
+                            case 0:
+                                if (prop.SetLevel == 1)
+                                {
+                                    cashToPay = house.Rent0 * 2;
+                                }
+                                else
+                                {
+                                    cashToPay = house.Rent0;
+                                }
+                                break;
+                            case 1:
+                                cashToPay = house.Rent1;
+                                break;
+                            case 2:
+                                cashToPay = house.Rent2;
+                                break;
+                            case 3:
+                                cashToPay = house.Rent3;
+                                break;
+                            case 4:
+                                cashToPay = house.Rent4;
+                                break;
+                            case 5:
+                                cashToPay = house.Rent5;
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                    case "Station":
+                        switch (prop.SetLevel)
+                        {
+                            case 0:
+                                cashToPay = house.Rent0;
+                                break;
+                            case 1:
+                                cashToPay = house.Rent1;
+                                break;
+                            case 2:
+                                cashToPay = house.Rent2;
+                                break;
+                            case 3:
+                                cashToPay = house.Rent3;
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                    case "NutsVoorziening":
+                        if (prop.SetLevel == 1)
+                        {
+                            cashToPay = house.Rent1 * diceout;
+                        }
+                        else
+                        {
+                            cashToPay = house.Rent0 * diceout;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+            payingPlayer.Cash -= cashToPay;
         }
 
+        private static void SetlevelChange(GamePlayer gPlayer, int ID)
+        {
+            var house = (from h in gPlayer.MyState.LocalCardData
+                         where h.ID == ID
+                         select h).FirstOrDefault();
+            int toCheck = house.Group;
+            byte locallevel = 0;
+            foreach (var item in gPlayer.PlayerProperty)
+            {
+                var Lhouse = (from h in gPlayer.MyState.LocalCardData
+                              where h.ID == item.ID
+                              select h).FirstOrDefault();
+                if (Lhouse.Group == toCheck)
+                {
+                    locallevel++;
+                }
+            }
+            bool updateLevel = false;
+            byte leveltoset = 0;
+            switch (toCheck)
+            {
+                case 1:
+                case 8:
+                case 10:
+                    if (locallevel == 2)
+                    {
+                        updateLevel = true;
+                        leveltoset = 1;
+                    }
+                    break;
+                case 9:
+                    if (locallevel == 2)
+                    {
+                        updateLevel = true;
+                        leveltoset = 1;
+                    }
+                    if (locallevel == 3)
+                    {
+                        updateLevel = true;
+                        leveltoset = 2;
+                    }
+                    if (locallevel == 4)
+                    {
+                        updateLevel = true;
+                        leveltoset = 3;
+                    }
+                    break;
+                default:
+                    if (locallevel == 3)
+                    {
+                        updateLevel = true;
+                        leveltoset = 1;
+                    }
+                    break;
+            }
+            if (updateLevel)
+            {
+                for (int i = 0; i < gPlayer.PlayerProperty.Count; i++)
+                {
+                    OwnedProperty temp = gPlayer.PlayerProperty[i];
+                    var Thouse = (from h in gPlayer.MyState.LocalCardData
+                                  where h.ID == temp.ID
+                                  select h).FirstOrDefault();
+                    if (Thouse.Group == leveltoset)
+                    {
+                        temp.SetLevel = leveltoset;
+                    }
+
+                }
+            }
+
+
+        }
         private static void PropertyOwnershipChange(int propertyID, GameState State, GamePlayer NewOwner, GamePlayer Oldowner = null)
         {
             if (Oldowner == null)
@@ -123,9 +282,69 @@ namespace LobbyService.Web.DTO.MonopolyEngine
                     Oldowner.PlayerProperty.Remove(toRemove);
                 }
             }
+            SetlevelChange(NewOwner, propertyID);
         }
         #endregion
         #region StandardActions
+        public static void ChangeActivePlayer(GameState State)
+        {
+            byte newOrder = 0;
+            if (State.ActiveGamePlayer < State.PlayerList.Count - 1)
+            {
+                newOrder = (byte)(State.ActiveGamePlayer + 1);
+            }
+            GamePlayer playerToChange = State.ReturnPlayerByOrder(newOrder);
+            State.ActiveGamePlayer = playerToChange.OrderNumber;
+            State.ActivePlayer = playerToChange.MyPlayer;
+            State.CurrentPhase = TurnState.BeginPhase;
+            State.TurnNumber++;
+            State.DieCast = false;
+            State.EnableBuy = false;
+            State.PropertyTradeRequested = 0;
+            State.PlayerTradeRequested = null;
+        }
+        public static void TradeRequested(GameState State, Player P, byte propID, bool propdir)
+        {
+            if (State.PlayerTradeRequested == null)
+            {
+                State.CurrentPhase = TurnState.TradePhase;
+                State.PlayerTradeRequested = P;
+                State.PropertyTradeRequested = propID;
+                if (propdir)
+                {
+                    State.PropertyTradeDirection = Direction.indir;
+                }
+                else
+                {
+                    State.PropertyTradeDirection = Direction.outdir;
+                }
+            }
+        }
+
+        public static void startingOutfit(GameState State)
+        {
+            for (int i = 0; i < State.PlayerList.Count; i++)
+            {
+                State.PlayerList[i].Cash = 30000;
+                State.PlayerList[i].IsPlaying = true;
+            }
+        }
+        public static void ToggleMorguage(Player P, GameState State, int ID)
+        {
+            GamePlayer local = State.ReturnPlayerByBasePlayer(P);
+            OwnedProperty mProp = (from h in local.PlayerProperty
+                                   where h.ID == ID
+                                   select h).FirstOrDefault();
+            if (mProp.Morguage)
+            {
+                Morguage(local, ID, true);
+            }
+            else
+            {
+                Morguage(local, ID);
+            }
+        }
+
         public static void StandardCash(GamePlayer gplayer)
         {
             gplayer.Cash += 4000;
@@ -135,9 +354,106 @@ namespace LobbyService.Web.DTO.MonopolyEngine
             updateLocation(gplayer, 10, true);
             gplayer.IsPrison = true;
         }
+        public static void OnPotentialBankruptcy(GamePlayer gPlayer)
+        {
+        }
+        public static bool IsActivePlayer(Player P, GameState State)
+        {
+            bool output = false;
+            if (State.ReturnPlayerByBasePlayer(P).OrderNumber == State.ActiveGamePlayer)
+            {
+                output = true;
+            }
+            return output;
+        }
+        #endregion
+        #region Transactions
+        public static void BuyHouse(GamePlayer gPlayer, byte PropID)
+        {
+            OwnedProperty prop = (from h in gPlayer.PlayerProperty
+                                  where h.ID == PropID
+                                  select h).FirstOrDefault();
+            var house = (from h in gPlayer.MyState.LocalCardData
+                         where h.ID == PropID
+                         select h).FirstOrDefault();
+            if (prop.HouseLevel <= 5 && prop.Morguage == false && prop.SetLevel == 1)
+            {
+                gPlayer.Cash -= house.HouseCost;
+                prop.HouseLevel++;
+            }
+
+        }
+        public static void TradeAccepted(GameState State)
+        {
+            GamePlayer requester = State.ReturnPlayerByOrder(State.ActiveGamePlayer);
+            GamePlayer accepter = State.ReturnPlayerByBasePlayer(State.PlayerTradeRequested);
+            if (State.PropertyTradeDirection == Direction.indir)
+            {
+                PropertyOwnershipChange(State.PropertyTradeRequested, State, requester, accepter);
+            }
+            else
+            {
+                PropertyOwnershipChange(State.PropertyTradeRequested, State, accepter, requester);
+            }
+            State.PlayerTradeRequested = null;
+            State.PropertyTradeRequested = 0;
+            State.PropertyTradeDirection = Direction.nulled;
+            State.CurrentPhase = TurnState.WaitPhase;
+        }
+        public static void TradeRejected(GameState State)
+        {
+            State.PlayerTradeRequested = null;
+            State.PropertyTradeRequested = 0;
+            State.PropertyTradeDirection = Direction.nulled;
+            State.CurrentPhase = TurnState.WaitPhase;
+        }
+        public static void BuyPropertyFromBank(GameState State)
+        {
+            if (State.EnableBuy)
+            {
+                GamePlayer currentActive = State.ReturnPlayerByOrder(State.ActiveGamePlayer);
+                var house = (from h in State.LocalCardData
+                             where h.Position == currentActive.Location
+                             select h).FirstOrDefault();
+                PropertyOwnershipChange(house.ID, State, currentActive);
+                currentActive.Cash -= house.BuyCost;
+                State.CurrentPhase = TurnState.WaitPhase;
+            }
+        }
+        private static void Morguage(GamePlayer Player, int propID, bool undo = false)
+        {
+            HouseCardData thishouse = (from h in Player.MyState.LocalCardData
+                                       where h.ID == propID
+                                       select h).FirstOrDefault();
+
+            OwnedProperty local = (from h in Player.PlayerProperty
+                                   where h.ID == propID
+                                   select h).FirstOrDefault();
+            if (!undo)
+            {
+                if (!local.Morguage)
+                {
+                    int updatedcash = 0;
+                    local.Morguage = true;
+                    updatedcash += local.HouseLevel * thishouse.HouseCost / 2;
+                    local.HouseLevel = 0;
+                    updatedcash += thishouse.BuyCost / 2;
+                    Player.Cash += updatedcash;
+                }
+            }
+            else
+            {
+                Player.Cash -= thishouse.BuyCost / 2;
+                Player.Cash -= thishouse.BuyCost / 20;
+                local.Morguage = false;
+            }
+        }
+
         #endregion
         #region LocationFunctions
         #region publicFunctions
+
+
         public static void updateLocation(GamePlayer P, int value, bool absoluteLocation = false)
         {
             if (!absoluteLocation)
@@ -148,10 +464,12 @@ namespace LobbyService.Web.DTO.MonopolyEngine
             {
                 P.Location = (byte)value;
             }
+            BoardEffect(P, P.MyState);
         }
 
         public static void castPlayerDie(GamePlayer P, SingleGame S)
         {
+
             if (P.MyPlayer.PlayerId == S.publicState.ActivePlayer.PlayerId && S.publicState.DieCast == false)
             {
                 S.publicState.lastDieRoll = DiceRoll();
@@ -163,11 +481,24 @@ namespace LobbyService.Web.DTO.MonopolyEngine
                     {
                         locVal = locVal + value;
                     }
+
                     updateLocation(P, locVal);
                 }
                 else
                 {
                     toJail(P);
+                }
+            }
+        }
+        public static void randomStarterDie(GameState state)
+        {
+            if (!state.SetupComplete)
+            {
+                state.lastDieRoll = DiceRoll();
+                if (state.lastDieRoll == null)
+                {
+                    state.lastDieRoll.Add(3);
+                    state.lastDieRoll.Add(4);
                 }
             }
         }
@@ -223,6 +554,8 @@ namespace LobbyService.Web.DTO.MonopolyEngine
         }
         #endregion
         #endregion
+
+
 
     }
     class dice

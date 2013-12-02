@@ -10,35 +10,45 @@ namespace LobbyService.Web.DTO.MonopolyEngine
     [DataContract]
     public class GameState
     {
+
         #region variables
         private DataClasses1DataContext dc;
-        public DataClasses1DataContext publicDC { get { return dc; } }
-        private int _revisionnumber;
-        //nuttig
-        public int RevisionNumber { get { return _revisionnumber; } }
-        //nuttig
-        public int TurnNumber { get; set; }
-        //nuttig
-        public Player ActivePlayer { get; set; }
-        public byte ActiveGamePlayer { get; set; }
-        //nuttig
-        [DataMember]
-        public List<int> lastDieRoll { get; set; }
+        #region Bools
+        public bool EnableBuy { get; set; }
         public bool DieCast { get; set; }
         private bool _setupComplete = false;
         public bool SetupComplete { get { return _setupComplete; } }
-        //nuttig
-        public GameFunctions.TurnState CurrentPhase { get; set; }
-        private List<GamePlayer> _playerlist;
-        public List<GamePlayer> PlayerList { get { return _playerlist; } }
+        #endregion
+        #region Numbers
         private byte _playernum;
         public byte PlayerNum { get { return _playernum; } }
-        public List<string> ChatLog { get; set; }
-        public string ActiveTileName { get; set; }
+        private int _revisionnumber;
+        public int RevisionNumber { get { return _revisionnumber; } }
+        public int TurnNumber { get; set; }
+        public byte ActiveGamePlayer { get; set; }
+        public byte PropertyTradeRequested { get; set; }
+        public GameFunctions.Direction PropertyTradeDirection { get; set; }
+        #endregion
+        #region Lists
         public bool[] IsBought;
         public Nullable<byte>[] Ownership;
+        private List<HouseCardData> _localcarddata;
+        public List<HouseCardData> LocalCardData { get { return _localcarddata; } }
+        private List<GamePlayer> _playerlist;
+        public List<GamePlayer> PlayerList { get { return _playerlist; } }
+        public List<string> ChatLog { get; set; }
+        public List<int> lastDieRoll { get; set; }
+        #endregion
+        #region generalInfo
+        public GameFunctions.TurnState CurrentPhase { get; set; }
+        public Player ActivePlayer { get; set; }
+        public string ActiveTileName { get; set; }
+        public Player PlayerTradeRequested { get; set; }
+
+        #endregion
         #endregion
         #region functions
+        #region private/constructor
         public GameState(List<Player> Players)
         {
             dc = new DataClasses1DataContext();
@@ -53,13 +63,15 @@ namespace LobbyService.Web.DTO.MonopolyEngine
             _playernum = (byte)PlayerList.Count;
             IsBought = new bool[28];
             Ownership = new Nullable<byte>[28];
+            fillLocalDB();
             setup();
+            GameFunctions.startingOutfit(this);
         }
 
         private void setup()
         {
             _revisionnumber = 0;
-            _setupComplete = true;
+
             for (int i = 0; i < IsBought.Length; i++)
             {
                 IsBought[i] = false;
@@ -70,7 +82,30 @@ namespace LobbyService.Web.DTO.MonopolyEngine
             }
             ActivePlayer = ReturnPlayerByOrder(0).MyPlayer;
             ActiveGamePlayer = 0;
+            GameFunctions.randomStarterDie(this);
+            PropertyTradeRequested = 0;
+            PlayerTradeRequested = null;
+            PropertyTradeDirection = GameFunctions.Direction.nulled;
+            _setupComplete = true;
         }
+        private void fillLocalDB()
+        {
+            _localcarddata = new List<HouseCardData>();
+            var house = (from h in dc.HouseCardDatas
+                         select h);
+            foreach (var item in house)
+            {
+                _localcarddata.Add(item);
+            }
+        }
+        private void Update()
+        {
+            _revisionnumber++;
+
+        }
+        #endregion
+        #region publicMethods
+        #region GetInfo
         public GamePlayer ReturnPlayerByOrder(byte order)
         {
             GamePlayer outputplayer = null;
@@ -95,24 +130,6 @@ namespace LobbyService.Web.DTO.MonopolyEngine
             }
             return outputplayer;
         }
-        public void GiveRandomLocationTest()
-        {
-            Random r = new Random();
-            for (int i = 0; i < PlayerList.Count; i++)
-            {
-                PlayerList[i].Location = (byte)r.Next(1,39);
-            }
-        }
-        public void NewCommunal(GamePlayer gplayer)
-        {
-
-        }
-
-        public void NewChance(GamePlayer gplayer)
-        {
-
-        }
-
         public Player checkPropertyOwner(int ID)
         {
             Player p = null;
@@ -130,18 +147,29 @@ namespace LobbyService.Web.DTO.MonopolyEngine
             }
             return p;
         }
-
-        public void Update()
+        #endregion
+        #region GameEffect
+        public void NewCommunal(GamePlayer gplayer)
         {
-            _revisionnumber++;
 
         }
+
+        public void NewChance(GamePlayer gplayer)
+        {
+
+        }
+
+
+
+
 
         public override string ToString()
         {
             return base.ToString();
         }
-
-    }
         #endregion
+        #endregion
+        #endregion
+    }
+        
 }

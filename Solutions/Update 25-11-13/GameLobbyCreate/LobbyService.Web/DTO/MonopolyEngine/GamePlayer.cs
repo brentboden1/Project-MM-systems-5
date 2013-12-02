@@ -33,7 +33,19 @@ namespace LobbyService.Web.DTO.MonopolyEngine
         public bool IsActive { get; set; }
         public bool IsEscapePrison { get; set; }
         public bool IsPlaying { get; set; }
-        public int Cash { get; set; }
+        private int _cash;
+        public int Cash
+        {
+            get { return _cash; }
+            set
+            {
+                if (value < 0)
+                {
+                    GameFunctions.OnPotentialBankruptcy(this);
+                }
+                _cash = value;
+            }
+        }
         public List<OwnedProperty> PlayerProperty { get; set; }
         public GamePlayer(Player P, byte order, GameState State)
         {
@@ -41,6 +53,7 @@ namespace LobbyService.Web.DTO.MonopolyEngine
             PlayerProperty = new List<OwnedProperty>();
             _myplayer = P;
             _ordernumber = order;
+            _location = 0;
 
         }
     }
