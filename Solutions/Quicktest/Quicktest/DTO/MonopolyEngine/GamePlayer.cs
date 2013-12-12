@@ -28,10 +28,12 @@ namespace Quicktest.DTO.MonopolyEngine
                 _location = value;
             }
         }
+        public byte PrisonTime { get; set; }
         public bool IsPrison { get; set; }
-        public bool IsActive { get; set; }
-        public bool IsEscapePrison { get; set; }
+        public bool IsActive { get; set; }        
         public bool IsPlaying { get; set; }
+        public bool HasEscapePrisonCh { get; set; }
+        public bool HasEscapePrisonCo { get; set; }
         private int _cash;
         public int Cash
         {
@@ -42,6 +44,7 @@ namespace Quicktest.DTO.MonopolyEngine
                 {
                     GameFunctions.OnPotentialBankruptcy(this);
                 }
+                //GameFunctions.updateLogCash(_cash, value, this);
                 _cash = value;
             }
         }
@@ -53,7 +56,10 @@ namespace Quicktest.DTO.MonopolyEngine
             _myplayer = P;
             _ordernumber = order;
             _location = 0;
-
+            PrisonTime = 0;
+            IsPrison = false;
+            HasEscapePrisonCh = false;
+            HasEscapePrisonCo = false;
         }
     }
 }

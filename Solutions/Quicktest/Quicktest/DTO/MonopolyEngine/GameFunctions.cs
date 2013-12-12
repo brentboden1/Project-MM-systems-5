@@ -8,7 +8,6 @@ namespace Quicktest.DTO.MonopolyEngine
 {
     public class GameFunctions
     {
-
         #region Enums
         public enum TurnState
         {
@@ -32,6 +31,7 @@ namespace Quicktest.DTO.MonopolyEngine
                 case 0:
                     StandardCash(gplayer);
                     State.ActiveTileName = "Start";
+                    State.EventNotification = gplayer.MyPlayer.PlayerName + " is op " + State.ActiveTileName + " geland";
                     State.CurrentPhase = TurnState.WaitPhase;
                     break;
                 case 2:
@@ -39,6 +39,7 @@ namespace Quicktest.DTO.MonopolyEngine
                 case 33:
                     State.NewCommunal(gplayer);
                     State.ActiveTileName = "Algemeen Fonds";
+                    State.EventNotification = gplayer.MyPlayer.PlayerName + " is op " + State.ActiveTileName + " geland";
                     State.CurrentPhase = TurnState.WaitPhase;
                     break;
                 case 7:
@@ -46,29 +47,35 @@ namespace Quicktest.DTO.MonopolyEngine
                 case 36:
                     State.NewChance(gplayer);
                     State.ActiveTileName = "Kans";
+                    State.EventNotification = gplayer.MyPlayer.PlayerName + " is op " + State.ActiveTileName + " geland";
                     State.CurrentPhase = TurnState.WaitPhase;
                     break;
                 case 10:
                     State.ActiveTileName = "Op Bezoek";
+                    State.EventNotification = gplayer.MyPlayer.PlayerName + " is op " + State.ActiveTileName + " geland";
                     State.CurrentPhase = TurnState.WaitPhase;
                     break;
                 case 20:
                     State.ActiveTileName = "Gratis Parkeren";
+                    State.EventNotification = gplayer.MyPlayer.PlayerName + " is op " + State.ActiveTileName + " geland";
                     State.CurrentPhase = TurnState.WaitPhase;
                     break;
                 case 30:
                     State.ActiveTileName = "Naar Gevangenis";
+                    State.EventNotification = gplayer.MyPlayer.PlayerName + " is op " + State.ActiveTileName + " geland";
                     toJail(gplayer);
                     State.CurrentPhase = TurnState.WaitPhase;
                     break;
                 case 4:
                     State.ActiveTileName = "Inkomsten Belasting";
-                    gplayer.Cash -= 4000;
+                    State.EventNotification = gplayer.MyPlayer.PlayerName + " is op " + State.ActiveTileName + " geland";
+                    PayBank(gplayer, 4000);                    
                     State.CurrentPhase = TurnState.WaitPhase;
                     break;
                 case 38:
                     State.ActiveTileName = "Extra Belastingen";
-                    gplayer.Cash -= 2000;
+                    State.EventNotification = gplayer.MyPlayer.PlayerName + " is op " + State.ActiveTileName + " geland";
+                    PayBank(gplayer, 2000);                    
                     State.CurrentPhase = TurnState.WaitPhase;
                     break;
                 default:
@@ -77,9 +84,11 @@ namespace Quicktest.DTO.MonopolyEngine
                                  where h.Position == temp
                                  select h).FirstOrDefault();
                     State.ActiveTileName = house.Name;
+                    State.EventNotification = gplayer.MyPlayer.PlayerName + " is op " + State.ActiveTileName + " geland";
                     CardEffect(house.ID, State, gplayer);
                     break;
             }
+            
         }
         #region PropertyEffects
         public static void CardEffect(int localID, GameState State, GamePlayer gPlayer)
@@ -183,6 +192,8 @@ namespace Quicktest.DTO.MonopolyEngine
                 }
             }
             payingPlayer.Cash -= cashToPay;
+            payingPlayer.MyState.EventNotification = payingPlayer.MyPlayer.PlayerName + " betaalt " + cashToPay.ToString() +
+                " huur aan " + landLord.MyPlayer.PlayerName;
         }
 
         private static void SetlevelChange(GamePlayer gPlayer, int ID)
@@ -265,6 +276,8 @@ namespace Quicktest.DTO.MonopolyEngine
                 State.IsBought[propertyID] = true;
                 State.Ownership[propertyID] = NewOwner.OrderNumber;
                 NewOwner.PlayerProperty.Add(new OwnedProperty(propertyID));
+                //State.EventNotification = NewOwner.MyPlayer.PlayerName + " koopt " + State.LocalCardData[propertyID].Name 
+                   // + " van de bank";
             }
             else
             {
@@ -287,38 +300,90 @@ namespace Quicktest.DTO.MonopolyEngine
         }
         #endregion
         #region StandardActions
+        
+
+        public static void updateLogCash(int initialVal, int newVal, GamePlayer gPlayer)
+        {
+            if (initialVal < newVal)
+            {
+                int temp = newVal - initialVal;
+                gPlayer.MyState.EventNotification = gPlayer.MyPlayer.PlayerName + " verdient " + temp.ToString();
+            }
+            else if (initialVal > newVal)
+            {
+                int temp = initialVal - newVal;
+                gPlayer.MyState.EventNotification = gPlayer.MyPlayer.PlayerName + " verliest " + temp.ToString();
+            }
+        }
+
         public static void ChangeActivePlayer(GameState State)
         {
-            byte newOrder = 0;
-            if (State.ActiveGamePlayer < State.PlayerList.Count-1)
+            if (State.CurrentPhase != TurnState.EndPhase)
             {
-                newOrder =(byte)(State.ActiveGamePlayer +1);
+                bool isGameFinished = false;
+                GamePlayer GameOverTest = State.ReturnPlayerByOrder(State.ActiveGamePlayer);
+                if (GameOverTest.Cash < 0)
+                {
+                    RemovePlayerFromGame(GameOverTest);
+                }
+                bool validPlayer = false;
+                byte newOrder = 0;
+                GamePlayer playerToChange;
+                while (!validPlayer)
+                {
+                    newOrder = 0;
+                    if (State.ActiveGamePlayer < State.PlayerList.Count - 1)
+                    {
+                        newOrder = (byte)(State.ActiveGamePlayer + 1);
+                    }
+                    //State.ActiveGamePlayer = newOrder;
+                    GamePlayer temp = State.ReturnPlayerByOrder(newOrder);
+                    if (temp.IsPlaying)
+                    {
+                        validPlayer = true;
+                    }
+                }
+                playerToChange = State.ReturnPlayerByOrder(newOrder);
+                if (playerToChange.OrderNumber == State.ActiveGamePlayer)
+                {
+                    isGameFinished = true;
+                }
+                State.ActiveGamePlayer = playerToChange.OrderNumber;
+                State.ActivePlayer = playerToChange.MyPlayer;
+                State.CurrentPhase = TurnState.BeginPhase;
+                State.TurnNumber++;
+                State.DieCast = false;
+                State.EnableBuy = false;
+                State.PropertyTradeRequested = 0;
+                State.PlayerTradeRequested = null;
+                if (playerToChange.PrisonTime >= 3)
+                {
+                    PrisonRelease(playerToChange);
+                }
+                State.EventNotification = playerToChange.MyPlayer.PlayerName + " is aan de beurt";
+                if (isGameFinished)
+                {
+                    GameFinished(State);
+                }
             }
-            GamePlayer playerToChange = State.ReturnPlayerByOrder(newOrder);
-            State.ActiveGamePlayer = playerToChange.OrderNumber;
-            State.ActivePlayer = playerToChange.MyPlayer;
-            State.CurrentPhase = TurnState.BeginPhase;
-            State.TurnNumber++;
-            State.DieCast = false;
-            State.EnableBuy = false;
-            State.PropertyTradeRequested = 0;
-            State.PlayerTradeRequested = null;
         }
-        public static void TradeRequested(GameState State, Player P, byte propID, bool propdir)
+        public static void TradeRequested(GameState State, Player P, byte propID, bool propdir, int tvalue)
         {
-            if (State.PlayerTradeRequested == null)
+            if (State.PlayerTradeRequested == null && State.CurrentPhase != TurnState.TradePhase)
             {
                 State.CurrentPhase = TurnState.TradePhase;
                 State.PlayerTradeRequested = P;
                 State.PropertyTradeRequested = propID;
+                State.PropertyTradeValue = tvalue;
                 if (propdir)
                 {
-                    State.PropertyTradeDirection = Direction.indir;
+                    State.PropertyTradeDirection = Direction.indir;                    
                 }
                 else
                 {
                     State.PropertyTradeDirection = Direction.outdir;
                 }
+                State.EventNotification = State.ReturnPlayerByOrder(State.ActiveGamePlayer).MyPlayer.PlayerName + " wilt handelen met " + P.PlayerName + " over " + State.LocalCardData[propID].Name +" voor "+ tvalue.ToString(); 
             }
         }
         
@@ -328,6 +393,7 @@ namespace Quicktest.DTO.MonopolyEngine
             {
                 State.PlayerList[i].Cash = 30000;
                 State.PlayerList[i].IsPlaying = true;
+                State.PlayerList[i].IsActive = true;
             }
         }
         public static void ToggleMorguage(Player P, GameState State, int ID)
@@ -339,10 +405,12 @@ namespace Quicktest.DTO.MonopolyEngine
             if (mProp.Morguage)
             {
                 Morguage(local, ID, true);
+                State.EventNotification = P.PlayerName + " zet " + State.LocalCardData[ID].Name + " in hypoteek";
             }
             else
             {
                 Morguage(local, ID);
+                State.EventNotification = P.PlayerName + " betaalt de hypoteek op " + State.LocalCardData[ID].Name;
             }
         }
 
@@ -354,9 +422,33 @@ namespace Quicktest.DTO.MonopolyEngine
         {
             updateLocation(gplayer, 10, true);
             gplayer.IsPrison = true;
+            gplayer.PrisonTime = 1;
+            gplayer.MyState.EventNotification = gplayer.MyPlayer.PlayerName + " gaat naar de gevangenis";
+        }
+        public static void PrisonRelease(GamePlayer gplayer, bool payed = true)
+        {
+            gplayer.IsPrison = false;
+            gplayer.PrisonTime = 0;
+            if (payed)
+            {
+                gplayer.Cash -= 2000;
+            }
+            else 
+            {
+                if (gplayer.HasEscapePrisonCh)
+                {
+                    ReturnEscapeJail(gplayer, 1);
+                }
+                else if (gplayer.HasEscapePrisonCo)
+                {
+                    ReturnEscapeJail(gplayer, 2);
+                }
+            }
+            gplayer.MyState.EventNotification = gplayer.MyPlayer.PlayerName + " verlaat de gevangenis";
         }
         public static void OnPotentialBankruptcy(GamePlayer gPlayer)
-        {
+        {            
+            //currently unused, useful for future expansion            
         }
         public static bool IsActivePlayer(Player P, GameState State)
         {
@@ -369,6 +461,30 @@ namespace Quicktest.DTO.MonopolyEngine
         }
         #endregion
         #region Transactions
+        private static void PayBank(GamePlayer gPlayer, int amount)
+        {
+            gPlayer.Cash -= amount;
+            gPlayer.MyState.EventNotification = gPlayer.MyPlayer.PlayerName + " betaalt " + amount.ToString() + " aan de bank";
+        }
+
+        private static void ReturnPropertyToBank(GamePlayer gPlayer, int PropId)
+        {
+            gPlayer.MyState.IsBought[PropId] = false;
+            gPlayer.MyState.Ownership[PropId] = null;
+            OwnedProperty toRemove = null;
+            for (int i = 0; i < gPlayer.PlayerProperty.Count; i++)
+            {
+                if (gPlayer.PlayerProperty[i].ID == PropId)
+                {
+                    toRemove = gPlayer.PlayerProperty[i];
+                }
+            }
+            if (toRemove != null)
+            {
+                gPlayer.PlayerProperty.Remove(toRemove);
+            }
+
+        }
         public static void BuyHouse(GamePlayer gPlayer, byte PropID)
         {            
             OwnedProperty prop = (from h in gPlayer.PlayerProperty
@@ -377,12 +493,12 @@ namespace Quicktest.DTO.MonopolyEngine
             var house = (from h in gPlayer.MyState.LocalCardData
                                  where h.ID == PropID
                                  select h).FirstOrDefault();            
-            if (prop.HouseLevel <= 5 && prop.Morguage == false && prop.SetLevel == 1)
+            if (prop.HouseLevel <= 5 && prop.Morguage == false && prop.SetLevel == 1 && house.Type == "Standard")
             {
                 gPlayer.Cash -= house.HouseCost;
                 prop.HouseLevel++;
             }
-
+            gPlayer.MyState.EventNotification = gPlayer.MyPlayer.PlayerName + " koopt een huis op " + gPlayer.MyState.LocalCardData[PropID].Name;
         }
         public static void TradeAccepted(GameState State)
         {
@@ -391,15 +507,22 @@ namespace Quicktest.DTO.MonopolyEngine
             if (State.PropertyTradeDirection == Direction.indir)
             {
                 PropertyOwnershipChange(State.PropertyTradeRequested, State, requester, accepter);
+                requester.Cash -= State.PropertyTradeValue;
+                accepter.Cash += State.PropertyTradeValue;
             }
             else
             {
                 PropertyOwnershipChange(State.PropertyTradeRequested, State, accepter, requester);
+                accepter.Cash -= State.PropertyTradeValue;
+                requester.Cash += State.PropertyTradeValue;
             }
+            State.EventNotification = requester.MyPlayer.PlayerName + " verhandelt " + State.LocalCardData[State.PropertyTradeRequested].Name + " met " + accepter.MyPlayer.PlayerName;
             State.PlayerTradeRequested = null;
             State.PropertyTradeRequested = 0;
             State.PropertyTradeDirection = Direction.nulled;
             State.CurrentPhase = TurnState.WaitPhase;
+            State.PropertyTradeValue = 0;
+            
         }
         public static void TradeRejected(GameState State)
         {
@@ -407,6 +530,8 @@ namespace Quicktest.DTO.MonopolyEngine
             State.PropertyTradeRequested = 0;
             State.PropertyTradeDirection = Direction.nulled;
             State.CurrentPhase = TurnState.WaitPhase;
+            State.PropertyTradeValue = 0;
+            State.EventNotification = State.ReturnPlayerByOrder(State.ActiveGamePlayer).MyPlayer.PlayerName + " weigert te handelen met " + State.ReturnPlayerByBasePlayer(State.PlayerTradeRequested).MyPlayer.PlayerName;
         }
         public static void BuyPropertyFromBank(GameState State)
         {
@@ -416,9 +541,11 @@ namespace Quicktest.DTO.MonopolyEngine
                 var house = (from h in State.LocalCardData
                              where h.Position == currentActive.Location
                              select h).FirstOrDefault();
+                State.EventNotification = currentActive.MyPlayer.PlayerName + " koopt " + house.Name
+                    + " van de bank voor " + house.BuyCost.ToString();
                 PropertyOwnershipChange(house.ID, State, currentActive);                
                 currentActive.Cash -= house.BuyCost;
-                State.CurrentPhase = TurnState.WaitPhase;
+                State.CurrentPhase = TurnState.WaitPhase;                
             }
         }
         private static void Morguage(GamePlayer Player, int propID, bool undo = false)
@@ -451,9 +578,177 @@ namespace Quicktest.DTO.MonopolyEngine
         }
 
         #endregion
+        #region EventCardFunctions
+        private static void ReturnEscapeJail(GamePlayer gPlayer, byte type)
+        {
+            switch (type)
+            {
+                case 0:
+                    if (gPlayer.HasEscapePrisonCh)
+                        gPlayer.MyState.ModifyPrisonCard(true, true);
+                    if (gPlayer.HasEscapePrisonCo)
+                        gPlayer.MyState.ModifyPrisonCard(false, true);
+                    gPlayer.HasEscapePrisonCh = false;
+                    gPlayer.HasEscapePrisonCo = false;    
+                    
+                    break;
+                case 1:
+                    if (gPlayer.HasEscapePrisonCh)
+                        gPlayer.MyState.ModifyPrisonCard(true, true);
+                    gPlayer.HasEscapePrisonCh = false;
+                    
+                    break;
+                case 2:
+                    if (gPlayer.HasEscapePrisonCo)
+                        gPlayer.MyState.ModifyPrisonCard(false, true);
+                    gPlayer.HasEscapePrisonCo = false;
+                    
+                    break;
+                default:
+                    break;
+            }
+        }
+        public static void HandleCardEvent(GamePlayer gPlayer, EventCardData Card)
+        {            
+            if (Card.IsPrison)
+            {
+                toJail(gPlayer);
+            }
+            else if (Card.IsEscapePrison)
+            {
+                if (Card.Type == "kans")
+                {
+                    gPlayer.HasEscapePrisonCh = true;
+                    gPlayer.MyState.ModifyPrisonCard(true, false);
+                }
+                else
+                {
+                    gPlayer.HasEscapePrisonCo = true;
+                    gPlayer.MyState.ModifyPrisonCard(false, false);
+                }
+            }
+            else if (Card.IsLocationChangeBW)
+            {
+                if (Card.SoftLocation > 0)
+                {
+                    gPlayer.Location -= (byte)Card.SoftLocation;
+                    BoardEffect(gPlayer, gPlayer.MyState);
+                }
+                else
+                {
+                    updateLocation(gPlayer, (int)Card.HardLocation, true);
+
+                }
+            }
+            else if (Card.IsLocationChangeFW)
+            {
+                if (Card.SoftLocation > 0)
+                {
+                    updateLocation(gPlayer, (int)Card.SoftLocation);
+                }
+                else
+                {
+                    if (gPlayer.Location > (int)Card.HardLocation)
+                    {
+                        int temp = (39 - gPlayer.Location) + (int)Card.HardLocation;
+                        updateLocation(gPlayer, temp);
+                    }
+                    else
+                    {
+                        updateLocation(gPlayer, (int)Card.HardLocation, true);
+                    }
+                }
+            }
+            else if (Card.IsChanceChoice)
+            {
+                gPlayer.MyState.ChanceChoice = true;
+            }
+            else if (Card.CashChange != 0)
+            {
+                if (Card.IsGlobal)
+                {
+                    foreach (var item in gPlayer.MyState.PlayerList)
+                    {
+                        item.Cash -= Card.CashChange;
+                        gPlayer.Cash += Card.CashChange;
+                    }
+                }
+                else if (Card.IsPayHouse)
+                {
+                    int temp = 0;
+                    foreach (var item in gPlayer.PlayerProperty)
+                    {
+                        temp += item.HouseLevel;
+                    }
+                    gPlayer.Cash -= temp * Card.CashChange;
+                }
+                else
+                {
+                    gPlayer.Cash += Card.CashChange;
+                }
+            }
+            
+        }
+        public static void CardChoiceChance(bool choiceTaken, GamePlayer gPlayer)
+        {
+            if (gPlayer.MyState.ChanceChoice)
+            {
+                if (choiceTaken)
+                {
+                gPlayer.MyState.NewChance(gPlayer);
+                }
+                else
+                {
+                gPlayer.Cash += gPlayer.MyState.ActiveEventCard.CashChange;
+                }
+            gPlayer.MyState.ChanceChoice = false;
+            }
+        }
+        #endregion
+        #region GameOverFunctions
+        private static void RemovePlayerFromGame(GamePlayer gPlayer)
+        {
+            gPlayer.MyState.EventNotification = gPlayer.MyPlayer.PlayerName + " is bankroet";
+            gPlayer.IsPlaying = false;
+            List<int> temp = new List<int>();
+            foreach (var item in gPlayer.PlayerProperty)
+            {
+                temp.Add(item.ID);
+                
+            }
+            foreach (var item in temp)
+	        {
+                ReturnPropertyToBank(gPlayer, item);		 
+	        }
+            ReturnEscapeJail(gPlayer, 0);
+            gPlayer.IsPrison = false;
+            gPlayer.PrisonTime = 0;
+            gPlayer.Location = 10;
+            gPlayer.Cash = 0;
+
+            
+        }
+        public static void GameFinished(GameState State)
+        {
+            for (int i = 0; i < State.PlayerList.Count; i++)
+            {
+                State.PlayerList[i].IsPlaying = false;                
+            }
+            State.CurrentPhase = TurnState.EndPhase;
+            State.EventNotification = "Het spel is beeindigt " + State.ActivePlayer.PlayerName + " heeft gewonnen";
+        }
+
+        public static void LeaveGame(GamePlayer gPlayer)
+        {
+            gPlayer.IsActive = false;
+            RemovePlayerFromGame(gPlayer);
+            gPlayer.MyState.EventNotification = gPlayer.MyPlayer.PlayerName + " geeft op en verlaat het spel";
+        }
+
+        #endregion 
         #region LocationFunctions
         #region publicFunctions
-        
+
 
         public static void updateLocation(GamePlayer P, int value, bool absoluteLocation = false)
         {
@@ -465,29 +760,56 @@ namespace Quicktest.DTO.MonopolyEngine
             {
                 P.Location = (byte)value;
             }
-            BoardEffect(P, P.MyState);
+            BoardEffect(P, P.MyState);            
         }
 
         public static void castPlayerDie(GamePlayer P, SingleGame S)
         {
-
-            if (P.MyPlayer.PlayerId == S.publicState.ActivePlayer.PlayerId && S.publicState.DieCast == false)
+            if (S.publicState.CurrentPhase != TurnState.EndPhase)
             {
-                S.publicState.lastDieRoll = DiceRoll();
-                S.publicState.DieCast = true;
-                int locVal = 0;
-                if (S.publicState.lastDieRoll != null)
+                if (P.MyPlayer.PlayerId == S.publicState.ActivePlayer.PlayerId && S.publicState.DieCast == false)
                 {
-                    foreach (int value in S.publicState.lastDieRoll)
+                    S.publicState.lastDieRoll = DiceRoll();
+                    S.publicState.DieCast = true;
+                    int locVal = 0;
+                    if (P.IsPrison)
                     {
-                        locVal = locVal + value;
+                        if (S.publicState.lastDieRoll == null)
+                        {
+                            toJail(P);
+                        }
+                        else if (S.publicState.lastDieRoll[0] == S.publicState.lastDieRoll[1])
+                        {
+                            foreach (int value in S.publicState.lastDieRoll)
+                            {
+                                locVal = locVal + value;
+                            }
+
+                            updateLocation(P, locVal);
+                        }
+                        else
+                        {
+                            P.PrisonTime++;
+                        }
+
+                    }
+                    else
+                    {
+                        if (S.publicState.lastDieRoll != null)
+                        {
+                            foreach (int value in S.publicState.lastDieRoll)
+                            {
+                                locVal = locVal + value;
+                            }
+
+                            updateLocation(P, locVal);
+                        }
+                        else
+                        {
+                            toJail(P);
+                        }
                     }
 
-                    updateLocation(P, locVal);
-                }
-                else
-                {
-                    toJail(P);
                 }
             }
         }
@@ -559,6 +881,7 @@ namespace Quicktest.DTO.MonopolyEngine
         
 
     }
+    #region HelperClasses
     class dice
     {
         static Random r = new Random();
@@ -576,4 +899,21 @@ namespace Quicktest.DTO.MonopolyEngine
             _value = (byte)r.Next(1, dnumber + 1);
         }
     }
+    static class MyExtensions
+    {
+        public static void Shuffle<T>(this IList<T> list)
+        {
+            Random rng = new Random();
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                T value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
+        }
+    }
+    #endregion 
 }

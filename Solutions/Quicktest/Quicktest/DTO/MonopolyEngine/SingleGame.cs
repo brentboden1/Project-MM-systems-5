@@ -16,11 +16,11 @@ namespace Quicktest.DTO.MonopolyEngine
         public GameState publicState { get { return _privateState; } }
 
 
-        public SingleGame(PlayerLobby activeLobby)
+        public SingleGame()
         {
             _started = false;
             MyPlayers = new List<Player>();
-            MyPlayers = activeLobby.Player;
+            //MyPlayers = activeLobby.Player;
         }
         //quick function to allow players to join after object creation
         public void UpdatePlayers(PlayerLobby activeLobby)
@@ -47,7 +47,7 @@ namespace Quicktest.DTO.MonopolyEngine
         {
             return GameFunctions.IsActivePlayer(testPlayer, this.publicState);
         }
-        //Attempts to buy the tile the active player is occupying, call results in no action if State.Enablebuy == false
+        //Attempts to buy the tile the active player is occupying, call results in no action if GameState.Enablebuy == false
         public void BuyActiveTile()
         {
             GameFunctions.BuyPropertyFromBank(this.publicState);
@@ -62,10 +62,10 @@ namespace Quicktest.DTO.MonopolyEngine
         {
             GameFunctions.ChangeActivePlayer(this.publicState);
         }
-        //Tradepartner = other player :: PropertyId is 0 - 27 byte value in housecarddatabase :: Dir = direction of trade True= In False=Out
-        public void RequestTrade(Player TradePartner, byte PropertyID, bool Dir)
+        //Tradepartner = other player :: PropertyId is 0 - 27 byte value in housecarddatabase :: Dir = direction of trade True= In False=Out :: Amount is how much is requested
+        public void RequestTrade(Player TradePartner, byte PropertyID, bool Dir,int Amount)
         {
-            GameFunctions.TradeRequested(this.publicState, TradePartner, PropertyID, Dir);
+            GameFunctions.TradeRequested(this.publicState, TradePartner, PropertyID, Dir, Amount);
         }
         //Requested Player Accepts Trade (needs clientside check for Publicstate.PlayerTradeRequested)
         public void AcceptTrade()
@@ -82,6 +82,21 @@ namespace Quicktest.DTO.MonopolyEngine
         {
             GamePlayer gplayer = publicState.ReturnPlayerByBasePlayer(P);
             GameFunctions.BuyHouse(gplayer, PropertyID);
+        }
+        //Player escapes prison manually, needs button prompt. Bool equals false if player has escape from jail card
+        public void EscapePrison(Player P,bool payed = true)
+        {
+            GameFunctions.PrisonRelease(publicState.ReturnPlayerByBasePlayer(P),payed);
+        }
+        //Player draws a communal card with the choice between payment and picking a chance card: True equals chance chosen only if GameState.ChanceChoice is true
+        public void ChanceCardChoice(bool choice, Player P)
+        {
+            GameFunctions.CardChoiceChance(choice, publicState.ReturnPlayerByBasePlayer(P));
+        }
+        //Player leaves the game
+        public void Quit(Player P)
+        {
+            GameFunctions.LeaveGame(publicState.ReturnPlayerByBasePlayer(P));
         }
     }
 }

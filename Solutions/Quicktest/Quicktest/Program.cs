@@ -19,7 +19,8 @@ namespace Quicktest
             TestLobby.Player.Add(TestPlayer1);
             TestLobby.Player.Add(TestPlayer2);
             TestLobby.Player.Add(TestPlayer3);
-            DTO.MonopolyEngine.SingleGame TestGame = new DTO.MonopolyEngine.SingleGame(TestLobby);
+            DTO.MonopolyEngine.SingleGame TestGame = new DTO.MonopolyEngine.SingleGame();
+            TestGame.UpdatePlayers(TestLobby);
             TestGame.StartGame();
             Console.WriteLine(TestGame.publicState.ActivePlayer.PlayerName);
             TestGame.Dice();
@@ -54,10 +55,65 @@ namespace Quicktest
             StandardTurn(TestGame);
             TestGame.Turnchange();
             StandardTurn(TestGame);
-            for (int i = 0; i < TestGame.publicState.IsBought.Length; i++)
+            //int t = 0;
+            //while (t < 40)
+            //{
+            //    TestGame.Turnchange();
+            //    StandardTurn(TestGame);
+            //    t++;
+            //}
+            DTO.MonopolyEngine.GamePlayer temp = TestGame.publicState.ReturnPlayerByOrder(TestGame.publicState.ActiveGamePlayer);
+            if (temp.PlayerProperty.Count > 0)
             {
-                Console.Write("{0} ::  ",i);
-                Console.WriteLine(TestGame.publicState.IsBought[i].ToString());
+                TestGame.RequestTrade(TestLobby.Player[1], (byte)temp.PlayerProperty[0].ID, false, 5000);
+                Console.WriteLine(TestGame.publicState.PropertyTradeRequested.ToString());
+                TestGame.AcceptTrade();
+                Console.WriteLine(TestGame.publicState.PropertyTradeRequested.ToString());
+                Console.Write(temp.MyPlayer.PlayerName);
+                Console.Write(" : ");
+                Console.WriteLine(temp.Cash.ToString());
+                foreach (var item in temp.PlayerProperty)
+                {
+                    foreach (var item2 in temp.MyState.LocalCardData)
+                    {
+                        if (item.ID == item2.ID)
+                        {
+                            Console.WriteLine(item2.Name);
+                        }
+                    }
+                }
+
+                DTO.MonopolyEngine.GamePlayer temp2 = temp.MyState.ReturnPlayerByBasePlayer(TestLobby.Player[1]);
+                Console.Write(temp2.MyPlayer.PlayerName);
+                Console.Write(" : ");
+                Console.WriteLine(temp2.Cash.ToString());
+                foreach (var item in temp2.PlayerProperty)
+                {
+                    foreach (var item2 in temp.MyState.LocalCardData)
+                    {
+                        if (item.ID == item2.ID)
+                        {
+                            Console.WriteLine(item2.Name);
+                        }
+                    }
+                }
+            }
+
+            TestGame.Quit(TestGame.publicState.ActivePlayer);
+            TestGame.Turnchange();
+            //foreach (var item in TestGame.publicState.PlayerList)
+            //{
+            //    Console.WriteLine(item.Cash.ToString());
+            //}
+
+            //for (int i = 0; i < TestGame.publicState.IsBought.Length; i++)
+            //{
+            //    Console.Write("{0} ::  ",i);
+            //    Console.WriteLine(TestGame.publicState.IsBought[i].ToString());
+            //}
+            foreach (var item in TestGame.publicState.Notificationlog)
+            {
+                Console.WriteLine(item);
             }
             //Console.WriteLine(TestGame.publicState.ActivePlayer.PlayerName);
 
@@ -80,9 +136,16 @@ namespace Quicktest
         {
             Console.WriteLine(TestGame.publicState.ActivePlayer.PlayerName);
             TestGame.Dice();
-            foreach (var item in TestGame.publicState.lastDieRoll)
+            if (TestGame.publicState.lastDieRoll != null)
             {
-                Console.WriteLine(item.ToString());
+                foreach (var item in TestGame.publicState.lastDieRoll)
+                {
+                    Console.WriteLine(item.ToString());
+                }
+            }
+            else
+            {
+                Console.WriteLine("tojail");
             }
             Console.WriteLine(TestGame.publicState.ReturnPlayerByOrder(TestGame.publicState.ActiveGamePlayer).Location.ToString());
             Console.WriteLine(TestGame.publicState.ActiveTileName);
