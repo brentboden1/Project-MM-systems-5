@@ -597,7 +597,8 @@ namespace LobbyService.Web
                 if(p.MyPlayer.PlayerId == me.PlayerId)
                 {
                     state.ActivePlayer.Cash = p.Cash;
-                    state.ActivePlayer.HasEscapePrison = p.HasEscapePrison;
+                    state.ActivePlayer.HasEscapePrisonCh = p.HasEscapePrisonCh;
+                    state.ActivePlayer.HasEscapePrisonCo = p.HasEscapePrisonCo;
                     state.ActivePlayer.IsActive = p.IsActive;
                     state.ActivePlayer.IsPlaying = p.IsPlaying;
                     state.ActivePlayer.IsPrison = p.IsPrison;

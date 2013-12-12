@@ -30,7 +30,10 @@ namespace LobbyService.Web.DTO.MonopolyEngine
         public bool IsPlaying { get; set; }
 
         [DataMember]
-        public bool HasEscapePrison { get; set; }
+        public bool HasEscapePrisonCh { get; set; }
+
+        [DataMember]
+        public bool HasEscapePrisonCo { get; set; }
 
         [DataMember]
         public int Cash { get; set; }

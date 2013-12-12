@@ -876,10 +876,7 @@ namespace Quicktest.DTO.MonopolyEngine
             }
         }
         #endregion
-        #endregion       
-
-        
-
+        #endregion   
     }
     #region HelperClasses
     class dice

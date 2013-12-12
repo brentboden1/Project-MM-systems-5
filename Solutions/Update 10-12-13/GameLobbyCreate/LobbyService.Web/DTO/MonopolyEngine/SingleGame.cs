@@ -13,6 +13,7 @@ namespace LobbyService.Web.DTO.MonopolyEngine
         private bool _started;
         [DataMember]
         public bool Started { get { return _started; } }
+        [DataMember]
         public List<Player> MyPlayers { get; set; }
         private GameState _privateState;
         [DataMember]
@@ -65,10 +66,10 @@ namespace LobbyService.Web.DTO.MonopolyEngine
         {
             GameFunctions.ChangeActivePlayer(this.publicState);
         }
-        //Tradepartner = other player :: PropertyId is 0 - 27 byte value in housecarddatabase :: Dir = direction of trade True= In False=Out
-        public void RequestTrade(Player TradePartner, byte PropertyID, bool Dir)
+        //Tradepartner = other player :: PropertyId is 0 - 27 byte value in housecarddatabase :: Dir = direction of trade True= In False=Out :: Amount is how much is requested
+        public void RequestTrade(Player TradePartner, byte PropertyID, bool Dir, int Amount)
         {
-            GameFunctions.TradeRequested(this.publicState, TradePartner, PropertyID, Dir);
+            GameFunctions.TradeRequested(this.publicState, TradePartner, PropertyID, Dir, Amount);
         }
         //Requested Player Accepts Trade (needs clientside check for Publicstate.PlayerTradeRequested)
         public void AcceptTrade()
@@ -90,6 +91,16 @@ namespace LobbyService.Web.DTO.MonopolyEngine
         public void EscapePrison(Player P, bool payed = true)
         {
             GameFunctions.PrisonRelease(publicState.ReturnPlayerByBasePlayer(P), payed);
+        }
+        //Player draws a communal card with the choice between payment and picking a chance card: True equals chance chosen only if GameState.ChanceChoice is true
+        public void ChanceCardChoice(bool choice, Player P)
+        {
+            GameFunctions.CardChoiceChance(choice, publicState.ReturnPlayerByBasePlayer(P));
+        }
+        //Player leaves the game
+        public void Quit(Player P)
+        {
+            GameFunctions.LeaveGame(publicState.ReturnPlayerByBasePlayer(P));
         }
     }
 }

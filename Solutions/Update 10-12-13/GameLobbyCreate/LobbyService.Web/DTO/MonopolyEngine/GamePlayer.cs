@@ -42,7 +42,9 @@ namespace LobbyService.Web.DTO.MonopolyEngine
         [DataMember]
         public bool IsPlaying { get; set; }
         [DataMember]
-        public bool HasEscapePrison { get; set; }
+        public bool HasEscapePrisonCh { get; set; }
+        [DataMember]
+        public bool HasEscapePrisonCo { get; set; }
         private int _cash;
         [DataMember]
         public int Cash
@@ -54,11 +56,13 @@ namespace LobbyService.Web.DTO.MonopolyEngine
                 {
                     GameFunctions.OnPotentialBankruptcy(this);
                 }
+                //GameFunctions.updateLogCash(_cash, value, this);
                 _cash = value;
             }
         }
         [DataMember]
         public List<OwnedProperty> PlayerProperty { get; set; }
+        
         public GamePlayer(Player P, byte order, GameState State)
         {
             _mystate = State;
@@ -68,7 +72,8 @@ namespace LobbyService.Web.DTO.MonopolyEngine
             _location = 0;
             PrisonTime = 0;
             IsPrison = false;
-            HasEscapePrison = false;
+            HasEscapePrisonCh = false;
+            HasEscapePrisonCo = false;
         }
     }
 }

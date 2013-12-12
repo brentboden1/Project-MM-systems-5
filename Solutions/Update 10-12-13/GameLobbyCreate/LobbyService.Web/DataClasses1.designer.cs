@@ -36,15 +36,15 @@ namespace LobbyService.Web
     partial void InsertPlayer(Player instance);
     partial void UpdatePlayer(Player instance);
     partial void DeletePlayer(Player instance);
-    partial void InsertEventCardData(EventCardData instance);
-    partial void UpdateEventCardData(EventCardData instance);
-    partial void DeleteEventCardData(EventCardData instance);
     partial void InsertPlayerLobby(PlayerLobby instance);
     partial void UpdatePlayerLobby(PlayerLobby instance);
     partial void DeletePlayerLobby(PlayerLobby instance);
     partial void InsertHouseCardData(HouseCardData instance);
     partial void UpdateHouseCardData(HouseCardData instance);
     partial void DeleteHouseCardData(HouseCardData instance);
+    partial void InsertEventCardData(EventCardData instance);
+    partial void UpdateEventCardData(EventCardData instance);
+    partial void DeleteEventCardData(EventCardData instance);
     #endregion
 		
 		public DataClasses1DataContext() : 
@@ -93,14 +93,6 @@ namespace LobbyService.Web
 			}
 		}
 		
-		public System.Data.Linq.Table<EventCardData> EventCardDatas
-		{
-			get
-			{
-				return this.GetTable<EventCardData>();
-			}
-		}
-		
 		public System.Data.Linq.Table<PlayerLobby> PlayerLobbies
 		{
 			get
@@ -114,6 +106,14 @@ namespace LobbyService.Web
 			get
 			{
 				return this.GetTable<HouseCardData>();
+			}
+		}
+		
+		public System.Data.Linq.Table<EventCardData> EventCardDatas
+		{
+			get
+			{
+				return this.GetTable<EventCardData>();
 			}
 		}
 	}
@@ -289,284 +289,6 @@ namespace LobbyService.Web
 					this._AlreadExist = value;
 					this.SendPropertyChanged("AlreadExist");
 					this.OnAlreadExistChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.EventCardData")]
-	public partial class EventCardData : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ID;
-		
-		private string _Name;
-		
-		private string _Type;
-		
-		private string _Description;
-		
-		private int _CashChange;
-		
-		private bool _IsPrison;
-		
-		private bool _IsEscapePrison;
-		
-		private bool _IsLocationChange;
-		
-		private System.Nullable<int> _LocationChangeNum;
-		
-		private System.Nullable<int> _LocationChangeHard;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnTypeChanging(string value);
-    partial void OnTypeChanged();
-    partial void OnDescriptionChanging(string value);
-    partial void OnDescriptionChanged();
-    partial void OnCashChangeChanging(int value);
-    partial void OnCashChangeChanged();
-    partial void OnIsPrisonChanging(bool value);
-    partial void OnIsPrisonChanged();
-    partial void OnIsEscapePrisonChanging(bool value);
-    partial void OnIsEscapePrisonChanged();
-    partial void OnIsLocationChangeChanging(bool value);
-    partial void OnIsLocationChangeChanged();
-    partial void OnLocationChangeNumChanging(System.Nullable<int> value);
-    partial void OnLocationChangeNumChanged();
-    partial void OnLocationChangeHardChanging(System.Nullable<int> value);
-    partial void OnLocationChangeHardChanged();
-    #endregion
-		
-		public EventCardData()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string Type
-		{
-			get
-			{
-				return this._Type;
-			}
-			set
-			{
-				if ((this._Type != value))
-				{
-					this.OnTypeChanging(value);
-					this.SendPropertyChanging();
-					this._Type = value;
-					this.SendPropertyChanged("Type");
-					this.OnTypeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(500) NOT NULL", CanBeNull=false)]
-		public string Description
-		{
-			get
-			{
-				return this._Description;
-			}
-			set
-			{
-				if ((this._Description != value))
-				{
-					this.OnDescriptionChanging(value);
-					this.SendPropertyChanging();
-					this._Description = value;
-					this.SendPropertyChanged("Description");
-					this.OnDescriptionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CashChange", DbType="Int NOT NULL")]
-		public int CashChange
-		{
-			get
-			{
-				return this._CashChange;
-			}
-			set
-			{
-				if ((this._CashChange != value))
-				{
-					this.OnCashChangeChanging(value);
-					this.SendPropertyChanging();
-					this._CashChange = value;
-					this.SendPropertyChanged("CashChange");
-					this.OnCashChangeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsPrison", DbType="Bit NOT NULL")]
-		public bool IsPrison
-		{
-			get
-			{
-				return this._IsPrison;
-			}
-			set
-			{
-				if ((this._IsPrison != value))
-				{
-					this.OnIsPrisonChanging(value);
-					this.SendPropertyChanging();
-					this._IsPrison = value;
-					this.SendPropertyChanged("IsPrison");
-					this.OnIsPrisonChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsEscapePrison", DbType="Bit NOT NULL")]
-		public bool IsEscapePrison
-		{
-			get
-			{
-				return this._IsEscapePrison;
-			}
-			set
-			{
-				if ((this._IsEscapePrison != value))
-				{
-					this.OnIsEscapePrisonChanging(value);
-					this.SendPropertyChanging();
-					this._IsEscapePrison = value;
-					this.SendPropertyChanged("IsEscapePrison");
-					this.OnIsEscapePrisonChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsLocationChange", DbType="Bit NOT NULL")]
-		public bool IsLocationChange
-		{
-			get
-			{
-				return this._IsLocationChange;
-			}
-			set
-			{
-				if ((this._IsLocationChange != value))
-				{
-					this.OnIsLocationChangeChanging(value);
-					this.SendPropertyChanging();
-					this._IsLocationChange = value;
-					this.SendPropertyChanged("IsLocationChange");
-					this.OnIsLocationChangeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LocationChangeNum", DbType="Int")]
-		public System.Nullable<int> LocationChangeNum
-		{
-			get
-			{
-				return this._LocationChangeNum;
-			}
-			set
-			{
-				if ((this._LocationChangeNum != value))
-				{
-					this.OnLocationChangeNumChanging(value);
-					this.SendPropertyChanging();
-					this._LocationChangeNum = value;
-					this.SendPropertyChanged("LocationChangeNum");
-					this.OnLocationChangeNumChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LocationChangeHard", DbType="Int")]
-		public System.Nullable<int> LocationChangeHard
-		{
-			get
-			{
-				return this._LocationChangeHard;
-			}
-			set
-			{
-				if ((this._LocationChangeHard != value))
-				{
-					this.OnLocationChangeHardChanging(value);
-					this.SendPropertyChanging();
-					this._LocationChangeHard = value;
-					this.SendPropertyChanged("LocationChangeHard");
-					this.OnLocationChangeHardChanged();
 				}
 			}
 		}
@@ -1075,6 +797,356 @@ namespace LobbyService.Web
 					this._HouseCost = value;
 					this.SendPropertyChanged("HouseCost");
 					this.OnHouseCostChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.EventCardData")]
+	public partial class EventCardData : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private string _Type;
+		
+		private string _Description;
+		
+		private int _CashChange;
+		
+		private bool _IsPrison;
+		
+		private bool _IsEscapePrison;
+		
+		private bool _IsLocationChangeFW;
+		
+		private bool _IsLocationChangeBW;
+		
+		private bool _IsGlobal;
+		
+		private bool _IsPayHouse;
+		
+		private bool _IsChanceChoice;
+		
+		private System.Nullable<int> _HardLocation;
+		
+		private System.Nullable<int> _SoftLocation;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnTypeChanging(string value);
+    partial void OnTypeChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    partial void OnCashChangeChanging(int value);
+    partial void OnCashChangeChanged();
+    partial void OnIsPrisonChanging(bool value);
+    partial void OnIsPrisonChanged();
+    partial void OnIsEscapePrisonChanging(bool value);
+    partial void OnIsEscapePrisonChanged();
+    partial void OnIsLocationChangeFWChanging(bool value);
+    partial void OnIsLocationChangeFWChanged();
+    partial void OnIsLocationChangeBWChanging(bool value);
+    partial void OnIsLocationChangeBWChanged();
+    partial void OnIsGlobalChanging(bool value);
+    partial void OnIsGlobalChanged();
+    partial void OnIsPayHouseChanging(bool value);
+    partial void OnIsPayHouseChanged();
+    partial void OnIsChanceChoiceChanging(bool value);
+    partial void OnIsChanceChoiceChanged();
+    partial void OnHardLocationChanging(System.Nullable<int> value);
+    partial void OnHardLocationChanged();
+    partial void OnSoftLocationChanging(System.Nullable<int> value);
+    partial void OnSoftLocationChanged();
+    #endregion
+		
+		public EventCardData()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Type
+		{
+			get
+			{
+				return this._Type;
+			}
+			set
+			{
+				if ((this._Type != value))
+				{
+					this.OnTypeChanging(value);
+					this.SendPropertyChanging();
+					this._Type = value;
+					this.SendPropertyChanged("Type");
+					this.OnTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(500) NOT NULL", CanBeNull=false)]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this.OnDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._Description = value;
+					this.SendPropertyChanged("Description");
+					this.OnDescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CashChange", DbType="Int NOT NULL")]
+		public int CashChange
+		{
+			get
+			{
+				return this._CashChange;
+			}
+			set
+			{
+				if ((this._CashChange != value))
+				{
+					this.OnCashChangeChanging(value);
+					this.SendPropertyChanging();
+					this._CashChange = value;
+					this.SendPropertyChanged("CashChange");
+					this.OnCashChangeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsPrison", DbType="Bit NOT NULL")]
+		public bool IsPrison
+		{
+			get
+			{
+				return this._IsPrison;
+			}
+			set
+			{
+				if ((this._IsPrison != value))
+				{
+					this.OnIsPrisonChanging(value);
+					this.SendPropertyChanging();
+					this._IsPrison = value;
+					this.SendPropertyChanged("IsPrison");
+					this.OnIsPrisonChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsEscapePrison", DbType="Bit NOT NULL")]
+		public bool IsEscapePrison
+		{
+			get
+			{
+				return this._IsEscapePrison;
+			}
+			set
+			{
+				if ((this._IsEscapePrison != value))
+				{
+					this.OnIsEscapePrisonChanging(value);
+					this.SendPropertyChanging();
+					this._IsEscapePrison = value;
+					this.SendPropertyChanged("IsEscapePrison");
+					this.OnIsEscapePrisonChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsLocationChangeFW", DbType="Bit NOT NULL")]
+		public bool IsLocationChangeFW
+		{
+			get
+			{
+				return this._IsLocationChangeFW;
+			}
+			set
+			{
+				if ((this._IsLocationChangeFW != value))
+				{
+					this.OnIsLocationChangeFWChanging(value);
+					this.SendPropertyChanging();
+					this._IsLocationChangeFW = value;
+					this.SendPropertyChanged("IsLocationChangeFW");
+					this.OnIsLocationChangeFWChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsLocationChangeBW", DbType="Bit NOT NULL")]
+		public bool IsLocationChangeBW
+		{
+			get
+			{
+				return this._IsLocationChangeBW;
+			}
+			set
+			{
+				if ((this._IsLocationChangeBW != value))
+				{
+					this.OnIsLocationChangeBWChanging(value);
+					this.SendPropertyChanging();
+					this._IsLocationChangeBW = value;
+					this.SendPropertyChanged("IsLocationChangeBW");
+					this.OnIsLocationChangeBWChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsGlobal", DbType="Bit NOT NULL")]
+		public bool IsGlobal
+		{
+			get
+			{
+				return this._IsGlobal;
+			}
+			set
+			{
+				if ((this._IsGlobal != value))
+				{
+					this.OnIsGlobalChanging(value);
+					this.SendPropertyChanging();
+					this._IsGlobal = value;
+					this.SendPropertyChanged("IsGlobal");
+					this.OnIsGlobalChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsPayHouse", DbType="Bit NOT NULL")]
+		public bool IsPayHouse
+		{
+			get
+			{
+				return this._IsPayHouse;
+			}
+			set
+			{
+				if ((this._IsPayHouse != value))
+				{
+					this.OnIsPayHouseChanging(value);
+					this.SendPropertyChanging();
+					this._IsPayHouse = value;
+					this.SendPropertyChanged("IsPayHouse");
+					this.OnIsPayHouseChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsChanceChoice", DbType="Bit NOT NULL")]
+		public bool IsChanceChoice
+		{
+			get
+			{
+				return this._IsChanceChoice;
+			}
+			set
+			{
+				if ((this._IsChanceChoice != value))
+				{
+					this.OnIsChanceChoiceChanging(value);
+					this.SendPropertyChanging();
+					this._IsChanceChoice = value;
+					this.SendPropertyChanged("IsChanceChoice");
+					this.OnIsChanceChoiceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HardLocation", DbType="Int")]
+		public System.Nullable<int> HardLocation
+		{
+			get
+			{
+				return this._HardLocation;
+			}
+			set
+			{
+				if ((this._HardLocation != value))
+				{
+					this.OnHardLocationChanging(value);
+					this.SendPropertyChanging();
+					this._HardLocation = value;
+					this.SendPropertyChanged("HardLocation");
+					this.OnHardLocationChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoftLocation", DbType="Int")]
+		public System.Nullable<int> SoftLocation
+		{
+			get
+			{
+				return this._SoftLocation;
+			}
+			set
+			{
+				if ((this._SoftLocation != value))
+				{
+					this.OnSoftLocationChanging(value);
+					this.SendPropertyChanging();
+					this._SoftLocation = value;
+					this.SendPropertyChanged("SoftLocation");
+					this.OnSoftLocationChanged();
 				}
 			}
 		}

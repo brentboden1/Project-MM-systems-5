@@ -14,12 +14,6 @@
         <elementListCompartment Id="6fee4f68-375c-4f3e-a79d-0540bb5c8a6c" absoluteBounds="2.6399999999999997, 0.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="c830f830-0513-4ec5-934e-74a3b3e3d8b8" absoluteBounds="4.75, 0.5, 2, 2.7324039713541666">
-      <DataClassMoniker Name="/DataClasses1DataContext/EventCardData" />
-      <nestedChildShapes>
-        <elementListCompartment Id="c64da03d-0a00-4def-910f-f3071fde7927" absoluteBounds="4.765, 0.96, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="9791977d-f1e5-4bd8-bfe9-cd9208f80816" absoluteBounds="0.5, 1.875, 2, 1.7708968098958331">
       <DataClassMoniker Name="/DataClasses1DataContext/PlayerLobby" />
       <nestedChildShapes>
@@ -30,6 +24,12 @@
       <DataClassMoniker Name="/DataClasses1DataContext/HouseCardData" />
       <nestedChildShapes>
         <elementListCompartment Id="602b5f82-c19d-4677-bef1-f16715fd48ca" absoluteBounds="2.64, 2.46, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="f95bd035-82f7-4ea9-906a-824082e99ee0" absoluteBounds="4.75, 0.625, 2, 3.3093082682291666">
+      <DataClassMoniker Name="/DataClasses1DataContext/EventCardData" />
+      <nestedChildShapes>
+        <elementListCompartment Id="fbf4e485-0c6b-4754-9d52-87e0521a7d0c" absoluteBounds="4.765, 1.085, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>
