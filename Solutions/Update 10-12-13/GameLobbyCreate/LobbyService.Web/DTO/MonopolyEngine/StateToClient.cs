@@ -45,5 +45,8 @@ namespace LobbyService.Web.DTO.MonopolyEngine
 
            [DataMember]
          public GamePlayerToClient ActivePlayer { get; set; }
+
+         [DataMember]
+           public List<string> Log { get; set; }
     }
 }

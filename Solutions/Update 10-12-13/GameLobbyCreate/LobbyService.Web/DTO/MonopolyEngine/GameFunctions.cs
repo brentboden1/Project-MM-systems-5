@@ -660,7 +660,8 @@ namespace LobbyService.Web.DTO.MonopolyEngine
             }
             else if (Card.IsChanceChoice)
             {
-                gPlayer.MyState.ChanceChoice = true;
+                //gPlayer.MyState.ChanceChoice = true;
+                gPlayer.Cash -= (int)Card.CashChange;
             }
             else if (Card.CashChange != 0)
             {

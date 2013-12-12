@@ -590,8 +590,12 @@ namespace LobbyService.Web
             state.PropertyTradeDirection = tmp.PropertyTradeDirection;
             state.PropertyTradeRequested = tmp.PropertyTradeRequested;
             state.TurnNumber = tmp.TurnNumber;
+            state.Log = tmp.Notificationlog;
+
             //state.PlayerList = tmp.PlayerList;
             state.ActivePlayer = new DTO.MonopolyEngine.GamePlayerToClient();
+
+
             foreach(var p in tmp.PlayerList)
             {
                 if(p.MyPlayer.PlayerId == me.PlayerId)
@@ -702,6 +706,14 @@ namespace LobbyService.Web
             if (NewGame.Started)
             {
                 NewGame.Dice();
+            }
+        }
+
+        public void QuitGame(DTO.Player me)
+        {
+            if (NewGame.Started)
+            {
+                NewGame.Quit(me);
             }
         }
 

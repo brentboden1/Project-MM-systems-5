@@ -109,6 +109,9 @@ namespace LobbyService.Web
         [OperationContract]
         void EndOfTurn();
 
+        [OperationContract]
+        void QuitGame(DTO.Player me);
+
         #endregion
     }
 }
