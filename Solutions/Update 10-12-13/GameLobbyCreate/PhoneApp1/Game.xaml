@@ -24,8 +24,23 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" x:Name="RollDice" Click="RollDice_Click_1" Margin="10,10,10,10" Content="Roll Dice"></Button>
-            <Button Grid.Column="1" x:Name="EndPhase" Click="EndPhase_Click_1" Margin="10,10,10,10" Content="End Phase"></Button>
+            <Button Grid.Column="0" x:Name="RollDice" Click="RollDice_Click_1" Margin="10,10,10,10" Content="Roll Dice" BorderBrush="Black" Foreground="Black">
+            	<Button.Background>
+            		<RadialGradientBrush>
+            			<GradientStop Color="Black" Offset="1"/>
+            			<GradientStop Color="White"/>
+            			<GradientStop Color="#FF363636" Offset="0.95"/>
+            		</RadialGradientBrush>
+            	</Button.Background></Button>
+            <Button Grid.Column="1" x:Name="EndPhase" Click="EndPhase_Click_1" Margin="10,10,10,10" Content="End Phase" Foreground="#FF080000" BorderBrush="Black">
+            	<Button.Background>
+            		<RadialGradientBrush>
+            			<GradientStop Color="Black" Offset="1"/>
+            			<GradientStop Color="White"/>
+            			<GradientStop Color="#FF2F2F2F" Offset="0.95"/>
+            		</RadialGradientBrush>
+            	</Button.Background>
+            </Button>
         </Grid>
         <!--TitlePanel contains the name of the application and page title-->
 

@@ -47,6 +47,9 @@ namespace LobbyService.Web
         [OperationContract]
         void DeletePlayerLobby(DTO.PlayerLobby pl);
 
+        [OperationContract]
+        void EndGame(DTO.Player Host);
+
         #endregion
 
         #region Lobby()
@@ -78,6 +81,9 @@ namespace LobbyService.Web
 
         [OperationContract]
         DTO.MonopolyEngine.StateToClient GetState(DTO.Player me);
+
+        [OperationContract]
+        List<HouseCardData> GetLocalCardData();
 
         #endregion
 
