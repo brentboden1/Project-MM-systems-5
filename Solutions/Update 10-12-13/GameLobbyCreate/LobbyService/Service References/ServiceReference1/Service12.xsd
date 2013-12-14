@@ -305,4 +305,16 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="QuitGame">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO" minOccurs="0" name="me" nillable="true" type="q23:Player" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="QuitGameResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

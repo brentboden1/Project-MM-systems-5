@@ -15,7 +15,7 @@ namespace PhoneApp1
     {
         private PlayerLocation loc = new PlayerLocation();
         private DispatcherTimer dt;
-        private int pos = 8;
+        //private int pos = 8;
         int location = 0;
         public Game()
         {
@@ -61,22 +61,23 @@ namespace PhoneApp1
         {
             while (PositionPlayer != 0)
             {
-                if (loc.X != 0 && loc.Y == 9)
-                {
-                    PositionPlayer--;
-                    loc.X--;
-                }
-                else if (loc.Y != 0 && loc.X == 0)
-                {
-                    PositionPlayer--;
-                    loc.Y--;
-                }
-                else if (loc.Y == 0 && loc.X != 7)
+                if (loc.X != 9 && loc.Y == 9)
                 {
                     PositionPlayer--;
                     loc.X++;
                 }
-                else if (loc.X == 7 && loc.Y != 7)
+                else if (loc.Y != 0 && loc.X == 9)
+                {
+                    PositionPlayer--;
+                    loc.Y--;
+
+                }
+                else if (loc.X != 0 && loc.Y == 0)
+                {
+                    PositionPlayer--;
+                    loc.X--;
+                }
+                else if (loc.Y != 9 && loc.X == 0)
                 {
                     PositionPlayer--;
                     loc.Y++;

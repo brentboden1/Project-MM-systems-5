@@ -215,11 +215,17 @@ namespace PhoneApp1.ServiceReference1 {
     [System.Runtime.Serialization.DataContractAttribute(Name="GameState", Namespace="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO.MonopolyEngine")]
     public partial class GameState : object, System.ComponentModel.INotifyPropertyChanged {
         
+        private PhoneApp1.ServiceReference1.EventCardData ActiveEventCardField;
+        
         private byte ActiveGamePlayerField;
         
         private PhoneApp1.ServiceReference1.Player ActivePlayerField;
         
         private string ActiveTileNameField;
+        
+        private bool ChanceChoiceField;
+        
+        private System.Collections.ObjectModel.ObservableCollection<string> ChatLogField;
         
         private PhoneApp1.ServiceReference1.GameFunctionsTurnState CurrentPhaseField;
         
@@ -227,7 +233,17 @@ namespace PhoneApp1.ServiceReference1 {
         
         private bool EnableBuyField;
         
+        private System.Collections.ObjectModel.ObservableCollection<bool> IsBoughtField;
+        
         private System.Collections.ObjectModel.ObservableCollection<PhoneApp1.ServiceReference1.HouseCardData> LocalCardDataField;
+        
+        private System.Collections.ObjectModel.ObservableCollection<PhoneApp1.ServiceReference1.EventCardData> LocalFondsDataField;
+        
+        private System.Collections.ObjectModel.ObservableCollection<PhoneApp1.ServiceReference1.EventCardData> LocalKansDataField;
+        
+        private System.Collections.ObjectModel.ObservableCollection<string> NotificationlogField;
+        
+        private System.Collections.ObjectModel.ObservableCollection<System.Nullable<byte>> OwnershipField;
         
         private System.Collections.ObjectModel.ObservableCollection<PhoneApp1.ServiceReference1.GamePlayer> PlayerListField;
         
@@ -239,6 +255,8 @@ namespace PhoneApp1.ServiceReference1 {
         
         private byte PropertyTradeRequestedField;
         
+        private int PropertyTradeValueField;
+        
         private int RevisionNumberField;
         
         private bool SetupCompleteField;
@@ -246,6 +264,19 @@ namespace PhoneApp1.ServiceReference1 {
         private int TurnNumberField;
         
         private System.Collections.ObjectModel.ObservableCollection<int> lastDieRollField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public PhoneApp1.ServiceReference1.EventCardData ActiveEventCard {
+            get {
+                return this.ActiveEventCardField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ActiveEventCardField, value) != true)) {
+                    this.ActiveEventCardField = value;
+                    this.RaisePropertyChanged("ActiveEventCard");
+                }
+            }
+        }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public byte ActiveGamePlayer {
@@ -282,6 +313,32 @@ namespace PhoneApp1.ServiceReference1 {
                 if ((object.ReferenceEquals(this.ActiveTileNameField, value) != true)) {
                     this.ActiveTileNameField = value;
                     this.RaisePropertyChanged("ActiveTileName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool ChanceChoice {
+            get {
+                return this.ChanceChoiceField;
+            }
+            set {
+                if ((this.ChanceChoiceField.Equals(value) != true)) {
+                    this.ChanceChoiceField = value;
+                    this.RaisePropertyChanged("ChanceChoice");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.ObjectModel.ObservableCollection<string> ChatLog {
+            get {
+                return this.ChatLogField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ChatLogField, value) != true)) {
+                    this.ChatLogField = value;
+                    this.RaisePropertyChanged("ChatLog");
                 }
             }
         }
@@ -326,6 +383,19 @@ namespace PhoneApp1.ServiceReference1 {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.ObjectModel.ObservableCollection<bool> IsBought {
+            get {
+                return this.IsBoughtField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IsBoughtField, value) != true)) {
+                    this.IsBoughtField = value;
+                    this.RaisePropertyChanged("IsBought");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Collections.ObjectModel.ObservableCollection<PhoneApp1.ServiceReference1.HouseCardData> LocalCardData {
             get {
                 return this.LocalCardDataField;
@@ -334,6 +404,58 @@ namespace PhoneApp1.ServiceReference1 {
                 if ((object.ReferenceEquals(this.LocalCardDataField, value) != true)) {
                     this.LocalCardDataField = value;
                     this.RaisePropertyChanged("LocalCardData");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.ObjectModel.ObservableCollection<PhoneApp1.ServiceReference1.EventCardData> LocalFondsData {
+            get {
+                return this.LocalFondsDataField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LocalFondsDataField, value) != true)) {
+                    this.LocalFondsDataField = value;
+                    this.RaisePropertyChanged("LocalFondsData");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.ObjectModel.ObservableCollection<PhoneApp1.ServiceReference1.EventCardData> LocalKansData {
+            get {
+                return this.LocalKansDataField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LocalKansDataField, value) != true)) {
+                    this.LocalKansDataField = value;
+                    this.RaisePropertyChanged("LocalKansData");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.ObjectModel.ObservableCollection<string> Notificationlog {
+            get {
+                return this.NotificationlogField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NotificationlogField, value) != true)) {
+                    this.NotificationlogField = value;
+                    this.RaisePropertyChanged("Notificationlog");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.ObjectModel.ObservableCollection<System.Nullable<byte>> Ownership {
+            get {
+                return this.OwnershipField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OwnershipField, value) != true)) {
+                    this.OwnershipField = value;
+                    this.RaisePropertyChanged("Ownership");
                 }
             }
         }
@@ -404,6 +526,19 @@ namespace PhoneApp1.ServiceReference1 {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PropertyTradeValue {
+            get {
+                return this.PropertyTradeValueField;
+            }
+            set {
+                if ((this.PropertyTradeValueField.Equals(value) != true)) {
+                    this.PropertyTradeValueField = value;
+                    this.RaisePropertyChanged("PropertyTradeValue");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int RevisionNumber {
             get {
                 return this.RevisionNumberField;
@@ -451,6 +586,216 @@ namespace PhoneApp1.ServiceReference1 {
                 if ((object.ReferenceEquals(this.lastDieRollField, value) != true)) {
                     this.lastDieRollField = value;
                     this.RaisePropertyChanged("lastDieRoll");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="EventCardData", Namespace="http://schemas.datacontract.org/2004/07/LobbyService.Web")]
+    public partial class EventCardData : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private int CashChangeField;
+        
+        private string DescriptionField;
+        
+        private System.Nullable<int> HardLocationField;
+        
+        private int IDField;
+        
+        private bool IsChanceChoiceField;
+        
+        private bool IsEscapePrisonField;
+        
+        private bool IsGlobalField;
+        
+        private bool IsLocationChangeBWField;
+        
+        private bool IsLocationChangeFWField;
+        
+        private bool IsPayHouseField;
+        
+        private bool IsPrisonField;
+        
+        private System.Nullable<int> SoftLocationField;
+        
+        private string TypeField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CashChange {
+            get {
+                return this.CashChangeField;
+            }
+            set {
+                if ((this.CashChangeField.Equals(value) != true)) {
+                    this.CashChangeField = value;
+                    this.RaisePropertyChanged("CashChange");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Description {
+            get {
+                return this.DescriptionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescriptionField, value) != true)) {
+                    this.DescriptionField = value;
+                    this.RaisePropertyChanged("Description");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> HardLocation {
+            get {
+                return this.HardLocationField;
+            }
+            set {
+                if ((this.HardLocationField.Equals(value) != true)) {
+                    this.HardLocationField = value;
+                    this.RaisePropertyChanged("HardLocation");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ID {
+            get {
+                return this.IDField;
+            }
+            set {
+                if ((this.IDField.Equals(value) != true)) {
+                    this.IDField = value;
+                    this.RaisePropertyChanged("ID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsChanceChoice {
+            get {
+                return this.IsChanceChoiceField;
+            }
+            set {
+                if ((this.IsChanceChoiceField.Equals(value) != true)) {
+                    this.IsChanceChoiceField = value;
+                    this.RaisePropertyChanged("IsChanceChoice");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsEscapePrison {
+            get {
+                return this.IsEscapePrisonField;
+            }
+            set {
+                if ((this.IsEscapePrisonField.Equals(value) != true)) {
+                    this.IsEscapePrisonField = value;
+                    this.RaisePropertyChanged("IsEscapePrison");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsGlobal {
+            get {
+                return this.IsGlobalField;
+            }
+            set {
+                if ((this.IsGlobalField.Equals(value) != true)) {
+                    this.IsGlobalField = value;
+                    this.RaisePropertyChanged("IsGlobal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsLocationChangeBW {
+            get {
+                return this.IsLocationChangeBWField;
+            }
+            set {
+                if ((this.IsLocationChangeBWField.Equals(value) != true)) {
+                    this.IsLocationChangeBWField = value;
+                    this.RaisePropertyChanged("IsLocationChangeBW");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsLocationChangeFW {
+            get {
+                return this.IsLocationChangeFWField;
+            }
+            set {
+                if ((this.IsLocationChangeFWField.Equals(value) != true)) {
+                    this.IsLocationChangeFWField = value;
+                    this.RaisePropertyChanged("IsLocationChangeFW");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsPayHouse {
+            get {
+                return this.IsPayHouseField;
+            }
+            set {
+                if ((this.IsPayHouseField.Equals(value) != true)) {
+                    this.IsPayHouseField = value;
+                    this.RaisePropertyChanged("IsPayHouse");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsPrison {
+            get {
+                return this.IsPrisonField;
+            }
+            set {
+                if ((this.IsPrisonField.Equals(value) != true)) {
+                    this.IsPrisonField = value;
+                    this.RaisePropertyChanged("IsPrison");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> SoftLocation {
+            get {
+                return this.SoftLocationField;
+            }
+            set {
+                if ((this.SoftLocationField.Equals(value) != true)) {
+                    this.SoftLocationField = value;
+                    this.RaisePropertyChanged("SoftLocation");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Type {
+            get {
+                return this.TypeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TypeField, value) != true)) {
+                    this.TypeField = value;
+                    this.RaisePropertyChanged("Type");
                 }
             }
         }
@@ -702,7 +1047,9 @@ namespace PhoneApp1.ServiceReference1 {
         
         private int CashField;
         
-        private bool HasEscapePrisonField;
+        private bool HasEscapePrisonChField;
+        
+        private bool HasEscapePrisonCoField;
         
         private bool IsActiveField;
         
@@ -736,14 +1083,27 @@ namespace PhoneApp1.ServiceReference1 {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool HasEscapePrison {
+        public bool HasEscapePrisonCh {
             get {
-                return this.HasEscapePrisonField;
+                return this.HasEscapePrisonChField;
             }
             set {
-                if ((this.HasEscapePrisonField.Equals(value) != true)) {
-                    this.HasEscapePrisonField = value;
-                    this.RaisePropertyChanged("HasEscapePrison");
+                if ((this.HasEscapePrisonChField.Equals(value) != true)) {
+                    this.HasEscapePrisonChField = value;
+                    this.RaisePropertyChanged("HasEscapePrisonCh");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool HasEscapePrisonCo {
+            get {
+                return this.HasEscapePrisonCoField;
+            }
+            set {
+                if ((this.HasEscapePrisonCoField.Equals(value) != true)) {
+                    this.HasEscapePrisonCoField = value;
+                    this.RaisePropertyChanged("HasEscapePrisonCo");
                 }
             }
         }
@@ -979,6 +1339,8 @@ namespace PhoneApp1.ServiceReference1 {
         
         private bool EnableBuyField;
         
+        private System.Collections.ObjectModel.ObservableCollection<string> LogField;
+        
         private System.Collections.ObjectModel.ObservableCollection<PhoneApp1.ServiceReference1.GamePlayer> PlayerListField;
         
         private PhoneApp1.ServiceReference1.Player PlayerTradeRequestedField;
@@ -1052,6 +1414,19 @@ namespace PhoneApp1.ServiceReference1 {
                 if ((this.EnableBuyField.Equals(value) != true)) {
                     this.EnableBuyField = value;
                     this.RaisePropertyChanged("EnableBuy");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.ObjectModel.ObservableCollection<string> Log {
+            get {
+                return this.LogField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LogField, value) != true)) {
+                    this.LogField = value;
+                    this.RaisePropertyChanged("Log");
                 }
             }
         }
@@ -1151,7 +1526,9 @@ namespace PhoneApp1.ServiceReference1 {
         
         private int CashField;
         
-        private bool HasEscapePrisonField;
+        private bool HasEscapePrisonChField;
+        
+        private bool HasEscapePrisonCoField;
         
         private bool IsActiveField;
         
@@ -1179,14 +1556,27 @@ namespace PhoneApp1.ServiceReference1 {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool HasEscapePrison {
+        public bool HasEscapePrisonCh {
             get {
-                return this.HasEscapePrisonField;
+                return this.HasEscapePrisonChField;
             }
             set {
-                if ((this.HasEscapePrisonField.Equals(value) != true)) {
-                    this.HasEscapePrisonField = value;
-                    this.RaisePropertyChanged("HasEscapePrison");
+                if ((this.HasEscapePrisonChField.Equals(value) != true)) {
+                    this.HasEscapePrisonChField = value;
+                    this.RaisePropertyChanged("HasEscapePrisonCh");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool HasEscapePrisonCo {
+            get {
+                return this.HasEscapePrisonCoField;
+            }
+            set {
+                if ((this.HasEscapePrisonCoField.Equals(value) != true)) {
+                    this.HasEscapePrisonCoField = value;
+                    this.RaisePropertyChanged("HasEscapePrisonCo");
                 }
             }
         }
@@ -1265,6 +1655,216 @@ namespace PhoneApp1.ServiceReference1 {
                 if ((this.PrisonTimeField.Equals(value) != true)) {
                     this.PrisonTimeField = value;
                     this.RaisePropertyChanged("PrisonTime");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CardDataToClient", Namespace="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO.MonopolyEngine")]
+    public partial class CardDataToClient : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private int BuyCostField;
+        
+        private int GroupField;
+        
+        private int HouseCostField;
+        
+        private int IDField;
+        
+        private string NameField;
+        
+        private int PositionField;
+        
+        private int Rent0Field;
+        
+        private int Rent1Field;
+        
+        private int Rent2Field;
+        
+        private int Rent3Field;
+        
+        private int Rent4Field;
+        
+        private int Rent5Field;
+        
+        private string TypeField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int BuyCost {
+            get {
+                return this.BuyCostField;
+            }
+            set {
+                if ((this.BuyCostField.Equals(value) != true)) {
+                    this.BuyCostField = value;
+                    this.RaisePropertyChanged("BuyCost");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Group {
+            get {
+                return this.GroupField;
+            }
+            set {
+                if ((this.GroupField.Equals(value) != true)) {
+                    this.GroupField = value;
+                    this.RaisePropertyChanged("Group");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int HouseCost {
+            get {
+                return this.HouseCostField;
+            }
+            set {
+                if ((this.HouseCostField.Equals(value) != true)) {
+                    this.HouseCostField = value;
+                    this.RaisePropertyChanged("HouseCost");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ID {
+            get {
+                return this.IDField;
+            }
+            set {
+                if ((this.IDField.Equals(value) != true)) {
+                    this.IDField = value;
+                    this.RaisePropertyChanged("ID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Position {
+            get {
+                return this.PositionField;
+            }
+            set {
+                if ((this.PositionField.Equals(value) != true)) {
+                    this.PositionField = value;
+                    this.RaisePropertyChanged("Position");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Rent0 {
+            get {
+                return this.Rent0Field;
+            }
+            set {
+                if ((this.Rent0Field.Equals(value) != true)) {
+                    this.Rent0Field = value;
+                    this.RaisePropertyChanged("Rent0");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Rent1 {
+            get {
+                return this.Rent1Field;
+            }
+            set {
+                if ((this.Rent1Field.Equals(value) != true)) {
+                    this.Rent1Field = value;
+                    this.RaisePropertyChanged("Rent1");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Rent2 {
+            get {
+                return this.Rent2Field;
+            }
+            set {
+                if ((this.Rent2Field.Equals(value) != true)) {
+                    this.Rent2Field = value;
+                    this.RaisePropertyChanged("Rent2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Rent3 {
+            get {
+                return this.Rent3Field;
+            }
+            set {
+                if ((this.Rent3Field.Equals(value) != true)) {
+                    this.Rent3Field = value;
+                    this.RaisePropertyChanged("Rent3");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Rent4 {
+            get {
+                return this.Rent4Field;
+            }
+            set {
+                if ((this.Rent4Field.Equals(value) != true)) {
+                    this.Rent4Field = value;
+                    this.RaisePropertyChanged("Rent4");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Rent5 {
+            get {
+                return this.Rent5Field;
+            }
+            set {
+                if ((this.Rent5Field.Equals(value) != true)) {
+                    this.Rent5Field = value;
+                    this.RaisePropertyChanged("Rent5");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Type {
+            get {
+                return this.TypeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TypeField, value) != true)) {
+                    this.TypeField = value;
+                    this.RaisePropertyChanged("Type");
                 }
             }
         }
@@ -1373,6 +1973,11 @@ namespace PhoneApp1.ServiceReference1 {
         
         PhoneApp1.ServiceReference1.StateToClient EndGetState(System.IAsyncResult result);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/GetLocalHouseData", ReplyAction="http://tempuri.org/IService1/GetLocalHouseDataResponse")]
+        System.IAsyncResult BeginGetLocalHouseData(System.AsyncCallback callback, object asyncState);
+        
+        System.Collections.ObjectModel.ObservableCollection<PhoneApp1.ServiceReference1.CardDataToClient> EndGetLocalHouseData(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/JoinLobbyRoom", ReplyAction="http://tempuri.org/IService1/JoinLobbyRoomResponse")]
         System.IAsyncResult BeginJoinLobbyRoom(PhoneApp1.ServiceReference1.Player pl, PhoneApp1.ServiceReference1.Player Host, System.AsyncCallback callback, object asyncState);
         
@@ -1402,6 +2007,16 @@ namespace PhoneApp1.ServiceReference1 {
         System.IAsyncResult BeginEndOfTurn(System.AsyncCallback callback, object asyncState);
         
         void EndEndOfTurn(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/QuitGame", ReplyAction="http://tempuri.org/IService1/QuitGameResponse")]
+        System.IAsyncResult BeginQuitGame(PhoneApp1.ServiceReference1.Player me, System.AsyncCallback callback, object asyncState);
+        
+        void EndQuitGame(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/EndGame", ReplyAction="http://tempuri.org/IService1/EndGameResponse")]
+        System.IAsyncResult BeginEndGame(PhoneApp1.ServiceReference1.Player Host, System.AsyncCallback callback, object asyncState);
+        
+        void EndEndGame(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1638,6 +2253,25 @@ namespace PhoneApp1.ServiceReference1 {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetLocalHouseDataCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetLocalHouseDataCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public System.Collections.ObjectModel.ObservableCollection<PhoneApp1.ServiceReference1.CardDataToClient> Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((System.Collections.ObjectModel.ObservableCollection<PhoneApp1.ServiceReference1.CardDataToClient>)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class ShowPlayersInLobbyRoomCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
@@ -1767,6 +2401,12 @@ namespace PhoneApp1.ServiceReference1 {
         
         private System.Threading.SendOrPostCallback onGetStateCompletedDelegate;
         
+        private BeginOperationDelegate onBeginGetLocalHouseDataDelegate;
+        
+        private EndOperationDelegate onEndGetLocalHouseDataDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetLocalHouseDataCompletedDelegate;
+        
         private BeginOperationDelegate onBeginJoinLobbyRoomDelegate;
         
         private EndOperationDelegate onEndJoinLobbyRoomDelegate;
@@ -1802,6 +2442,18 @@ namespace PhoneApp1.ServiceReference1 {
         private EndOperationDelegate onEndEndOfTurnDelegate;
         
         private System.Threading.SendOrPostCallback onEndOfTurnCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginQuitGameDelegate;
+        
+        private EndOperationDelegate onEndQuitGameDelegate;
+        
+        private System.Threading.SendOrPostCallback onQuitGameCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginEndGameDelegate;
+        
+        private EndOperationDelegate onEndEndGameDelegate;
+        
+        private System.Threading.SendOrPostCallback onEndGameCompletedDelegate;
         
         private BeginOperationDelegate onBeginOpenDelegate;
         
@@ -1892,6 +2544,8 @@ namespace PhoneApp1.ServiceReference1 {
         
         public event System.EventHandler<GetStateCompletedEventArgs> GetStateCompleted;
         
+        public event System.EventHandler<GetLocalHouseDataCompletedEventArgs> GetLocalHouseDataCompleted;
+        
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> JoinLobbyRoomCompleted;
         
         public event System.EventHandler<ShowPlayersInLobbyRoomCompletedEventArgs> ShowPlayersInLobbyRoomCompleted;
@@ -1903,6 +2557,10 @@ namespace PhoneApp1.ServiceReference1 {
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> RollDiceCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> EndOfTurnCompleted;
+        
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> QuitGameCompleted;
+        
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> EndGameCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> OpenCompleted;
         
@@ -2725,6 +3383,50 @@ namespace PhoneApp1.ServiceReference1 {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult PhoneApp1.ServiceReference1.IService1.BeginGetLocalHouseData(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetLocalHouseData(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Collections.ObjectModel.ObservableCollection<PhoneApp1.ServiceReference1.CardDataToClient> PhoneApp1.ServiceReference1.IService1.EndGetLocalHouseData(System.IAsyncResult result) {
+            return base.Channel.EndGetLocalHouseData(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetLocalHouseData(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return ((PhoneApp1.ServiceReference1.IService1)(this)).BeginGetLocalHouseData(callback, asyncState);
+        }
+        
+        private object[] OnEndGetLocalHouseData(System.IAsyncResult result) {
+            System.Collections.ObjectModel.ObservableCollection<PhoneApp1.ServiceReference1.CardDataToClient> retVal = ((PhoneApp1.ServiceReference1.IService1)(this)).EndGetLocalHouseData(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetLocalHouseDataCompleted(object state) {
+            if ((this.GetLocalHouseDataCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetLocalHouseDataCompleted(this, new GetLocalHouseDataCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetLocalHouseDataAsync() {
+            this.GetLocalHouseDataAsync(null);
+        }
+        
+        public void GetLocalHouseDataAsync(object userState) {
+            if ((this.onBeginGetLocalHouseDataDelegate == null)) {
+                this.onBeginGetLocalHouseDataDelegate = new BeginOperationDelegate(this.OnBeginGetLocalHouseData);
+            }
+            if ((this.onEndGetLocalHouseDataDelegate == null)) {
+                this.onEndGetLocalHouseDataDelegate = new EndOperationDelegate(this.OnEndGetLocalHouseData);
+            }
+            if ((this.onGetLocalHouseDataCompletedDelegate == null)) {
+                this.onGetLocalHouseDataCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetLocalHouseDataCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetLocalHouseDataDelegate, null, this.onEndGetLocalHouseDataDelegate, this.onGetLocalHouseDataCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.IAsyncResult PhoneApp1.ServiceReference1.IService1.BeginJoinLobbyRoom(PhoneApp1.ServiceReference1.Player pl, PhoneApp1.ServiceReference1.Player Host, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginJoinLobbyRoom(pl, Host, callback, asyncState);
         }
@@ -2989,6 +3691,96 @@ namespace PhoneApp1.ServiceReference1 {
                 this.onEndOfTurnCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnEndOfTurnCompleted);
             }
             base.InvokeAsync(this.onBeginEndOfTurnDelegate, null, this.onEndEndOfTurnDelegate, this.onEndOfTurnCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult PhoneApp1.ServiceReference1.IService1.BeginQuitGame(PhoneApp1.ServiceReference1.Player me, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginQuitGame(me, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        void PhoneApp1.ServiceReference1.IService1.EndQuitGame(System.IAsyncResult result) {
+            base.Channel.EndQuitGame(result);
+        }
+        
+        private System.IAsyncResult OnBeginQuitGame(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            PhoneApp1.ServiceReference1.Player me = ((PhoneApp1.ServiceReference1.Player)(inValues[0]));
+            return ((PhoneApp1.ServiceReference1.IService1)(this)).BeginQuitGame(me, callback, asyncState);
+        }
+        
+        private object[] OnEndQuitGame(System.IAsyncResult result) {
+            ((PhoneApp1.ServiceReference1.IService1)(this)).EndQuitGame(result);
+            return null;
+        }
+        
+        private void OnQuitGameCompleted(object state) {
+            if ((this.QuitGameCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.QuitGameCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void QuitGameAsync(PhoneApp1.ServiceReference1.Player me) {
+            this.QuitGameAsync(me, null);
+        }
+        
+        public void QuitGameAsync(PhoneApp1.ServiceReference1.Player me, object userState) {
+            if ((this.onBeginQuitGameDelegate == null)) {
+                this.onBeginQuitGameDelegate = new BeginOperationDelegate(this.OnBeginQuitGame);
+            }
+            if ((this.onEndQuitGameDelegate == null)) {
+                this.onEndQuitGameDelegate = new EndOperationDelegate(this.OnEndQuitGame);
+            }
+            if ((this.onQuitGameCompletedDelegate == null)) {
+                this.onQuitGameCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnQuitGameCompleted);
+            }
+            base.InvokeAsync(this.onBeginQuitGameDelegate, new object[] {
+                        me}, this.onEndQuitGameDelegate, this.onQuitGameCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult PhoneApp1.ServiceReference1.IService1.BeginEndGame(PhoneApp1.ServiceReference1.Player Host, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginEndGame(Host, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        void PhoneApp1.ServiceReference1.IService1.EndEndGame(System.IAsyncResult result) {
+            base.Channel.EndEndGame(result);
+        }
+        
+        private System.IAsyncResult OnBeginEndGame(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            PhoneApp1.ServiceReference1.Player Host = ((PhoneApp1.ServiceReference1.Player)(inValues[0]));
+            return ((PhoneApp1.ServiceReference1.IService1)(this)).BeginEndGame(Host, callback, asyncState);
+        }
+        
+        private object[] OnEndEndGame(System.IAsyncResult result) {
+            ((PhoneApp1.ServiceReference1.IService1)(this)).EndEndGame(result);
+            return null;
+        }
+        
+        private void OnEndGameCompleted(object state) {
+            if ((this.EndGameCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.EndGameCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void EndGameAsync(PhoneApp1.ServiceReference1.Player Host) {
+            this.EndGameAsync(Host, null);
+        }
+        
+        public void EndGameAsync(PhoneApp1.ServiceReference1.Player Host, object userState) {
+            if ((this.onBeginEndGameDelegate == null)) {
+                this.onBeginEndGameDelegate = new BeginOperationDelegate(this.OnBeginEndGame);
+            }
+            if ((this.onEndEndGameDelegate == null)) {
+                this.onEndEndGameDelegate = new EndOperationDelegate(this.OnEndEndGame);
+            }
+            if ((this.onEndGameCompletedDelegate == null)) {
+                this.onEndGameCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnEndGameCompleted);
+            }
+            base.InvokeAsync(this.onBeginEndGameDelegate, new object[] {
+                        Host}, this.onEndEndGameDelegate, this.onEndGameCompletedDelegate, userState);
         }
         
         private System.IAsyncResult OnBeginOpen(object[] inValues, System.AsyncCallback callback, object asyncState) {
@@ -3292,6 +4084,18 @@ namespace PhoneApp1.ServiceReference1 {
                 return _result;
             }
             
+            public System.IAsyncResult BeginGetLocalHouseData(System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[0];
+                System.IAsyncResult _result = base.BeginInvoke("GetLocalHouseData", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public System.Collections.ObjectModel.ObservableCollection<PhoneApp1.ServiceReference1.CardDataToClient> EndGetLocalHouseData(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                System.Collections.ObjectModel.ObservableCollection<PhoneApp1.ServiceReference1.CardDataToClient> _result = ((System.Collections.ObjectModel.ObservableCollection<PhoneApp1.ServiceReference1.CardDataToClient>)(base.EndInvoke("GetLocalHouseData", _args, result)));
+                return _result;
+            }
+            
             public System.IAsyncResult BeginJoinLobbyRoom(PhoneApp1.ServiceReference1.Player pl, PhoneApp1.ServiceReference1.Player Host, System.AsyncCallback callback, object asyncState) {
                 object[] _args = new object[2];
                 _args[0] = pl;
@@ -3361,6 +4165,30 @@ namespace PhoneApp1.ServiceReference1 {
             public void EndEndOfTurn(System.IAsyncResult result) {
                 object[] _args = new object[0];
                 base.EndInvoke("EndOfTurn", _args, result);
+            }
+            
+            public System.IAsyncResult BeginQuitGame(PhoneApp1.ServiceReference1.Player me, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[1];
+                _args[0] = me;
+                System.IAsyncResult _result = base.BeginInvoke("QuitGame", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public void EndQuitGame(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                base.EndInvoke("QuitGame", _args, result);
+            }
+            
+            public System.IAsyncResult BeginEndGame(PhoneApp1.ServiceReference1.Player Host, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[1];
+                _args[0] = Host;
+                System.IAsyncResult _result = base.BeginInvoke("EndGame", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public void EndEndGame(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                base.EndInvoke("EndGame", _args, result);
             }
         }
     }

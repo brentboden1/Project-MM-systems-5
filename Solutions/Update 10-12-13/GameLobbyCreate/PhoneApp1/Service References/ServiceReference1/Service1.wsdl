@@ -8,6 +8,7 @@
       <xsd:import schemaLocation="http://monopolygame.cloudapp.net/Service1.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO.MonopolyEngine" />
       <xsd:import schemaLocation="http://monopolygame.cloudapp.net/Service1.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/LobbyService.Web" />
       <xsd:import schemaLocation="http://monopolygame.cloudapp.net/Service1.svc?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://monopolygame.cloudapp.net/Service1.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/System" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IService1_AddPlayer_InputMessage">
@@ -118,6 +119,12 @@
   <wsdl:message name="IService1_GetState_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetStateResponse" />
   </wsdl:message>
+  <wsdl:message name="IService1_GetLocalHouseData_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLocalHouseData" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetLocalHouseData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLocalHouseDataResponse" />
+  </wsdl:message>
   <wsdl:message name="IService1_JoinLobbyRoom_InputMessage">
     <wsdl:part name="parameters" element="tns:JoinLobbyRoom" />
   </wsdl:message>
@@ -153,6 +160,18 @@
   </wsdl:message>
   <wsdl:message name="IService1_EndOfTurn_OutputMessage">
     <wsdl:part name="parameters" element="tns:EndOfTurnResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_QuitGame_InputMessage">
+    <wsdl:part name="parameters" element="tns:QuitGame" />
+  </wsdl:message>
+  <wsdl:message name="IService1_QuitGame_OutputMessage">
+    <wsdl:part name="parameters" element="tns:QuitGameResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_EndGame_InputMessage">
+    <wsdl:part name="parameters" element="tns:EndGame" />
+  </wsdl:message>
+  <wsdl:message name="IService1_EndGame_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EndGameResponse" />
   </wsdl:message>
   <wsdl:portType name="IService1">
     <wsdl:operation name="AddPlayer">
@@ -227,6 +246,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetState" message="tns:IService1_GetState_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetStateResponse" message="tns:IService1_GetState_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetLocalHouseData">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetLocalHouseData" message="tns:IService1_GetLocalHouseData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetLocalHouseDataResponse" message="tns:IService1_GetLocalHouseData_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="JoinLobbyRoom">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/JoinLobbyRoom" message="tns:IService1_JoinLobbyRoom_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/JoinLobbyRoomResponse" message="tns:IService1_JoinLobbyRoom_OutputMessage" />
@@ -250,6 +273,14 @@
     <wsdl:operation name="EndOfTurn">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/EndOfTurn" message="tns:IService1_EndOfTurn_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/EndOfTurnResponse" message="tns:IService1_EndOfTurn_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="QuitGame">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/QuitGame" message="tns:IService1_QuitGame_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/QuitGameResponse" message="tns:IService1_QuitGame_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EndGame">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/EndGame" message="tns:IService1_EndGame_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/EndGameResponse" message="tns:IService1_EndGame_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
@@ -416,6 +447,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetLocalHouseData">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetLocalHouseData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="JoinLobbyRoom">
       <soap:operation soapAction="http://tempuri.org/IService1/JoinLobbyRoom" style="document" />
       <wsdl:input>
@@ -463,6 +503,24 @@
     </wsdl:operation>
     <wsdl:operation name="EndOfTurn">
       <soap:operation soapAction="http://tempuri.org/IService1/EndOfTurn" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QuitGame">
+      <soap:operation soapAction="http://tempuri.org/IService1/QuitGame" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EndGame">
+      <soap:operation soapAction="http://tempuri.org/IService1/EndGame" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -14,7 +14,7 @@ namespace PhoneApp1
 {
     public partial class WaitLobby : PhoneApplicationPage
     {
-        private DispatcherTimer dt;
+       // private DispatcherTimer dt;
         public ObservableCollection<PlayerData> plData { get; set; }
 
         public WaitLobby()

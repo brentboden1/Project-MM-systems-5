@@ -236,11 +236,23 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetLocalHouseData">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetLocalHouseDataResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO.MonopolyEngine" minOccurs="0" name="GetLocalHouseDataResult" nillable="true" type="q19:ArrayOfCardDataToClient" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="JoinLobbyRoom">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO" minOccurs="0" name="pl" nillable="true" type="q19:Player" />
-        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO" minOccurs="0" name="Host" nillable="true" type="q20:Player" />
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO" minOccurs="0" name="pl" nillable="true" type="q20:Player" />
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO" minOccurs="0" name="Host" nillable="true" type="q21:Player" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -259,14 +271,14 @@
   <xs:element name="ShowPlayersInLobbyRoomResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO" minOccurs="0" name="ShowPlayersInLobbyRoomResult" nillable="true" type="q21:ArrayOfPlayer" />
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO" minOccurs="0" name="ShowPlayersInLobbyRoomResult" nillable="true" type="q22:ArrayOfPlayer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="StartGame">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO" minOccurs="0" name="Host" nillable="true" type="q22:Player" />
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO" minOccurs="0" name="Host" nillable="true" type="q23:Player" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -301,6 +313,30 @@
     </xs:complexType>
   </xs:element>
   <xs:element name="EndOfTurnResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="QuitGame">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO" minOccurs="0" name="me" nillable="true" type="q24:Player" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="QuitGameResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EndGame">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO" minOccurs="0" name="Host" nillable="true" type="q25:Player" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EndGameResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>

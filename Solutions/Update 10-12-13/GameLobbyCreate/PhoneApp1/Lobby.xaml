@@ -39,12 +39,18 @@
                     </ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="CreateLobby" Click="CreateLobby_Click_1" Content="Create Lobby" Margin="0,0,0,0" Foreground="Black" BorderBrush="Black">
+                <Button x:Name="CreateLobby" Click="CreateLobby_Click_1" Content="Create Lobby" Margin="0,0,0,0" Foreground="#FFB9B9B9">
+                	<Button.BorderBrush>
+                		<LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                			<GradientStop Color="Black" Offset="0"/>
+                			<GradientStop Color="Black" Offset="1"/>
+                		</LinearGradientBrush>
+                	</Button.BorderBrush>
                 	<Button.Background>
                 		<RadialGradientBrush>
                 			<GradientStop Color="Black" Offset="1"/>
-                			<GradientStop Color="White" Offset="0.05"/>
-                			<GradientStop Color="White"/>
+                			<GradientStop Color="#FF2C0FE4"/>
+                			<GradientStop Color="#FF2C0FE4" Offset="0.298"/>
                 		</RadialGradientBrush>
                 	</Button.Background></Button>
             </Grid>

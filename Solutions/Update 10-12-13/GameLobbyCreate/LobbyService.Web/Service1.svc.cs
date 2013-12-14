@@ -18,8 +18,8 @@ namespace LobbyService.Web
         private int playervalue;                                                        //playervalue is used to determine the playerId          
 
         //The gamelobby list is static so all clients get to see te same lobbies
-        private static List<DTO.PlayerLobby> gamelobbies = new List<DTO.PlayerLobby>();
-
+        private static List<DTO.PlayerLobby> gamelobbies = new List<DTO.PlayerLobby>(); 
+  
         private static DTO.MonopolyEngine.SingleGame NewGame;
 
         //Member of the dataclasses so we can query for results of the SQL database
@@ -45,7 +45,7 @@ namespace LobbyService.Web
             //Get players from database
             var player = from p in dc.Players select p;
             playervalue = 0;
-
+            
             //see if there is a free space
             for (int i = 0; i < player.Count() + 1; i++)
             {
@@ -236,7 +236,7 @@ namespace LobbyService.Web
         {
             //get all players which its id is the same as the id that is given
             var pl = from p in dc.Players where p.PlayerId == id select p;
-
+            
             //make an dto player
             DTO.Player player = new DTO.Player();
 
@@ -397,7 +397,7 @@ namespace LobbyService.Web
             }
             dc.SubmitChanges();
         }
-
+        
         //delete a single player
         public void DeletePlayer(DTO.Player pl)
         {
@@ -413,7 +413,7 @@ namespace LobbyService.Web
         public void DeletePlayerLobby(DTO.PlayerLobby pl)
         {
             //get the wanted playerlobby out of the game lobby list
-            var play = (from p in gamelobbies where p.HostPlayer.PlayerId == pl.HostPlayer.PlayerId select p).First();
+            var play = (from  p in gamelobbies where p.HostPlayer.PlayerId == pl.HostPlayer.PlayerId select p).First();
             //delete this lobby
             gamelobbies.Remove(play);
 
@@ -436,20 +436,20 @@ namespace LobbyService.Web
         {
             //select the lobbyid from de lobbies in the database where the lobbyname is the same as the hosts playername
             int lobbyId = (from l in dc.Lobbies where l.LobbyName == Host.PlayerName select l.LobbyId).First();
-            //  CheckIfMaxPlayerExceeded(Host);
+              //  CheckIfMaxPlayerExceeded(Host);
 
-            PlayerLobby plobby = new PlayerLobby();
-            plobby.HostPlayer = Host.PlayerId;
-            plobby.LobbyId = lobbyId;
-            plobby.PlayerId = (int)pl.PlayerId;
-            plobby.IsWaitingForPlayers = true;
-            plobby.StartGame = false;
+                PlayerLobby plobby = new PlayerLobby();
+                plobby.HostPlayer = Host.PlayerId;
+                plobby.LobbyId = lobbyId;
+                plobby.PlayerId = (int)pl.PlayerId;
+                plobby.IsWaitingForPlayers = true;
+                plobby.StartGame = false;
             //let the player pl join the lobby
-            EnterLobby(pl, Host.PlayerName);
+                EnterLobby(pl, Host.PlayerName);
 
-            dc.PlayerLobbies.InsertOnSubmit(plobby);
-            dc.SubmitChanges();
-
+                dc.PlayerLobbies.InsertOnSubmit(plobby);
+                dc.SubmitChanges();
+            
         }
 
         //show all players in the lobbyroom
@@ -506,16 +506,16 @@ namespace LobbyService.Web
         //send a game update => only the dices who has been rolled
         public List<int> GetGameUpdate(DTO.Player host)
         {
-            List<int> Dice = new List<int>();
+                List<int> Dice = new List<int>();
             //let the client dice
-            NewGame.Dice();
-            var dice = from p in NewGame.publicState.lastDieRoll select p;
-            foreach (var item in dice)
-            {
-                //get the dices
-                Dice.Add(Convert.ToInt32(item));
-            }
-            return Dice;
+                NewGame.Dice();
+                var dice = from p in NewGame.publicState.lastDieRoll select p;
+                foreach (var item in dice)
+                {
+                    //get the dices
+                    Dice.Add(Convert.ToInt32(item));
+                }
+                return Dice;          
         }
 
         //get the playerlocation
@@ -530,7 +530,7 @@ namespace LobbyService.Web
                         location = item.Location;
                     }
                 }
-
+                
             }
             return location.Value;
         }
@@ -580,7 +580,7 @@ namespace LobbyService.Web
 
             DTO.MonopolyEngine.StateToClient state = new DTO.MonopolyEngine.StateToClient();
 
-            // state.ActivePlayer = tmp.ActivePlayer;
+           // state.ActivePlayer = tmp.ActivePlayer;
             state.ActiveTileName = tmp.ActiveTileName;
             state.CurrentPhase = tmp.CurrentPhase;
             state.DieCast = tmp.DieCast;
@@ -596,9 +596,9 @@ namespace LobbyService.Web
             state.ActivePlayer = new DTO.MonopolyEngine.GamePlayerToClient();
 
 
-            foreach (var p in tmp.PlayerList)
+            foreach(var p in tmp.PlayerList)
             {
-                if (p.MyPlayer.PlayerId == me.PlayerId)
+                if(p.MyPlayer.PlayerId == me.PlayerId)
                 {
                     state.ActivePlayer.Cash = p.Cash;
                     state.ActivePlayer.HasEscapePrisonCh = p.HasEscapePrisonCh;
@@ -610,19 +610,25 @@ namespace LobbyService.Web
                     state.ActivePlayer.PrisonTime = p.PrisonTime;
                 }
             }
-
+            
             return state;//NewGame.publicState;
         }
 
-        public List<HouseCardData> GetLocalCardData()
+        public List<DTO.MonopolyEngine.CardDataToClient> GetLocalHouseData()
         {
-            var data = from p in NewGame.publicState.LocalCardData select p;
-            List<HouseCardData> localdata = new List<HouseCardData>();
-            foreach (var item in data)
+            List<DTO.MonopolyEngine.CardDataToClient> CardData = new List<DTO.MonopolyEngine.CardDataToClient>();
+
+            foreach (var item in NewGame.publicState.LocalCardData)
             {
-                localdata.Add(item);
+                CardData.Add(new DTO.MonopolyEngine.CardDataToClient()
+                {
+                    BuyCost = item.BuyCost , Group = item.Group, HouseCost = item.HouseCost, ID = item.ID, Name = item.Name,
+                     Position = item.Position, Rent0 = item.Rent0, Rent1 = item.Rent1, Rent2 = item.Rent2, Rent3 = item.Rent3,
+                     Rent4 = item.Rent4, Rent5 = item.Rent5, Type = item.Type
+                });
             }
-            return localdata;
+
+            return CardData;
         }
 
         #endregion
@@ -641,7 +647,7 @@ namespace LobbyService.Web
             var update = (from l in dc.PlayerLobbies where l.HostPlayer == Host.PlayerId select l).ToList();
 
             //Make a static playerlobby to test it all
-            /*DTO.PlayerLobby pl = new DTO.PlayerLobby(Host) { LobbyId = new DTO.Lobby() { LobbyId = lst, LobbyName = lobName.ToString() }, IsAwaitingForPlayers = true, StartGame = false };*/
+           //    DTO.PlayerLobby pl = new DTO.PlayerLobby(Host) { LobbyId = new DTO.Lobby() { LobbyId = lst, LobbyName = lobName.ToString() }, IsAwaitingForPlayers = true, StartGame = false };
 
             foreach (var item in update)
             {
@@ -652,7 +658,7 @@ namespace LobbyService.Web
 
 
                 //static to see if the count is fout
-               /* while (pl.Player.Count != 4)
+              /*  while (pl.Player.Count != 4)
                 {
                     //add static players until player count is four
                     AddPlayer("hello");
@@ -661,7 +667,7 @@ namespace LobbyService.Web
             }
 
             //static add the playerlobby pl
-           // gamelobbies.Add(pl);
+            //gamelobbies.Add(pl);
             //select the lobbyid from the gamelobby
             var lobby = from d in gamelobbies where d.LobbyId.LobbyId == lst select d;
 
@@ -726,47 +732,33 @@ namespace LobbyService.Web
             {
                 NewGame.Quit(me);
             }
-        }
-
+        }        
+        
         public void EndGame(DTO.Player Host)
         {
-            //get playerlobby from gamelobby to delete
+            var players = from p in dc.Players select p;
+            var playerrooms = (from p in dc.PlayerLobbies where p.HostPlayer == (int)Host.PlayerId select p);
+
             var lobby = (from p in gamelobbies where p.HostPlayer.PlayerId == Host.PlayerId select p).First();
-            //select all players from database
-            List<Player> players = (from p in dc.Players select p).ToList();
-           
 
-            List<DTO.Player> player = new List<DTO.Player>();
-            Player pl = new Player();
+            gamelobbies.Remove(lobby);
 
-
-            //delete the players in database which are in that lobby
-            foreach (var item in lobby.Player)
-            {
-                for (int i = 0; i < players.Count(); i++)
-                {
-                    if (item.PlayerId == players[i].PlayerId)
-                    {
-                        dc.Players.DeleteOnSubmit(players[i]);
-                    }
-                }
-            }
-
-            //get playerlobbys from database
-            var lobbies = from p in dc.PlayerLobbies where p.HostPlayer == Host.PlayerId select p;
-
-            //delete those lobbies
-            foreach (var item in lobbies)
+            foreach (var item in playerrooms)
             {
                 dc.PlayerLobbies.DeleteOnSubmit(item);
             }
 
-            //delete lobby in gamelobbies
-            gamelobbies.Remove(lobby);
+            var pl = (from p in dc.PlayerLobbies
+                      join d in dc.Players
+                      on p.PlayerId equals d.PlayerId
+                      select d);
 
+            foreach (var item in pl)
+            {
+                dc.Players.DeleteOnSubmit(item);
+            }
 
             dc.SubmitChanges();
-
         }
 
         #endregion
