@@ -101,6 +101,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AppManifest.xml" />
+    <None Include="Service References\ServiceReference1\LobbyService.ServiceReference1.CardDataToClient.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\ServiceReference1\LobbyService.ServiceReference1.GameState.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

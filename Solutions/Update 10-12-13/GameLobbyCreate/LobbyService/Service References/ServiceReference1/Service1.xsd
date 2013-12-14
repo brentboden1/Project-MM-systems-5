@@ -98,6 +98,7 @@
       <xs:element minOccurs="0" name="DieCast" type="xs:boolean" />
       <xs:element minOccurs="0" name="EnableBuy" type="xs:boolean" />
       <xs:element xmlns:q13="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Log" nillable="true" type="q13:ArrayOfstring" />
+      <xs:element minOccurs="0" name="PlayerId" type="xs:int" />
       <xs:element minOccurs="0" name="PlayerList" nillable="true" type="tns:ArrayOfGamePlayer" />
       <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO" minOccurs="0" name="PlayerTradeRequested" nillable="true" type="q14:Player" />
       <xs:element minOccurs="0" name="PropertyTradeDirection" type="tns:GameFunctions.Direction" />
@@ -121,4 +122,28 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="GamePlayerToClient" nillable="true" type="tns:GamePlayerToClient" />
+  <xs:complexType name="ArrayOfCardDataToClient">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CardDataToClient" nillable="true" type="tns:CardDataToClient" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCardDataToClient" nillable="true" type="tns:ArrayOfCardDataToClient" />
+  <xs:complexType name="CardDataToClient">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BuyCost" type="xs:int" />
+      <xs:element minOccurs="0" name="Group" type="xs:int" />
+      <xs:element minOccurs="0" name="HouseCost" type="xs:int" />
+      <xs:element minOccurs="0" name="ID" type="xs:int" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Position" type="xs:int" />
+      <xs:element minOccurs="0" name="Rent0" type="xs:int" />
+      <xs:element minOccurs="0" name="Rent1" type="xs:int" />
+      <xs:element minOccurs="0" name="Rent2" type="xs:int" />
+      <xs:element minOccurs="0" name="Rent3" type="xs:int" />
+      <xs:element minOccurs="0" name="Rent4" type="xs:int" />
+      <xs:element minOccurs="0" name="Rent5" type="xs:int" />
+      <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CardDataToClient" nillable="true" type="tns:CardDataToClient" />
 </xs:schema>

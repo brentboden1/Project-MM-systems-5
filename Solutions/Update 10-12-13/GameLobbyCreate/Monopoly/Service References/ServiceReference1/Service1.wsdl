@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Service1" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://monopolygame.cloudapp.net/Service1.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://monopolygame.cloudapp.net/Service1.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://monopolygame.cloudapp.net/Service1.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO" />
+      <xsd:import schemaLocation="http://monopolygame.cloudapp.net/Service1.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO.MonopolyEngine" />
+      <xsd:import schemaLocation="http://monopolygame.cloudapp.net/Service1.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/LobbyService.Web" />
+      <xsd:import schemaLocation="http://monopolygame.cloudapp.net/Service1.svc?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://monopolygame.cloudapp.net/Service1.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/System" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IService1_AddPlayer_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddPlayer" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AddPlayer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddPlayerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetPlayers_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlayers" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetPlayers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlayersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetPlayerById_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlayerById" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetPlayerById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlayerByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetPlayerByName_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlayerByName" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetPlayerByName_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlayerByNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetPlayer_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlayer" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetPlayer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlayerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetPlayerId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlayerId" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetPlayerId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlayerIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DeleteAllPlayers_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteAllPlayers" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DeleteAllPlayers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteAllPlayersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DeleteAllLobbies_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteAllLobbies" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DeleteAllLobbies_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteAllLobbiesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DeletePlayer_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePlayer" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DeletePlayer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePlayerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DeletePlayerLobby_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePlayerLobby" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DeletePlayerLobby_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePlayerLobbyResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CreateLobby_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateLobby" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CreateLobby_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateLobbyResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GatAvailablePlayLobbies_InputMessage">
+    <wsdl:part name="parameters" element="tns:GatAvailablePlayLobbies" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GatAvailablePlayLobbies_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GatAvailablePlayLobbiesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetStateUpdate_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStateUpdate" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetStateUpdate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStateUpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetGameUpdate_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetGameUpdate" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetGameUpdate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetGameUpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CheckPlayerCount_InputMessage">
+    <wsdl:part name="parameters" element="tns:CheckPlayerCount" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CheckPlayerCount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckPlayerCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetUpdate_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUpdate" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetUpdate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetPlayerLocation_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlayerLocation" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetPlayerLocation_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlayerLocationResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetState_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetState" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetState_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetLocalHouseData_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLocalHouseData" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetLocalHouseData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLocalHouseDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_JoinLobbyRoom_InputMessage">
+    <wsdl:part name="parameters" element="tns:JoinLobbyRoom" />
+  </wsdl:message>
+  <wsdl:message name="IService1_JoinLobbyRoom_OutputMessage">
+    <wsdl:part name="parameters" element="tns:JoinLobbyRoomResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_ShowPlayersInLobbyRoom_InputMessage">
+    <wsdl:part name="parameters" element="tns:ShowPlayersInLobbyRoom" />
+  </wsdl:message>
+  <wsdl:message name="IService1_ShowPlayersInLobbyRoom_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ShowPlayersInLobbyRoomResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_StartGame_InputMessage">
+    <wsdl:part name="parameters" element="tns:StartGame" />
+  </wsdl:message>
+  <wsdl:message name="IService1_StartGame_OutputMessage">
+    <wsdl:part name="parameters" element="tns:StartGameResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_BuyTile_InputMessage">
+    <wsdl:part name="parameters" element="tns:BuyTile" />
+  </wsdl:message>
+  <wsdl:message name="IService1_BuyTile_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BuyTileResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_RollDice_InputMessage">
+    <wsdl:part name="parameters" element="tns:RollDice" />
+  </wsdl:message>
+  <wsdl:message name="IService1_RollDice_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RollDiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_EndOfTurn_InputMessage">
+    <wsdl:part name="parameters" element="tns:EndOfTurn" />
+  </wsdl:message>
+  <wsdl:message name="IService1_EndOfTurn_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EndOfTurnResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_QuitGame_InputMessage">
+    <wsdl:part name="parameters" element="tns:QuitGame" />
+  </wsdl:message>
+  <wsdl:message name="IService1_QuitGame_OutputMessage">
+    <wsdl:part name="parameters" element="tns:QuitGameResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_EndGame_InputMessage">
+    <wsdl:part name="parameters" element="tns:EndGame" />
+  </wsdl:message>
+  <wsdl:message name="IService1_EndGame_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EndGameResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IService1">
+    <wsdl:operation name="AddPlayer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/AddPlayer" message="tns:IService1_AddPlayer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/AddPlayerResponse" message="tns:IService1_AddPlayer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayers">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetPlayers" message="tns:IService1_GetPlayers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetPlayersResponse" message="tns:IService1_GetPlayers_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetPlayerById" message="tns:IService1_GetPlayerById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetPlayerByIdResponse" message="tns:IService1_GetPlayerById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerByName">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetPlayerByName" message="tns:IService1_GetPlayerByName_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetPlayerByNameResponse" message="tns:IService1_GetPlayerByName_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetPlayer" message="tns:IService1_GetPlayer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetPlayerResponse" message="tns:IService1_GetPlayer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerId">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetPlayerId" message="tns:IService1_GetPlayerId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetPlayerIdResponse" message="tns:IService1_GetPlayerId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAllPlayers">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/DeleteAllPlayers" message="tns:IService1_DeleteAllPlayers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/DeleteAllPlayersResponse" message="tns:IService1_DeleteAllPlayers_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAllLobbies">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/DeleteAllLobbies" message="tns:IService1_DeleteAllLobbies_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/DeleteAllLobbiesResponse" message="tns:IService1_DeleteAllLobbies_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeletePlayer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/DeletePlayer" message="tns:IService1_DeletePlayer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/DeletePlayerResponse" message="tns:IService1_DeletePlayer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeletePlayerLobby">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/DeletePlayerLobby" message="tns:IService1_DeletePlayerLobby_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/DeletePlayerLobbyResponse" message="tns:IService1_DeletePlayerLobby_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateLobby">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/CreateLobby" message="tns:IService1_CreateLobby_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/CreateLobbyResponse" message="tns:IService1_CreateLobby_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GatAvailablePlayLobbies">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GatAvailablePlayLobbies" message="tns:IService1_GatAvailablePlayLobbies_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GatAvailablePlayLobbiesResponse" message="tns:IService1_GatAvailablePlayLobbies_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStateUpdate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetStateUpdate" message="tns:IService1_GetStateUpdate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetStateUpdateResponse" message="tns:IService1_GetStateUpdate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGameUpdate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetGameUpdate" message="tns:IService1_GetGameUpdate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetGameUpdateResponse" message="tns:IService1_GetGameUpdate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckPlayerCount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/CheckPlayerCount" message="tns:IService1_CheckPlayerCount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/CheckPlayerCountResponse" message="tns:IService1_CheckPlayerCount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUpdate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetUpdate" message="tns:IService1_GetUpdate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetUpdateResponse" message="tns:IService1_GetUpdate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerLocation">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetPlayerLocation" message="tns:IService1_GetPlayerLocation_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetPlayerLocationResponse" message="tns:IService1_GetPlayerLocation_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetState">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetState" message="tns:IService1_GetState_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetStateResponse" message="tns:IService1_GetState_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLocalHouseData">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetLocalHouseData" message="tns:IService1_GetLocalHouseData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetLocalHouseDataResponse" message="tns:IService1_GetLocalHouseData_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="JoinLobbyRoom">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/JoinLobbyRoom" message="tns:IService1_JoinLobbyRoom_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/JoinLobbyRoomResponse" message="tns:IService1_JoinLobbyRoom_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ShowPlayersInLobbyRoom">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/ShowPlayersInLobbyRoom" message="tns:IService1_ShowPlayersInLobbyRoom_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/ShowPlayersInLobbyRoomResponse" message="tns:IService1_ShowPlayersInLobbyRoom_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="StartGame">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/StartGame" message="tns:IService1_StartGame_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/StartGameResponse" message="tns:IService1_StartGame_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BuyTile">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/BuyTile" message="tns:IService1_BuyTile_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/BuyTileResponse" message="tns:IService1_BuyTile_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RollDice">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/RollDice" message="tns:IService1_RollDice_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/RollDiceResponse" message="tns:IService1_RollDice_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EndOfTurn">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/EndOfTurn" message="tns:IService1_EndOfTurn_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/EndOfTurnResponse" message="tns:IService1_EndOfTurn_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="QuitGame">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/QuitGame" message="tns:IService1_QuitGame_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/QuitGameResponse" message="tns:IService1_QuitGame_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EndGame">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/EndGame" message="tns:IService1_EndGame_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/EndGameResponse" message="tns:IService1_EndGame_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AddPlayer">
+      <soap:operation soapAction="http://tempuri.org/IService1/AddPlayer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayers">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetPlayers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerById">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetPlayerById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerByName">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetPlayerByName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayer">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetPlayer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerId">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetPlayerId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAllPlayers">
+      <soap:operation soapAction="http://tempuri.org/IService1/DeleteAllPlayers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAllLobbies">
+      <soap:operation soapAction="http://tempuri.org/IService1/DeleteAllLobbies" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePlayer">
+      <soap:operation soapAction="http://tempuri.org/IService1/DeletePlayer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePlayerLobby">
+      <soap:operation soapAction="http://tempuri.org/IService1/DeletePlayerLobby" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateLobby">
+      <soap:operation soapAction="http://tempuri.org/IService1/CreateLobby" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GatAvailablePlayLobbies">
+      <soap:operation soapAction="http://tempuri.org/IService1/GatAvailablePlayLobbies" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStateUpdate">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetStateUpdate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGameUpdate">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetGameUpdate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckPlayerCount">
+      <soap:operation soapAction="http://tempuri.org/IService1/CheckPlayerCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUpdate">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetUpdate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerLocation">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetPlayerLocation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetState">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetState" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocalHouseData">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetLocalHouseData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="JoinLobbyRoom">
+      <soap:operation soapAction="http://tempuri.org/IService1/JoinLobbyRoom" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ShowPlayersInLobbyRoom">
+      <soap:operation soapAction="http://tempuri.org/IService1/ShowPlayersInLobbyRoom" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartGame">
+      <soap:operation soapAction="http://tempuri.org/IService1/StartGame" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuyTile">
+      <soap:operation soapAction="http://tempuri.org/IService1/BuyTile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RollDice">
+      <soap:operation soapAction="http://tempuri.org/IService1/RollDice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EndOfTurn">
+      <soap:operation soapAction="http://tempuri.org/IService1/EndOfTurn" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QuitGame">
+      <soap:operation soapAction="http://tempuri.org/IService1/QuitGame" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EndGame">
+      <soap:operation soapAction="http://tempuri.org/IService1/EndGame" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service1">
+    <wsdl:port name="BasicHttpBinding_IService1" binding="tns:BasicHttpBinding_IService1">
+      <soap:address location="http://monopolygame.cloudapp.net/Service1.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

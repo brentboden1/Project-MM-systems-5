@@ -455,9 +455,9 @@ namespace LobbyService.Web
         //show all players in the lobbyroom
         public List<DTO.Player> ShowPlayersInLobbyRoom(int host)
         {
-            //select the playerid of the host
+           //select the playerid of the host
+           // var Host = (from p in dc.Players where  p.PlayerId == (int)host select p).First();
             var pl = (from p in dc.Players where p.PlayerId == (int)host select p.PlayerId).First();
-
             //select the players its playerids and playernames
             var player = from o in dc.PlayerLobbies
                          join p in dc.Players
@@ -466,6 +466,8 @@ namespace LobbyService.Web
                          select new { p.PlayerId, p.PlayerName };
 
             List<DTO.Player> players = new List<DTO.Player>();
+
+            //players.Add(new DTO.Player() { PlayerId = Host.PlayerId, AlreadExist = Host.AlreadExist, PlayerName = Host.PlayerName }); 
 
             foreach (var item in player)
             {
@@ -591,6 +593,7 @@ namespace LobbyService.Web
             state.PropertyTradeRequested = tmp.PropertyTradeRequested;
             state.TurnNumber = tmp.TurnNumber;
             state.Log = tmp.Notificationlog;
+            
 
             //state.PlayerList = tmp.PlayerList;
             state.ActivePlayer = new DTO.MonopolyEngine.GamePlayerToClient();

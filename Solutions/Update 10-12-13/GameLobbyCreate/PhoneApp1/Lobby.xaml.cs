@@ -74,5 +74,10 @@ namespace PhoneApp1
                 MessageBox.Show(ex.Message.ToString());
             }
         }
+
+        private void Refresh_Click_1(object sender, RoutedEventArgs e)
+        {
+            App.client.GatAvailablePlayLobbiesAsync();
+        }
     }
 }

@@ -40,8 +40,8 @@ namespace LobbyService.Web.DTO.MonopolyEngine
          [DataMember]
          public int TurnNumber { get; set; }
 
-         [DataMember]
-         public List<DTO.MonopolyEngine.GamePlayer> PlayerList { get; set; }
+        /* [DataMember]
+         public List<DTO.MonopolyEngine.GamePlayer> PlayerList { get; set; }*/
 
            [DataMember]
          public GamePlayerToClient ActivePlayer { get; set; }

@@ -1341,6 +1341,8 @@ namespace PhoneApp1.ServiceReference1 {
         
         private System.Collections.ObjectModel.ObservableCollection<string> LogField;
         
+        private int PlayerIdField;
+        
         private System.Collections.ObjectModel.ObservableCollection<PhoneApp1.ServiceReference1.GamePlayer> PlayerListField;
         
         private PhoneApp1.ServiceReference1.Player PlayerTradeRequestedField;
@@ -1427,6 +1429,19 @@ namespace PhoneApp1.ServiceReference1 {
                 if ((object.ReferenceEquals(this.LogField, value) != true)) {
                     this.LogField = value;
                     this.RaisePropertyChanged("Log");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PlayerId {
+            get {
+                return this.PlayerIdField;
+            }
+            set {
+                if ((this.PlayerIdField.Equals(value) != true)) {
+                    this.PlayerIdField = value;
+                    this.RaisePropertyChanged("PlayerId");
                 }
             }
         }

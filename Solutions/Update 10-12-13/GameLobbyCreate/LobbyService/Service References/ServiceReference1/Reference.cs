@@ -1341,6 +1341,8 @@ namespace LobbyService.ServiceReference1 {
         
         private System.Collections.ObjectModel.ObservableCollection<string> LogField;
         
+        private int PlayerIdField;
+        
         private System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.GamePlayer> PlayerListField;
         
         private LobbyService.ServiceReference1.Player PlayerTradeRequestedField;
@@ -1427,6 +1429,19 @@ namespace LobbyService.ServiceReference1 {
                 if ((object.ReferenceEquals(this.LogField, value) != true)) {
                     this.LogField = value;
                     this.RaisePropertyChanged("Log");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PlayerId {
+            get {
+                return this.PlayerIdField;
+            }
+            set {
+                if ((this.PlayerIdField.Equals(value) != true)) {
+                    this.PlayerIdField = value;
+                    this.RaisePropertyChanged("PlayerId");
                 }
             }
         }
@@ -1669,6 +1684,216 @@ namespace LobbyService.ServiceReference1 {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CardDataToClient", Namespace="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO.MonopolyEngine")]
+    public partial class CardDataToClient : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private int BuyCostField;
+        
+        private int GroupField;
+        
+        private int HouseCostField;
+        
+        private int IDField;
+        
+        private string NameField;
+        
+        private int PositionField;
+        
+        private int Rent0Field;
+        
+        private int Rent1Field;
+        
+        private int Rent2Field;
+        
+        private int Rent3Field;
+        
+        private int Rent4Field;
+        
+        private int Rent5Field;
+        
+        private string TypeField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int BuyCost {
+            get {
+                return this.BuyCostField;
+            }
+            set {
+                if ((this.BuyCostField.Equals(value) != true)) {
+                    this.BuyCostField = value;
+                    this.RaisePropertyChanged("BuyCost");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Group {
+            get {
+                return this.GroupField;
+            }
+            set {
+                if ((this.GroupField.Equals(value) != true)) {
+                    this.GroupField = value;
+                    this.RaisePropertyChanged("Group");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int HouseCost {
+            get {
+                return this.HouseCostField;
+            }
+            set {
+                if ((this.HouseCostField.Equals(value) != true)) {
+                    this.HouseCostField = value;
+                    this.RaisePropertyChanged("HouseCost");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ID {
+            get {
+                return this.IDField;
+            }
+            set {
+                if ((this.IDField.Equals(value) != true)) {
+                    this.IDField = value;
+                    this.RaisePropertyChanged("ID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Position {
+            get {
+                return this.PositionField;
+            }
+            set {
+                if ((this.PositionField.Equals(value) != true)) {
+                    this.PositionField = value;
+                    this.RaisePropertyChanged("Position");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Rent0 {
+            get {
+                return this.Rent0Field;
+            }
+            set {
+                if ((this.Rent0Field.Equals(value) != true)) {
+                    this.Rent0Field = value;
+                    this.RaisePropertyChanged("Rent0");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Rent1 {
+            get {
+                return this.Rent1Field;
+            }
+            set {
+                if ((this.Rent1Field.Equals(value) != true)) {
+                    this.Rent1Field = value;
+                    this.RaisePropertyChanged("Rent1");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Rent2 {
+            get {
+                return this.Rent2Field;
+            }
+            set {
+                if ((this.Rent2Field.Equals(value) != true)) {
+                    this.Rent2Field = value;
+                    this.RaisePropertyChanged("Rent2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Rent3 {
+            get {
+                return this.Rent3Field;
+            }
+            set {
+                if ((this.Rent3Field.Equals(value) != true)) {
+                    this.Rent3Field = value;
+                    this.RaisePropertyChanged("Rent3");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Rent4 {
+            get {
+                return this.Rent4Field;
+            }
+            set {
+                if ((this.Rent4Field.Equals(value) != true)) {
+                    this.Rent4Field = value;
+                    this.RaisePropertyChanged("Rent4");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Rent5 {
+            get {
+                return this.Rent5Field;
+            }
+            set {
+                if ((this.Rent5Field.Equals(value) != true)) {
+                    this.Rent5Field = value;
+                    this.RaisePropertyChanged("Rent5");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Type {
+            get {
+                return this.TypeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TypeField, value) != true)) {
+                    this.TypeField = value;
+                    this.RaisePropertyChanged("Type");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IService1")]
     public interface IService1 {
@@ -1763,6 +1988,11 @@ namespace LobbyService.ServiceReference1 {
         
         LobbyService.ServiceReference1.StateToClient EndGetState(System.IAsyncResult result);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/GetLocalHouseData", ReplyAction="http://tempuri.org/IService1/GetLocalHouseDataResponse")]
+        System.IAsyncResult BeginGetLocalHouseData(System.AsyncCallback callback, object asyncState);
+        
+        System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.CardDataToClient> EndGetLocalHouseData(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/JoinLobbyRoom", ReplyAction="http://tempuri.org/IService1/JoinLobbyRoomResponse")]
         System.IAsyncResult BeginJoinLobbyRoom(LobbyService.ServiceReference1.Player pl, LobbyService.ServiceReference1.Player Host, System.AsyncCallback callback, object asyncState);
         
@@ -1797,6 +2027,11 @@ namespace LobbyService.ServiceReference1 {
         System.IAsyncResult BeginQuitGame(LobbyService.ServiceReference1.Player me, System.AsyncCallback callback, object asyncState);
         
         void EndQuitGame(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService1/EndGame", ReplyAction="http://tempuri.org/IService1/EndGameResponse")]
+        System.IAsyncResult BeginEndGame(LobbyService.ServiceReference1.Player Host, System.AsyncCallback callback, object asyncState);
+        
+        void EndEndGame(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -2033,6 +2268,25 @@ namespace LobbyService.ServiceReference1 {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetLocalHouseDataCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetLocalHouseDataCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.CardDataToClient> Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.CardDataToClient>)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class ShowPlayersInLobbyRoomCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
@@ -2162,6 +2416,12 @@ namespace LobbyService.ServiceReference1 {
         
         private System.Threading.SendOrPostCallback onGetStateCompletedDelegate;
         
+        private BeginOperationDelegate onBeginGetLocalHouseDataDelegate;
+        
+        private EndOperationDelegate onEndGetLocalHouseDataDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetLocalHouseDataCompletedDelegate;
+        
         private BeginOperationDelegate onBeginJoinLobbyRoomDelegate;
         
         private EndOperationDelegate onEndJoinLobbyRoomDelegate;
@@ -2203,6 +2463,12 @@ namespace LobbyService.ServiceReference1 {
         private EndOperationDelegate onEndQuitGameDelegate;
         
         private System.Threading.SendOrPostCallback onQuitGameCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginEndGameDelegate;
+        
+        private EndOperationDelegate onEndEndGameDelegate;
+        
+        private System.Threading.SendOrPostCallback onEndGameCompletedDelegate;
         
         private BeginOperationDelegate onBeginOpenDelegate;
         
@@ -2293,6 +2559,8 @@ namespace LobbyService.ServiceReference1 {
         
         public event System.EventHandler<GetStateCompletedEventArgs> GetStateCompleted;
         
+        public event System.EventHandler<GetLocalHouseDataCompletedEventArgs> GetLocalHouseDataCompleted;
+        
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> JoinLobbyRoomCompleted;
         
         public event System.EventHandler<ShowPlayersInLobbyRoomCompletedEventArgs> ShowPlayersInLobbyRoomCompleted;
@@ -2306,6 +2574,8 @@ namespace LobbyService.ServiceReference1 {
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> EndOfTurnCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> QuitGameCompleted;
+        
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> EndGameCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> OpenCompleted;
         
@@ -3128,6 +3398,50 @@ namespace LobbyService.ServiceReference1 {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult LobbyService.ServiceReference1.IService1.BeginGetLocalHouseData(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetLocalHouseData(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.CardDataToClient> LobbyService.ServiceReference1.IService1.EndGetLocalHouseData(System.IAsyncResult result) {
+            return base.Channel.EndGetLocalHouseData(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetLocalHouseData(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return ((LobbyService.ServiceReference1.IService1)(this)).BeginGetLocalHouseData(callback, asyncState);
+        }
+        
+        private object[] OnEndGetLocalHouseData(System.IAsyncResult result) {
+            System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.CardDataToClient> retVal = ((LobbyService.ServiceReference1.IService1)(this)).EndGetLocalHouseData(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetLocalHouseDataCompleted(object state) {
+            if ((this.GetLocalHouseDataCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetLocalHouseDataCompleted(this, new GetLocalHouseDataCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetLocalHouseDataAsync() {
+            this.GetLocalHouseDataAsync(null);
+        }
+        
+        public void GetLocalHouseDataAsync(object userState) {
+            if ((this.onBeginGetLocalHouseDataDelegate == null)) {
+                this.onBeginGetLocalHouseDataDelegate = new BeginOperationDelegate(this.OnBeginGetLocalHouseData);
+            }
+            if ((this.onEndGetLocalHouseDataDelegate == null)) {
+                this.onEndGetLocalHouseDataDelegate = new EndOperationDelegate(this.OnEndGetLocalHouseData);
+            }
+            if ((this.onGetLocalHouseDataCompletedDelegate == null)) {
+                this.onGetLocalHouseDataCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetLocalHouseDataCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetLocalHouseDataDelegate, null, this.onEndGetLocalHouseDataDelegate, this.onGetLocalHouseDataCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.IAsyncResult LobbyService.ServiceReference1.IService1.BeginJoinLobbyRoom(LobbyService.ServiceReference1.Player pl, LobbyService.ServiceReference1.Player Host, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginJoinLobbyRoom(pl, Host, callback, asyncState);
         }
@@ -3439,6 +3753,51 @@ namespace LobbyService.ServiceReference1 {
                         me}, this.onEndQuitGameDelegate, this.onQuitGameCompletedDelegate, userState);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult LobbyService.ServiceReference1.IService1.BeginEndGame(LobbyService.ServiceReference1.Player Host, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginEndGame(Host, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        void LobbyService.ServiceReference1.IService1.EndEndGame(System.IAsyncResult result) {
+            base.Channel.EndEndGame(result);
+        }
+        
+        private System.IAsyncResult OnBeginEndGame(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            LobbyService.ServiceReference1.Player Host = ((LobbyService.ServiceReference1.Player)(inValues[0]));
+            return ((LobbyService.ServiceReference1.IService1)(this)).BeginEndGame(Host, callback, asyncState);
+        }
+        
+        private object[] OnEndEndGame(System.IAsyncResult result) {
+            ((LobbyService.ServiceReference1.IService1)(this)).EndEndGame(result);
+            return null;
+        }
+        
+        private void OnEndGameCompleted(object state) {
+            if ((this.EndGameCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.EndGameCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void EndGameAsync(LobbyService.ServiceReference1.Player Host) {
+            this.EndGameAsync(Host, null);
+        }
+        
+        public void EndGameAsync(LobbyService.ServiceReference1.Player Host, object userState) {
+            if ((this.onBeginEndGameDelegate == null)) {
+                this.onBeginEndGameDelegate = new BeginOperationDelegate(this.OnBeginEndGame);
+            }
+            if ((this.onEndEndGameDelegate == null)) {
+                this.onEndEndGameDelegate = new EndOperationDelegate(this.OnEndEndGame);
+            }
+            if ((this.onEndGameCompletedDelegate == null)) {
+                this.onEndGameCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnEndGameCompleted);
+            }
+            base.InvokeAsync(this.onBeginEndGameDelegate, new object[] {
+                        Host}, this.onEndEndGameDelegate, this.onEndGameCompletedDelegate, userState);
+        }
+        
         private System.IAsyncResult OnBeginOpen(object[] inValues, System.AsyncCallback callback, object asyncState) {
             return ((System.ServiceModel.ICommunicationObject)(this)).BeginOpen(callback, asyncState);
         }
@@ -3740,6 +4099,18 @@ namespace LobbyService.ServiceReference1 {
                 return _result;
             }
             
+            public System.IAsyncResult BeginGetLocalHouseData(System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[0];
+                System.IAsyncResult _result = base.BeginInvoke("GetLocalHouseData", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.CardDataToClient> EndGetLocalHouseData(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.CardDataToClient> _result = ((System.Collections.ObjectModel.ObservableCollection<LobbyService.ServiceReference1.CardDataToClient>)(base.EndInvoke("GetLocalHouseData", _args, result)));
+                return _result;
+            }
+            
             public System.IAsyncResult BeginJoinLobbyRoom(LobbyService.ServiceReference1.Player pl, LobbyService.ServiceReference1.Player Host, System.AsyncCallback callback, object asyncState) {
                 object[] _args = new object[2];
                 _args[0] = pl;
@@ -3821,6 +4192,18 @@ namespace LobbyService.ServiceReference1 {
             public void EndQuitGame(System.IAsyncResult result) {
                 object[] _args = new object[0];
                 base.EndInvoke("QuitGame", _args, result);
+            }
+            
+            public System.IAsyncResult BeginEndGame(LobbyService.ServiceReference1.Player Host, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[1];
+                _args[0] = Host;
+                System.IAsyncResult _result = base.BeginInvoke("EndGame", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public void EndEndGame(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                base.EndInvoke("EndGame", _args, result);
             }
         }
     }

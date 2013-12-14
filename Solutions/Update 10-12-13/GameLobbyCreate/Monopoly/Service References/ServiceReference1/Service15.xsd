@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO.MonopolyEngine" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO.MonopolyEngine" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://monopolygame.cloudapp.net/Service1.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/LobbyService.Web" />
+  <xs:import schemaLocation="http://monopolygame.cloudapp.net/Service1.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO" />
+  <xs:import schemaLocation="http://monopolygame.cloudapp.net/Service1.svc?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://monopolygame.cloudapp.net/Service1.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/System" />
+  <xs:complexType name="GameState">
+    <xs:sequence>
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/LobbyService.Web" minOccurs="0" name="ActiveEventCard" nillable="true" type="q1:EventCardData" />
+      <xs:element minOccurs="0" name="ActiveGamePlayer" type="xs:unsignedByte" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO" minOccurs="0" name="ActivePlayer" nillable="true" type="q2:Player" />
+      <xs:element minOccurs="0" name="ActiveTileName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ChanceChoice" type="xs:boolean" />
+      <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ChatLog" nillable="true" type="q3:ArrayOfstring" />
+      <xs:element minOccurs="0" name="CurrentPhase" type="tns:GameFunctions.TurnState" />
+      <xs:element minOccurs="0" name="DieCast" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EnableBuy" type="xs:boolean" />
+      <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="IsBought" nillable="true" type="q4:ArrayOfboolean" />
+      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/LobbyService.Web" minOccurs="0" name="LocalCardData" nillable="true" type="q5:ArrayOfHouseCardData" />
+      <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/LobbyService.Web" minOccurs="0" name="LocalFondsData" nillable="true" type="q6:ArrayOfEventCardData" />
+      <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/LobbyService.Web" minOccurs="0" name="LocalKansData" nillable="true" type="q7:ArrayOfEventCardData" />
+      <xs:element xmlns:q8="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Notificationlog" nillable="true" type="q8:ArrayOfstring" />
+      <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="Ownership" nillable="true" type="q9:ArrayOfNullableOfunsignedByte" />
+      <xs:element minOccurs="0" name="PlayerList" nillable="true" type="tns:ArrayOfGamePlayer" />
+      <xs:element minOccurs="0" name="PlayerNum" type="xs:unsignedByte" />
+      <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO" minOccurs="0" name="PlayerTradeRequested" nillable="true" type="q10:Player" />
+      <xs:element minOccurs="0" name="PropertyTradeDirection" type="tns:GameFunctions.Direction" />
+      <xs:element minOccurs="0" name="PropertyTradeRequested" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="PropertyTradeValue" type="xs:int" />
+      <xs:element minOccurs="0" name="RevisionNumber" type="xs:int" />
+      <xs:element minOccurs="0" name="SetupComplete" type="xs:boolean" />
+      <xs:element minOccurs="0" name="TurnNumber" type="xs:int" />
+      <xs:element xmlns:q11="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="lastDieRoll" nillable="true" type="q11:ArrayOfint" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GameState" nillable="true" type="tns:GameState" />
+  <xs:simpleType name="GameFunctions.TurnState">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="BeginPhase" />
+      <xs:enumeration value="BuyPhase" />
+      <xs:enumeration value="TradePhase" />
+      <xs:enumeration value="WaitPhase" />
+      <xs:enumeration value="EndPhase" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="GameFunctions.TurnState" nillable="true" type="tns:GameFunctions.TurnState" />
+  <xs:complexType name="ArrayOfGamePlayer">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="GamePlayer" nillable="true" type="tns:GamePlayer" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGamePlayer" nillable="true" type="tns:ArrayOfGamePlayer" />
+  <xs:complexType name="GamePlayer">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Cash" type="xs:int" />
+      <xs:element minOccurs="0" name="HasEscapePrisonCh" type="xs:boolean" />
+      <xs:element minOccurs="0" name="HasEscapePrisonCo" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsActive" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsPlaying" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsPrison" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Location" type="xs:unsignedByte" />
+      <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO" minOccurs="0" name="MyPlayer" nillable="true" type="q12:Player" />
+      <xs:element minOccurs="0" name="MyState" nillable="true" type="tns:GameState" />
+      <xs:element minOccurs="0" name="OrderNumber" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="PlayerProperty" nillable="true" type="tns:ArrayOfOwnedProperty" />
+      <xs:element minOccurs="0" name="PrisonTime" type="xs:unsignedByte" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GamePlayer" nillable="true" type="tns:GamePlayer" />
+  <xs:complexType name="ArrayOfOwnedProperty">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="OwnedProperty" nillable="true" type="tns:OwnedProperty" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOwnedProperty" nillable="true" type="tns:ArrayOfOwnedProperty" />
+  <xs:complexType name="OwnedProperty">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HouseLevel" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="ID" type="xs:int" />
+      <xs:element minOccurs="0" name="Morguage" type="xs:boolean" />
+      <xs:element minOccurs="0" name="SetLevel" type="xs:unsignedByte" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OwnedProperty" nillable="true" type="tns:OwnedProperty" />
+  <xs:simpleType name="GameFunctions.Direction">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="nulled" />
+      <xs:enumeration value="indir" />
+      <xs:enumeration value="outdir" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="GameFunctions.Direction" nillable="true" type="tns:GameFunctions.Direction" />
+  <xs:complexType name="StateToClient">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ActivePlayer" nillable="true" type="tns:GamePlayerToClient" />
+      <xs:element minOccurs="0" name="ActiveTileName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CurrentPhase" type="tns:GameFunctions.TurnState" />
+      <xs:element minOccurs="0" name="DieCast" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EnableBuy" type="xs:boolean" />
+      <xs:element xmlns:q13="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Log" nillable="true" type="q13:ArrayOfstring" />
+      <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO" minOccurs="0" name="PlayerTradeRequested" nillable="true" type="q14:Player" />
+      <xs:element minOccurs="0" name="PropertyTradeDirection" type="tns:GameFunctions.Direction" />
+      <xs:element minOccurs="0" name="PropertyTradeRequested" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="TurnNumber" type="xs:int" />
+      <xs:element xmlns:q15="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="lastDieRoll" nillable="true" type="q15:ArrayOfint" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StateToClient" nillable="true" type="tns:StateToClient" />
+  <xs:complexType name="GamePlayerToClient">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Cash" type="xs:int" />
+      <xs:element minOccurs="0" name="HasEscapePrisonCh" type="xs:boolean" />
+      <xs:element minOccurs="0" name="HasEscapePrisonCo" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsActive" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsPlaying" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsPrison" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Location" type="xs:unsignedByte" />
+      <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/LobbyService.Web.DTO" minOccurs="0" name="MyPlayer" nillable="true" type="q16:Player" />
+      <xs:element minOccurs="0" name="PrisonTime" type="xs:unsignedByte" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GamePlayerToClient" nillable="true" type="tns:GamePlayerToClient" />
+  <xs:complexType name="ArrayOfCardDataToClient">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CardDataToClient" nillable="true" type="tns:CardDataToClient" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCardDataToClient" nillable="true" type="tns:ArrayOfCardDataToClient" />
+  <xs:complexType name="CardDataToClient">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BuyCost" type="xs:int" />
+      <xs:element minOccurs="0" name="Group" type="xs:int" />
+      <xs:element minOccurs="0" name="HouseCost" type="xs:int" />
+      <xs:element minOccurs="0" name="ID" type="xs:int" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Position" type="xs:int" />
+      <xs:element minOccurs="0" name="Rent0" type="xs:int" />
+      <xs:element minOccurs="0" name="Rent1" type="xs:int" />
+      <xs:element minOccurs="0" name="Rent2" type="xs:int" />
+      <xs:element minOccurs="0" name="Rent3" type="xs:int" />
+      <xs:element minOccurs="0" name="Rent4" type="xs:int" />
+      <xs:element minOccurs="0" name="Rent5" type="xs:int" />
+      <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CardDataToClient" nillable="true" type="tns:CardDataToClient" />
+</xs:schema>

@@ -438,8 +438,8 @@ namespace LobbyService
                 {
                     LstCreatedLobby.Items.Add(item.PlayerId + " " + item.PlayerName);
                 }
-                client1.CheckPlayerCountCompleted += client1_CheckPlayerCountCompleted;
-                client1.CheckPlayerCountAsync(staticHost.PlayerName);
+             //   client1.CheckPlayerCountCompleted += client1_CheckPlayerCountCompleted;
+              //  client1.CheckPlayerCountAsync(staticHost.PlayerName);
             }
             catch (Exception ex)
             {

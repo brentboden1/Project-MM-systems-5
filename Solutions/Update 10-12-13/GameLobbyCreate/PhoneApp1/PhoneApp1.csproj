@@ -93,6 +93,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CardData.cs" />
     <Compile Include="Data.xaml.cs">
       <DependentUpon>Data.xaml</DependentUpon>
     </Compile>
@@ -196,10 +197,10 @@
     <None Include="Service References\ServiceReference1\Service14.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceReference1\Service141.xsd">
+    <None Include="Service References\ServiceReference1\Service15.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceReference1\Service15.xsd">
+    <None Include="Service References\ServiceReference1\Service16.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

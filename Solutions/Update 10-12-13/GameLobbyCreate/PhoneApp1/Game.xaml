@@ -24,7 +24,8 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" x:Name="RollDice" Click="RollDice_Click_1" Margin="10,10,10,10" Content="Roll Dice"></Button>
+            <Button Grid.Column="0" x:Name="RollDice" Click="RollDice_Click_1" Margin="10,10,10,10" Content="Roll Dice" Visibility="Visible"></Button>
+            <Button Grid.Column="0" x:Name="BuyTile" Click="BuyTile_Click_1" Margin="10,10,10,10" Content="Buy Tile" Visibility="Collapsed"></Button>
             <Button Grid.Column="1" x:Name="EndPhase" Click="EndPhase_Click_1" Margin="10,10,10,10" Content="End Phase"></Button>
         </Grid>
         <!--TitlePanel contains the name of the application and page title-->
@@ -35,7 +36,7 @@
                 <RowDefinition Height="4*"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <TextBlock x:Name="Log" Grid.Row="1"></TextBlock>
+            <ListBox x:Name="LstLogs" Grid.Row="1"></ListBox>
             <Grid x:Name="GamePanel" Grid.Row="0" Margin="10,10,10,10" ShowGridLines="True">
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
