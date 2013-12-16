@@ -115,9 +115,12 @@ namespace LobbyService.Web
         [OperationContract]
         void QuitGame(DTO.Player me);
 
+<<<<<<< HEAD
         [OperationContract]
         void EndGame(DTO.Player Host);
 
+=======
+>>>>>>> 45c302c... versie 0.9.0.1 update statetoclient
         #endregion
     }
 }

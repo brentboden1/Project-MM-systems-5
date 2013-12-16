@@ -593,7 +593,10 @@ namespace LobbyService.Web
             state.PropertyTradeRequested = tmp.PropertyTradeRequested;
             state.TurnNumber = tmp.TurnNumber;
             state.Log = tmp.Notificationlog;
+<<<<<<< HEAD
             
+=======
+>>>>>>> 45c302c... versie 0.9.0.1 update statetoclient
 
             //state.PlayerList = tmp.PlayerList;
             state.ActivePlayer = new DTO.MonopolyEngine.GamePlayerToClient();
@@ -735,6 +738,7 @@ namespace LobbyService.Web
             {
                 NewGame.Quit(me);
             }
+<<<<<<< HEAD
         }        
         
         public void EndGame(DTO.Player Host)
@@ -762,6 +766,8 @@ namespace LobbyService.Web
             }
 
             dc.SubmitChanges();
+=======
+>>>>>>> 45c302c... versie 0.9.0.1 update statetoclient
         }
 
         #endregion
