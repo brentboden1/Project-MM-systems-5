@@ -1,0 +1,249 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="PhoneApp1.PivotPage1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="True" Loaded="PhoneApplicationPage_Loaded_2">
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <!--Pivot Control-->
+        <phone:Pivot Title="Monopoly">
+            <!--Pivot item one-->
+            <phone:PivotItem Header="Gameboard">
+                <Grid x:Name="LayOut" Background="Transparent" Margin="-10,0,10,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="5*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" x:Name="RollDice" Click="RollDice_Click_1" Margin="10,10,10,10" Content="Roll Dice" Visibility="Visible"></Button>
+                        <Button Grid.Column="0" x:Name="BuyTile" Click="BuyTile_Click_1" Margin="10,10,10,10" Content="Buy Tile" Visibility="Collapsed"></Button>
+                        <Button Grid.Column="1" x:Name="EndPhase" Click="EndPhase_Click_1" Margin="10,10,10,10" Content="End Phase" IsEnabled="False"></Button>
+                    </Grid>
+                    <!--TitlePanel contains the name of the application and page title-->
+
+                    <!--ContentPanel - place additional content here-->
+                    <Grid x:Name="ContentPanel" Grid.Row="1" ShowGridLines="True">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5*"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <ListBox x:Name="lstLog" Grid.Row="1" ItemsSource="{Binding Logs}" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Visible"></ListBox>
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock x:Name="MoneyBox" Grid.Column="0"></TextBlock>
+                            <Button x:Name="EscapePrison" Click="EscapePrison_Click_1" Grid.Column="1" Visibility="Collapsed">Escape Prison</Button>
+                        </Grid>
+                        <Grid x:Name="GamePanel" Grid.Row="0" Margin="10,10,10,10" ShowGridLines="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1.5*"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition Height="1.5*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Ellipse x:Name="Player0" Width="20" Height="20" Grid.Row="{Binding Y}" Grid.Column="{Binding X}" HorizontalAlignment="Center" VerticalAlignment="Center"></Ellipse>
+                            <Ellipse x:Name="Player1" Width="20" Height="20" Grid.Row="{Binding Y}" Grid.Column="{Binding X}" HorizontalAlignment="Center" VerticalAlignment="Center"></Ellipse>
+                            <Ellipse x:Name="Player2" Width="20" Height="20" Grid.Row="{Binding Y}" Grid.Column="{Binding X}" HorizontalAlignment="Center" VerticalAlignment="Center"></Ellipse>
+                            <Ellipse x:Name="Player3" Width="20" Height="20" Grid.Row="{Binding Y}" Grid.Column="{Binding X}" HorizontalAlignment="Center" VerticalAlignment="Center"></Ellipse>
+                            <Border x:Name="BorderUp" Visibility="Collapsed" BorderBrush="Red" BorderThickness="3" Grid.Row="9" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Top"></Border>
+                            <Border x:Name="BorderDown" Visibility="Collapsed" BorderBrush="Red" BorderThickness="3" Grid.Row="9" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom"></Border>
+                            <Border x:Name="BorderLeft" Visibility="Collapsed" BorderBrush="Red" BorderThickness="3" Grid.Row="9" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Stretch"></Border>
+                            <Border x:Name="BorderRight" Visibility="Collapsed" BorderBrush="Red" BorderThickness="3" Grid.Row="9" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Stretch"></Border>
+
+                        </Grid>
+
+                    </Grid>
+                </Grid>
+            </phone:PivotItem>
+
+            <!--Pivot item two-->
+            <phone:PivotItem Header="Information">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <ListBox Grid.Row="0" x:Name="lstInformation" ItemsSource="{Binding PosData}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="White" BorderThickness="2" CornerRadius="2">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition Height="4*"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid Grid.Row="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="3.5*"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock x:Name="Name" Text="{Binding Name}" Grid.Column="0" Margin="0,0,20,0"></TextBlock>
+                                            <TextBlock Text="Cost:" Grid.Column="1" Margin="10,0,10,0"></TextBlock>
+                                            <TextBlock x:Name="Cost" Text="{Binding Cost}" Grid.Column="2" Margin="10,0,10,0"></TextBlock>
+                                        </Grid>
+                                        <Grid Grid.Row="1">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Grid.Row="0" Text="Group: "></TextBlock>
+                                            <TextBlock Grid.Column="0" Grid.Row="1" Text="HouseCost: "></TextBlock>
+                                            <TextBlock Grid.Column="0" Grid.Row="2" Text="Rent0: "></TextBlock>
+                                            <TextBlock Grid.Column="0" Grid.Row="3" Text="Rent1: "></TextBlock>
+                                            <TextBlock Grid.Column="0" Grid.Row="4" Text="Rent2: "></TextBlock>
+                                            <TextBlock Grid.Column="0" Grid.Row="5" Text="Rent3: "></TextBlock>
+                                            <TextBlock Grid.Column="0" Grid.Row="6" Text="Rent4: "></TextBlock>
+                                            <TextBlock Grid.Column="0" Grid.Row="7" Text="Rent5: "></TextBlock>
+                                            <TextBlock Grid.Row="8" Grid.Column="0" Text="Owner: "></TextBlock>
+
+                                            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Group}"></TextBlock>
+                                            <TextBlock Grid.Column="1"  Grid.Row="1"  Text="{Binding HouseCost}"></TextBlock>
+                                            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Rent0}"></TextBlock>
+                                            <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding Rent1}"></TextBlock>
+                                            <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding Rent2}"></TextBlock>
+                                            <TextBlock Grid.Column="1" Grid.Row="5" Text="{Binding Rent3}"></TextBlock>
+                                            <TextBlock Grid.Column="1" Grid.Row="6" Text="{Binding Rent4}"></TextBlock>
+                                            <TextBlock Grid.Column="1" Grid.Row="7" Text="{Binding Rent5}"></TextBlock>
+                                            <TextBlock Grid.Row="8" Grid.Column="1" Text="{Binding Owner}"></TextBlock>
+
+                                        </Grid>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <ListBox Grid.Row="1" x:Name="lstDice" ItemsSource="{Binding Dice}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                        <TextBlock Text="{Binding DiceRoll}"></TextBlock>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </phone:PivotItem>
+
+            <phone:PivotItem Header="Your Properties">
+                <ListBox x:Name="lstProps" ItemsSource="{Binding PropData}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="White" BorderThickness="2" CornerRadius="2">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition Height="4*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="3.5*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock x:Name="Name" Text="{Binding Name}" Grid.Column="0" Margin="0,0,20,0"></TextBlock>
+                                        <TextBlock Text="Cost:" Grid.Column="1" Margin="10,0,10,0"></TextBlock>
+                                        <TextBlock x:Name="Cost" Text="{Binding Cost}" Grid.Column="2" Margin="10,0,10,0"></TextBlock>
+                                    </Grid>
+                                    <Grid Grid.Row="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Grid.Row="0" Text="Group: "></TextBlock>
+                                        <TextBlock Grid.Column="0" Grid.Row="1" Text="HouseCost: "></TextBlock>
+                                        <TextBlock Grid.Column="0" Grid.Row="2" Text="Rent0: "></TextBlock>
+                                        <TextBlock Grid.Column="0" Grid.Row="3" Text="Rent1: "></TextBlock>
+                                        <TextBlock Grid.Column="0" Grid.Row="4" Text="Rent2: "></TextBlock>
+                                        <TextBlock Grid.Column="0" Grid.Row="5" Text="Rent3: "></TextBlock>
+                                        <TextBlock Grid.Column="0" Grid.Row="6" Text="Rent4: "></TextBlock>
+                                        <TextBlock Grid.Column="0" Grid.Row="7" Text="Rent5: "></TextBlock>
+                                        <TextBlock Grid.Column="0" Grid.Row="8" Text="Morguage "></TextBlock>
+                                        <TextBlock Grid.Column="0" Grid.Row="9" Text="Setlevel: "></TextBlock>
+                                        <TextBlock Grid.Column="0" Grid.Row="10" Text="Houselevel: "></TextBlock>
+
+                                        <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Group}"></TextBlock>
+                                        <TextBlock Grid.Column="1"  Grid.Row="1"  Text="{Binding HouseCost}"></TextBlock>
+                                        <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Rent0}"></TextBlock>
+                                        <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding Rent1}"></TextBlock>
+                                        <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding Rent2}"></TextBlock>
+                                        <TextBlock Grid.Column="1" Grid.Row="5" Text="{Binding Rent3}"></TextBlock>
+                                        <TextBlock Grid.Column="1" Grid.Row="6" Text="{Binding Rent4}"></TextBlock>
+                                        <TextBlock Grid.Column="1" Grid.Row="7" Text="{Binding Rent5}"></TextBlock>
+                                        <TextBlock Grid.Column="1" Grid.Row="8" Text="{Binding Morguage}"></TextBlock>
+                                        <TextBlock Grid.Column="1" Grid.Row="9" Text="{Binding SetLevel}"></TextBlock>
+                                        <TextBlock Grid.Column="1" Grid.Row="10" Text="{Binding HouseLevel}"></TextBlock>
+
+                                        <Button x:Name="BuyHouse" Content="Buy House" Grid.Row="11" Grid.Column="0" Click="BuyHouse_Click_1"></Button>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </phone:PivotItem>
+        </phone:Pivot>
+    </Grid>
+
+</phone:PhoneApplicationPage>
